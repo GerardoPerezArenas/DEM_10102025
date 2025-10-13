@@ -68,7 +68,7 @@ private static String escJS(Object v){
         });
     }
 
-    // Navegación a Desglose RSB con selección obligatoria
+    // Navegaciï¿½n a Desglose RSB con selecciï¿½n obligatoria
     function irDesgloseRSB(){
         if (typeof tabaAccesos === 'undefined' || tabaAccesos.selectedIndex == -1){
             jsp_alerta('A','<%=meLanbide11I18n.getMensaje(idiomaUsuario,"msg.msjNoSelecFila")%>');
@@ -250,7 +250,7 @@ private static String escJS(Object v){
             ];
         }
 
-        inicializarTabla();
+        inicializarTablaContrataciones();
         tabaAccesos.lineas = listaAccesosTabla;
         tabaAccesos.displayTabla();
     }
@@ -259,7 +259,7 @@ private static String escJS(Object v){
         pulsarModificarContratacion();
     }
 
-    function inicializarTabla() {
+    function inicializarTablaContrataciones() {
         tabaAccesos = new FixedColumnTable(document.getElementById('listaAccesos'), 1600, 1650, 'listaAccesos');
 
         tabaAccesos.addColumna('50',  'center', '<%=meLanbide11I18n.getMensaje(idiomaUsuario,"contratacion.tablaContrataciones.id")%>');
@@ -304,7 +304,7 @@ private static String escJS(Object v){
 
         tabaAccesos.addColumna('70',  'center', '<%=meLanbide11I18n.getMensaje(idiomaUsuario,"contratacion.tablaContrataciones.importeSub")%>');
 
-        // Históricos al final
+        // Histï¿½ricos al final
         tabaAccesos.addColumna('330', 'center', '<%=meLanbide11I18n.getMensaje(idiomaUsuario,"contratacion.tablaContrataciones.desTitulacion")%> (consulta)');
         tabaAccesos.addColumna('330', 'center', '<%=meLanbide11I18n.getMensaje(idiomaUsuario,"contratacion.historico.titulacion")%> (consulta)');
 
@@ -357,7 +357,7 @@ private static String escJS(Object v){
     var tabaAccesos;
     var listaAccesos = new Array();
     var listaAccesosTabla = new Array();
-    inicializarTabla();
+    inicializarTablaContrataciones();
 </script>
 
 

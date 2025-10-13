@@ -38,7 +38,7 @@ int idiomaUsuario = 1;
                 css = usuarioVO.getCss();
         }
 
-    //Clase para internacionalizar los mensajes de la aplicación.
+    //Clase para internacionalizar los mensajes de la aplicaciï¿½n.
     MeLanbide11I18n meLanbide11I18n = MeLanbide11I18n.getInstance();
     String numExpediente = (String)request.getAttribute("numExp");
     
@@ -197,20 +197,20 @@ int idiomaUsuario = 1;
     function recargarTablaMinimis(result) {
         try {
             if (!result || result.length === 0) {
-                console.log('[Minimis] REFRESCO COMPLETO (legacy) resultado vacío: sin cambios');
+                console.log('[Minimis] REFRESCO COMPLETO (legacy) resultado vacï¿½o: sin cambios');
                 return;
             }
-            // Evitar refresco si la pestaña no está visible: bufferizamos para aplicar al activarse.
+            // Evitar refresco si la pestaï¿½a no estï¿½ visible: bufferizamos para aplicar al activarse.
             if (typeof isMinimisTabVisible === 'function' && !isMinimisTabVisible()) {
                 window._bufferMinimis = result;
-                console.log('[Minimis] Refresco diferido (pestaña oculta) - bufferizado filas=' + (result.length - 1));
+                console.log('[Minimis] Refresco diferido (pestaï¿½a oculta) - bufferizado filas=' + (result.length - 1));
                 return;
             }
 
-            // Serializar dataset nuevo para detectar cambios reales y evitar flicker por reconstrucción idéntica.
+            // Serializar dataset nuevo para detectar cambios reales y evitar flicker por reconstrucciï¿½n idï¿½ntica.
             var nuevoHash = JSON.stringify(result);
             if (window._ultimoHashMinimis && window._ultimoHashMinimis === nuevoHash) {
-                console.log('[Minimis] Datos idénticos, se omite refresco.');
+                console.log('[Minimis] Datos idï¿½nticos, se omite refresco.');
                 return;
             }
             window._ultimoHashMinimis = nuevoHash;
@@ -227,7 +227,7 @@ int idiomaUsuario = 1;
 
             // Inicializar solo la primera vez.
             if (!window._tablaMinimisInicializada) {
-        inicializarTabla();
+        inicializarTablaMinimis();
                 window._tablaMinimisInicializada = true;
             }
 
@@ -248,8 +248,8 @@ int idiomaUsuario = 1;
         }
     }
 
-    // Callback específico para ventanas emergentes de Minimis.
-    // Evita reutilizar retornoXanelaAuxiliar (usado por contrataciones) y que una pestaña afecte a la otra.
+    // Callback especï¿½fico para ventanas emergentes de Minimis.
+    // Evita reutilizar retornoXanelaAuxiliar (usado por contrataciones) y que una pestaï¿½a afecte a la otra.
     function retornoMinimis(result){
         try {
             if(!result){
@@ -263,13 +263,13 @@ int idiomaUsuario = 1;
         }
     }
 
-    // Eliminado hook de interceptación para volver a comportamiento estable.
+    // Eliminado hook de interceptaciï¿½n para volver a comportamiento estable.
 
     function dblClckTablaMinimis(rowID, tableName) {
         pulsarModificarMinimis();
     }
 
-    function inicializarTabla() {
+    function inicializarTablaMinimis() {
         tablaMinimis = new FixedColumnTable(document.getElementById('listaMinimis'), 1600, 1650, 'listaMinimis');
 
     tablaMinimis.addColumna('50', 'center', '<%=meLanbide11I18n.getMensaje(idiomaUsuario,"minimis.tablaMinimis.id")%>');
@@ -333,22 +333,22 @@ int idiomaUsuario = 1;
         return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
     }
 
-    // Al hacer click en la pestaña, si hay datos bufferizados los aplicamos.
+    // Al hacer click en la pestaï¿½a, si hay datos bufferizados los aplicamos.
     (function prepararActivacionPestania(){
         var cab = document.getElementById('pestana112');
         if(!cab) return;
         if (!cab._listenerMinimis){
             cab.addEventListener('click', function(){
-                // Si la tabla aparece vacía pero tenemos snapshot, restauramos.
+                // Si la tabla aparece vacï¿½a pero tenemos snapshot, restauramos.
                 if (tablaMinimis && (!tablaMinimis.lineas || tablaMinimis.lineas.length===0) && window._snapshotMinimis && window._snapshotMinimis.length>0){
-                    console.warn('[Minimis] Restaurando desde snapshot (tabla vacía al activar)');
+                    console.warn('[Minimis] Restaurando desde snapshot (tabla vacï¿½a al activar)');
                     tablaMinimis.lineas = JSON.parse(JSON.stringify(window._snapshotMinimis));
                     tablaMinimis.displayTabla();
                 }
                 if (window._bufferMinimis){
                     var pendiente = window._bufferMinimis;
                     window._bufferMinimis = null;
-                    console.log('[Minimis] Aplicando refresco diferido al activar pestaña');
+                    console.log('[Minimis] Aplicando refresco diferido al activar pestaï¿½a');
                     recargarTablaMinimis(pendiente);
                 }
             });
@@ -371,9 +371,9 @@ int idiomaUsuario = 1;
                     causa.push('childNodes=' + cont.childNodes.length);
                     causa.push('snapshot=' + window._snapshotMinimis.length + ' filas');
                     causa.push('hash=' + (window._ultimoHashMinimis?window._ultimoHashMinimis.length:0));
-                    console.warn('[Minimis] Detectado contenedor vacío, re-render desde snapshot | ' + causa.join(' | '));
+                    console.warn('[Minimis] Detectado contenedor vacï¿½o, re-render desde snapshot | ' + causa.join(' | '));
                     if (!window._tablaMinimisInicializada){
-                        inicializarTabla();
+                        inicializarTablaMinimis();
                         window._tablaMinimisInicializada = true;
                     }
                     tablaMinimis.lineas = JSON.parse(JSON.stringify(window._snapshotMinimis));
@@ -385,7 +385,7 @@ int idiomaUsuario = 1;
         window._observerMinimis = obs;
     })();
 
-    inicializarTabla();
+    inicializarTablaMinimis();
 
     <%  		
             MinimisVO objectVO = null;
@@ -409,7 +409,7 @@ int idiomaUsuario = 1;
                             if(idiomaUsuario==ConstantesMeLanbide11.CODIGO_IDIOMA_EUSKERA){
                                 descripcion=descripcionDobleIdioma[1];
                             }else{
-                                // Cogemos la primera posición que debería ser castellano
+                                // Cogemos la primera posiciï¿½n que deberï¿½a ser castellano
                                 descripcion=descripcionDobleIdioma[0];
                             }
                         }
