@@ -87,23 +87,30 @@
     <!-- Cabecera con estilo unificado -->
     <div class="legendAzul">
       <h1 id="tituloPrincipalM11" style="margin:0;text-align:center;font-size:20px;line-height:1.2;">
-        Desglose retribucin salarial bruta
+        <span class="label-bilingual">
+          <span class="label-es"><%= I18N.getMensaje(1, "label.m11.desglose.titulo") %></span><br/>
+          <span class="label-eu"><%= I18N.getMensaje(2, "label.m11.desglose.titulo") %></span>
+        </span>
       </h1>
       <div style="text-align:center;font-size:13px;margin:10px;">
-        <strong>Expediente:</strong> <%= (numExpediente!=null?numExpediente:"-") %>
+        <strong>Expediente / Espedientea:</strong> <%= (numExpediente!=null?numExpediente:"-") %>
       </div>
     </div>
 
     <div id="tab-panel-m11" class="tab-pane m11-tabs">
 
       <div class="tab-page" id="tabPageM11_1">
-        <h2 class="tab"><%= I18N.getMensaje(idiomaUsuario, "label.m11.desglose.titulo.tab1") %></h2>
+        <h2 class="tab">
+          <%= I18N.getMensaje(1, "label.m11.desglose.titulo.tab1") %> / <%= I18N.getMensaje(2, "label.m11.desglose.titulo.tab1") %>
+        </h2>
         <div class="tab-content-separator"></div>
         <jsp:include page="<%= urlPestanaResumen %>" flush="true"/>
       </div>
 
       <div class="tab-page" id="tabPageM11_2">
-        <h2 class="tab"><%= I18N.getMensaje(idiomaUsuario, "label.m11.desglose.titulo.tab2") %></h2>
+        <h2 class="tab">
+          <%= I18N.getMensaje(1, "label.m11.desglose.titulo.tab2") %> / <%= I18N.getMensaje(2, "label.m11.desglose.titulo.tab2") %>
+        </h2>
         <div class="tab-content-separator"></div>
         <jsp:include page="<%= urlPestanaComplementos %>" flush="true"/>
       </div>
