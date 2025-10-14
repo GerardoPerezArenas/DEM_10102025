@@ -1,6 +1,6 @@
 /* === DEM50 - MELANBIDE11: estilos consolidados === */
 
-/* Datos históricos (solo consulta) */
+/* Datos histï¿½ricos (solo consulta) */
 .datosAntiguos,
 .datoAntiguos {                  /* alias por compatibilidad */
   background-color: #f5f5f5;
@@ -9,13 +9,32 @@
 }
 th.datosAntiguos { font-weight: normal; }
 
-/* Leyenda azul común del procedimiento */
+/* Leyenda azul comï¿½n del procedimiento */
 .legendAzul{
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 14px;
   color: rgb(43, 98, 181);
   font-weight: bold;
   text-align: center;
+  padding: 8px 10px;
+  margin: 10px 0;
+}
+
+/* Bilingual labels within legendAzul */
+.legendAzul .label-bilingual {
+  display: inline-block;
+}
+
+.legendAzul .label-bilingual .label-es {
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(43, 98, 181);
+}
+
+.legendAzul .label-bilingual .label-eu {
+  font-size: 12px;
+  font-style: italic;
+  color: rgb(60, 115, 200);
 }
 
 /* DataTables: compactar celdas y evitar saltos */
@@ -25,7 +44,7 @@ table.dataTable td {
   white-space: nowrap;
 }
 
-/* DEM50 - Contrataciones: marcar columnas históricas */
+/* DEM50 - Contrataciones: marcar columnas histï¿½ricas */
 th.col-historico { background-color: #e6f2ff; }
 td.col-historico { background-color: #f7fbff; }
 
@@ -42,13 +61,13 @@ td.col-historico { background-color: #f7fbff; }
   margin-right: 6px;
 }
 
-/* DEM50 - Desglose RSB: alineación de etiquetas e inputs 
+/* DEM50 - Desglose RSB: alineaciï¿½n de etiquetas e inputs 
 .lineaFormulario { clear: both; }
 .lineaFormulario:after { content: ""; display: block; clear: both; }
 .lineaFormulario .etiquetaLPEEL { float: left; width: 300px; line-height: 22px; }
 .lineaFormulario .campoFormulario { float: left; }
 
-/* Pestañas WebFX del Desglose 
+/* Pestaï¿½as WebFX del Desglose 
 #tab-panel-m11.tab-pane { margin: 8px 5px 4px 5px; }
 #tab-panel-m11 .tab-row {
   padding: 0;
@@ -85,7 +104,7 @@ td.col-historico { background-color: #f7fbff; }
 
 /* === ESTILOS PARA MODALES DE DESGLOSE === */
 
-/* Mejora visual para las pestañas del modal desglose */
+/* Mejora visual para las pestaï¿½as del modal desglose */
 .m11-tabs {
   margin-bottom: 15px;
 }
@@ -126,13 +145,13 @@ td.col-historico { background-color: #f7fbff; }
   z-index: 10;
 }
 
-/* Separación adicional entre tabs y contenido */
+/* Separaciï¿½n adicional entre tabs y contenido */
 .tab-content-separator {
   height: 8px;
   background: transparent;
 }
 
-/* Tema bilingüe para etiquetas - Tab1 */
+/* Tema bilingï¿½e para etiquetas - Tab1 */
 .label-bilingual {
   display: block;
   line-height: 1.3;
@@ -153,7 +172,7 @@ td.col-historico { background-color: #f7fbff; }
   margin-top: 2px;
 }
 
-/* Mejorar separación en formularios */
+/* Mejorar separaciï¿½n en formularios */
 .lineaFormulario {
   margin-bottom: 8px;
 }
@@ -165,7 +184,7 @@ td.col-historico { background-color: #f7fbff; }
   padding-top: 3px;
 }
 
-/* Estilos para el modal de edición de líneas en Tab2 */
+/* Estilos para el modal de ediciï¿½n de lï¿½neas en Tab2 */
 .m11-dialog-overlay {
   position: fixed;
   top: 0;
@@ -314,7 +333,7 @@ td.col-historico { background-color: #f7fbff; }
   margin: 0 5px;
 }
 
-/* Forzar eliminación de scrolls horizontales en tablas FixedColumnTable */
+/* Forzar eliminaciï¿½n de scrolls horizontales en tablas FixedColumnTable */
 [id*="hScroll_"]:not(.keep-scroll), 
 [id*="scrollcontent_"]:not(.keep-scroll), 
 [id*="frozencontent_"]:not(.keep-scroll),
@@ -350,4 +369,52 @@ table[id*="tbl_"] {
   width: 100%;
   table-layout: fixed;
   max-width: 100%;
+}
+
+/* Estilos para mensajes de estado en Tab2 */
+.m11-loader {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-style: italic;
+  font-size: 13px;
+}
+
+.m11-empty {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+  font-style: italic;
+  font-size: 13px;
+  background-color: #f9f9f9;
+  border: 1px dashed #ddd;
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+/* Asegurar consistencia en el formulario del modal */
+.m11-form {
+  padding: 10px;
+}
+
+.m11-form .lineaFormulario {
+  clear: both;
+  margin-bottom: 10px;
+}
+
+.m11-form .lineaFormulario:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.m11-form .etiquetaLPEEL {
+  float: left;
+  width: 300px;
+  line-height: 22px;
+  font-weight: bold;
+}
+
+.m11-form .campoFormulario {
+  float: left;
 }

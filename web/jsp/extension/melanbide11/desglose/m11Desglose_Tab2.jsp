@@ -19,8 +19,12 @@
 
 <div class="m11-desglose-wrapper">
 
-
-  <div class="legendAzul"><%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.titulo1") %></div>
+  <div class="legendAzul">
+    <span class="label-bilingual">
+      <span class="label-es"><%= i18nM11Tab2.getMensaje(1, "tab2.desglose.titulo1") %></span><br/>
+      <span class="label-eu"><%= i18nM11Tab2.getMensaje(2, "tab2.desglose.titulo1") %></span>
+    </span>
+  </div>
 
 	<div class="m11-loader" id="loaderDesgloseRSB"><%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.cargando") %></div>
 	<div id="wrapperTablaDesgloseRSB" class="m11-desglose-wrapper" style="display:none; width:100%;">
@@ -38,7 +42,12 @@
 		<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.sinLineas") %>
 	</div>
 	
-  <div class="legendAzul" style="margin-top:12px;"><%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.titulo2") %></div>
+  <div class="legendAzul" style="margin-top:12px;">
+    <span class="label-bilingual">
+      <span class="label-es"><%= i18nM11Tab2.getMensaje(1, "tab2.desglose.titulo2") %></span><br/>
+      <span class="label-eu"><%= i18nM11Tab2.getMensaje(2, "tab2.desglose.titulo2") %></span>
+    </span>
+  </div>
 
 	<div class="m11-loader" id="loaderDesgloseRSB2" style="display:none;"><%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.cargando") %></div>
 	<div id="wrapperTablaDesgloseRSB2" class="m11-desglose-wrapper" style="display:none; width:100%;">
@@ -46,7 +55,7 @@
 	</div>
 
 	
-	<div  class="botonera" style="text-align: center; margin: 20px 0 10px 0; padding-top: 10px"
+	<div class="botonera" style="text-align: center; margin: 20px 0 10px 0; padding-top: 10px">
 		<input type="button" id="btnNuevoT2" class="botonGeneral" value="<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "btn.nuevo") %>" onclick="m11_nuevoLineaTipo2();" />
 		<input type="button" id="btnModificarT2" class="botonGeneral" value="<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "btn.modificar") %>" onclick="m11_modificarLineaTipo2();" />
 		<input type="button" id="btnEliminarT2" class="botonGeneral" value="<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "btn.eliminar") %>" onclick="m11_eliminarLineaTipo2();" />
@@ -59,31 +68,42 @@
 	
 	<div id="m11DialogOverlay" class="m11-dialog-overlay" role="dialog" aria-modal="true" aria-labelledby="m11DialogTitle" style="display:none">
 		<div class="m11-dialog">
-			<header id="m11DialogTitle" class="m11-title">Editar línea</header>
+			<header id="m11DialogTitle" class="m11-title">
+				<span id="modalTitleText"></span>
+			</header>
 			<div class="body">
 				<div class="lineaFormulario">
 					<div class="etiqueta">
-						<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.col.importe") %>
+						<span class="label-bilingual">
+							<span class="label-es"><%= i18nM11Tab2.getMensaje(1, "tab2.desglose.col.importe") %></span>
+							<span class="label-eu"><%= i18nM11Tab2.getMensaje(2, "tab2.desglose.col.importe") %></span>
+						</span>
 					</div>
 					<input type="text" id="dlgImporte" class="inputTexto" placeholder="0,00" style="text-align: right;" />
 				</div>
 				
 				<div class="lineaFormulario">
 					<div class="etiqueta">
-						<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.col.concepto") %>
+						<span class="label-bilingual">
+							<span class="label-es"><%= i18nM11Tab2.getMensaje(1, "tab2.desglose.col.concepto") %></span>
+							<span class="label-eu"><%= i18nM11Tab2.getMensaje(2, "tab2.desglose.col.concepto") %></span>
+						</span>
 					</div>
 					<div class="dropdown-container">
-						<input type="text" id="dlgConcepto" class="inputTexto dropdown-input" readonly="true" placeholder="Seleccionar concepto..." />
+						<input type="text" id="dlgConcepto" class="inputTexto dropdown-input" readonly="true" placeholder="<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.col.concepto") %>..." />
 						<input type="hidden" id="dlgConceptoCodigo" value="" />
-						<span class="dropdown-arrow">?</span>
+						<span class="dropdown-arrow">â–¼</span>
 					</div>
 				</div>
 				
 				<div class="lineaFormulario">
 					<div class="etiqueta">
-						<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.col.observ") %>
+						<span class="label-bilingual">
+							<span class="label-es"><%= i18nM11Tab2.getMensaje(1, "tab2.desglose.col.observ") %></span>
+							<span class="label-eu"><%= i18nM11Tab2.getMensaje(2, "tab2.desglose.col.observ") %></span>
+						</span>
 					</div>
-					<textarea id="dlgObserv" class="inputTexto" maxlength="500" rows="3" placeholder="Observaciones..."></textarea>
+					<textarea id="dlgObserv" class="inputTexto" maxlength="500" rows="3" placeholder="<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.col.observ") %>..."></textarea>
 				</div>
 			</div>
 			<footer>
@@ -131,7 +151,7 @@
 	function mostrarVacio(){ muestraEstado('vacio'); }
 
   function crearTablasDesglose(){
-    // Crear con ancho dinámico para evitar scroll horizontal
+    // Crear con ancho dinï¿½mico para evitar scroll horizontal
     var anchoInicial = 600; // Ancho inicial conservador
     
     tablaDesgloseTipo1 = new FixedColumnTable(document.getElementById('tablaDesgloseRSB'), anchoInicial, anchoInicial, 'tablaDesgloseRSB');
@@ -149,11 +169,11 @@
     tablaDesgloseTipo2.dblClkFunction = 'dblClckTablaDesgloseTipo2';
   }
 	function recalcularAnchoTabla(){
-		// Eliminar scroll horizontal ajustando dinámicamente el ancho de las tablas
+		// Eliminar scroll horizontal ajustando dinï¿½micamente el ancho de las tablas
 		try {
 			var contenedor = document.getElementById('m11Container') || document.body;
 			var anchoContenedor = contenedor.offsetWidth || 750;
-			var anchoDisponible = Math.max(600, anchoContenedor - 100); // Más margen para evitar scrolls
+			var anchoDisponible = Math.max(600, anchoContenedor - 100); // Mï¿½s margen para evitar scrolls
 			
 			console.log('Recalculando ancho tabla:', anchoDisponible);
 			
@@ -184,11 +204,11 @@
 			selectors.forEach(function(selector) {
 				var elementos = document.querySelectorAll(selector);
 				for (var i = 0; i < elementos.length; i++) {
-					// Solo aplicar estilos si el elemento no está oculto
+					// Solo aplicar estilos si el elemento no estï¿½ oculto
 					if (elementos[i].style.display !== 'none') {
 						elementos[i].style.maxWidth = anchoDisponible + 'px';
 						elementos[i].style.overflowX = 'hidden';
-						// No forzar width: 100% en wrappers que podrían necesitar display específico
+						// No forzar width: 100% en wrappers que podrï¿½an necesitar display especï¿½fico
 						if (!elementos[i].id || (elementos[i].id.indexOf('wrapper') === -1 && elementos[i].id.indexOf('tabla') === -1)) {
 							elementos[i].style.width = '100%';
 						}
@@ -198,7 +218,7 @@
 			
 			// Forzar que NO aparezcan scrolls horizontales en divs internos
 			setTimeout(function() {
-				// Ocultar solo los scrolls horizontales específicos de FixedColumnTable
+				// Ocultar solo los scrolls horizontales especï¿½ficos de FixedColumnTable
 				var scrollElements = document.querySelectorAll('[id*="hScroll_"]:not([id*="wrapper"]):not([id*="tabla"])');
 				for (var i = 0; i < scrollElements.length; i++) {
 					scrollElements[i].style.display = 'none';
@@ -216,7 +236,7 @@
 				}
 			}, 50);
 			
-			// Solo ocultar scrolls específicos, no todos los elementos
+			// Solo ocultar scrolls especï¿½ficos, no todos los elementos
 			setTimeout(function() {
 				var scrollsEspecificos = document.querySelectorAll('[id^="hScroll_"], [id*="_hScroll"]');
 				for (var i = 0; i < scrollsEspecificos.length; i++) {
@@ -233,7 +253,14 @@
 		var importe = (d && d.importe!=null)? d.importe:'';
 		var concepto = (d && d.concepto)? d.concepto:'';
 		var observ = (d && d.observ)? d.observ:'';
-		var conceptoMostrar = (concepto==='F'||concepto==='f')?'Fijo':(concepto==='V'||concepto==='v')?'Variable':concepto;
+		var conceptoMostrar = '';
+		if (concepto==='F'||concepto==='f') {
+			conceptoMostrar = '<%= i18nM11Tab2.getMensaje(1, "tab2.desglose.concepto.fijo") %> / <%= i18nM11Tab2.getMensaje(2, "tab2.desglose.concepto.fijo") %>';
+		} else if (concepto==='V'||concepto==='v') {
+			conceptoMostrar = '<%= i18nM11Tab2.getMensaje(1, "tab2.desglose.concepto.variable") %> / <%= i18nM11Tab2.getMensaje(2, "tab2.desglose.concepto.variable") %>';
+		} else {
+			conceptoMostrar = concepto;
+		}
 		return [(importe!==''?formateaImporte(importe):'0,00'), (conceptoMostrar?escapeHtml(conceptoMostrar):''), (observ?escapeHtml(observ):'')];
 	}
 
@@ -271,9 +298,11 @@
 	function abrirDialogoLinea(tipo, def, onOk) {
 		_dlgTipo = String(tipo || '1'); _dlgOnOk = (typeof onOk === 'function') ? onOk : null;
 		var esNuevo = (def == null); def = def || { importe: 0, concepto: '', observ: '' };
-		var titulo = document.getElementById('m11DialogTitle'); 
-		if (titulo) { 
-			titulo.textContent = esNuevo ? 'Alta retribución' : 'Modificar retribución'; 
+		var tituloElement = document.getElementById('modalTitleText'); 
+		if (tituloElement) {
+			var tituloEs = esNuevo ? '<%= i18nM11Tab2.getMensaje(1, "tab2.desglose.modal.alta") %>' : '<%= i18nM11Tab2.getMensaje(1, "tab2.desglose.modal.modificar") %>';
+			var tituloEu = esNuevo ? '<%= i18nM11Tab2.getMensaje(2, "tab2.desglose.modal.alta") %>' : '<%= i18nM11Tab2.getMensaje(2, "tab2.desglose.modal.modificar") %>';
+			tituloElement.innerHTML = tituloEs + ' / ' + tituloEu;
 		}
 		var elImp = document.getElementById('dlgImporte'); 
 		var elCon = document.getElementById('dlgConcepto'); 
@@ -283,9 +312,13 @@
 		if (elCon) {
 			var textoConcepto = '';
 			var codigoConcepto = def.concepto || '';
-			if (codigoConcepto === 'F') textoConcepto = 'Fijo';
-			else if (codigoConcepto === 'V') textoConcepto = 'Variable';
-			else textoConcepto = codigoConcepto;
+			if (codigoConcepto === 'F') {
+				textoConcepto = '<%= i18nM11Tab2.getMensaje(1, "tab2.desglose.concepto.fijo") %> / <%= i18nM11Tab2.getMensaje(2, "tab2.desglose.concepto.fijo") %>';
+			} else if (codigoConcepto === 'V') {
+				textoConcepto = '<%= i18nM11Tab2.getMensaje(1, "tab2.desglose.concepto.variable") %> / <%= i18nM11Tab2.getMensaje(2, "tab2.desglose.concepto.variable") %>';
+			} else {
+				textoConcepto = codigoConcepto;
+			}
 			elCon.value = textoConcepto;
 		}
 		if (elConCod) elConCod.value = def.concepto || '';
@@ -302,7 +335,7 @@
 	document.getElementById('dlgAceptar').onclick = function(){
 		var elImp=document.getElementById('dlgImporte'), elCon=document.getElementById('dlgConceptoCodigo'), elObs=document.getElementById('dlgObserv');
 		var impNum = parseImporte((elImp && elImp.value)||'0');
-		if(isNaN(impNum) || impNum<0){ jsp_alerta('A','Importe no válido'); try{ elImp && elImp.focus(); }catch(e){} return; }
+		if(isNaN(impNum) || impNum<0){ jsp_alerta('A','Importe no vï¿½lido'); try{ elImp && elImp.focus(); }catch(e){} return; }
 		var codigoConcepto = (elCon && elCon.value) || '';
 		if(!codigoConcepto){ jsp_alerta('A','Debe seleccionar un concepto'); return; }
 		var datos = { importe: impNum, concepto: codigoConcepto, observ: (elObs && elObs.value)||'' };
@@ -314,7 +347,7 @@
 		mostrarOpcionesConcepto();
 	};
 	
-	// También manejar click en el contenedor dropdown
+	// Tambiï¿½n manejar click en el contenedor dropdown
 	document.addEventListener('click', function(event) {
 		var dropdown = document.querySelector('.dropdown-container');
 		if (dropdown && dropdown.contains(event.target)) {
@@ -323,15 +356,15 @@
 	});
 
 	function mostrarOpcionesConcepto() {
-		// Cerrar dropdown existente si está abierto
+		// Cerrar dropdown existente si estï¿½ abierto
 		cerrarDropdownConcepto();
 		
 		var opciones = [
-			{ codigo: 'F', texto: 'Fijo' },
-			{ codigo: 'V', texto: 'Variable' }
+			{ codigo: 'F', texto: '<%= i18nM11Tab2.getMensaje(1, "tab2.desglose.concepto.fijo") %> / <%= i18nM11Tab2.getMensaje(2, "tab2.desglose.concepto.fijo") %>' },
+			{ codigo: 'V', texto: '<%= i18nM11Tab2.getMensaje(1, "tab2.desglose.concepto.variable") %> / <%= i18nM11Tab2.getMensaje(2, "tab2.desglose.concepto.variable") %>' }
 		];
 		
-		// Crear el menú dropdown
+		// Crear el menï¿½ dropdown
 		var menuHtml = '<div class="dropdown-menu">';
 		for (var i = 0; i < opciones.length; i++) {
 			menuHtml += '<div class="dropdown-option" data-codigo="' + opciones[i].codigo + '" data-texto="' + opciones[i].texto + '">' + 
@@ -339,7 +372,7 @@
 		}
 		menuHtml += '</div>';
 		
-		// Agregar el menú al contenedor
+		// Agregar el menï¿½ al contenedor
 		var contenedorDropdown = document.querySelector('.dropdown-container');
 		if (contenedorDropdown) {
 			contenedorDropdown.insertAdjacentHTML('beforeend', menuHtml);
