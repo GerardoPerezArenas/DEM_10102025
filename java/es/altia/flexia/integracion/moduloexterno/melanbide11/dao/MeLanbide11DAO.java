@@ -187,7 +187,7 @@ public class MeLanbide11DAO {
     }
 
     public ContratacionVO getContratacionPorID(String id, Connection con) throws Exception {
-        Statement st = null;
+        PreparedStatement ps = null;
         ResultSet rs = null;
         ContratacionVO contratacion = new ContratacionVO();
 
@@ -210,15 +210,20 @@ public class MeLanbide11DAO {
                     + "             WHERE TRIM(d2.NUM_EXP)=TRIM(c.NUM_EXP) "
                     + "               AND UPPER(REPLACE(REPLACE(TRIM(d2.DNICONTRSB),' ',''),'-','')) = UPPER(REPLACE(REPLACE(TRIM(c.DNICONT),' ',''),'-','')) "
                     + "               AND d2.RSBTIPO='2'),0) AS IMP_COMP_EXTRA " + "  FROM " + tablaContr
-                    + " c WHERE c.ID=" + (id != null && !id.equals("") ? id : "null");
+                    + " c WHERE c.ID = ?";
 
             if (log.isDebugEnabled()) {
                 log.debug("*** QUERY GETCONTRATACION (correlacionada) ***");
                 log.debug("sql = " + query);
             }
 
-            st = con.createStatement();
-            rs = st.executeQuery(query);
+            ps = con.prepareStatement(query);
+            if (id != null && !id.equals("")) {
+                ps.setInt(1, Integer.parseInt(id));
+            } else {
+                ps.setNull(1, Types.INTEGER);
+            }
+            rs = ps.executeQuery();
             if (rs.next()) {
                 contratacion = (ContratacionVO) MeLanbide11MappingUtils.getInstance().map(rs, ContratacionVO.class);
 
@@ -247,8 +252,8 @@ public class MeLanbide11DAO {
             log.error("Error recuperando Contrataci�n : " + id, ex);
             throw new Exception(ex);
         } finally {
-            if (st != null)
-                st.close();
+            if (ps != null)
+                ps.close();
             if (rs != null)
                 rs.close();
         }
