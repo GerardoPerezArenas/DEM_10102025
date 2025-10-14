@@ -255,18 +255,23 @@ public class MeLanbide11DAO {
     }
 
     public int eliminarContratacion(String id, Connection con) throws Exception {
-        Statement st = null;
+        PreparedStatement ps = null;
         try {
             String query = null;
             query = "DELETE FROM "
                     + ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_CONTRATACION,
                             ConstantesMeLanbide11.FICHERO_PROPIEDADES)
-                    + " WHERE ID=" + (id != null && !id.equals("") ? id : "null");
+                    + " WHERE ID = ?";
             if (log.isDebugEnabled()) {
                 log.debug("sql = " + query);
             }
-            st = con.createStatement();
-            return st.executeUpdate(query);
+            ps = con.prepareStatement(query);
+            if (id != null && !id.equals("")) {
+                ps.setInt(1, Integer.parseInt(id));
+            } else {
+                ps.setNull(1, Types.INTEGER);
+            }
+            return ps.executeUpdate();
         } catch (Exception ex) {
             log.error("Se ha producido un error Eliminando Contrataci?n ID : " + id, ex);
             throw new Exception(ex);
@@ -274,8 +279,8 @@ public class MeLanbide11DAO {
             if (log.isDebugEnabled()) {
                 log.debug("Procedemos a cerrar el statement y el resultset");
             }
-            if (st != null) {
-                st.close();
+            if (ps != null) {
+                ps.close();
             }
         }
     }
@@ -558,7 +563,7 @@ public class MeLanbide11DAO {
     }
 
     public MinimisVO getMinimisPorID(String id, Connection con) throws Exception {
-        Statement st = null;
+        PreparedStatement ps = null;
         ResultSet rs = null;
         MinimisVO minimis = new MinimisVO();
         try {
@@ -566,12 +571,17 @@ public class MeLanbide11DAO {
             query = "SELECT * FROM "
                     + ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_SUBSOLIC,
                             ConstantesMeLanbide11.FICHERO_PROPIEDADES)
-                    + " WHERE ID=" + (id != null && !id.equals("") ? id : "null");
+                    + " WHERE ID = ?";
             if (log.isDebugEnabled()) {
                 log.debug("sql = " + query);
             }
-            st = con.createStatement();
-            rs = st.executeQuery(query);
+            ps = con.prepareStatement(query);
+            if (id != null && !id.equals("")) {
+                ps.setInt(1, Integer.parseInt(id));
+            } else {
+                ps.setNull(1, Types.INTEGER);
+            }
+            rs = ps.executeQuery();
             while (rs.next()) {
                 minimis = (MinimisVO) MeLanbide11MappingUtils.getInstance().mapMin(rs, MinimisVO.class);
             }
@@ -582,8 +592,8 @@ public class MeLanbide11DAO {
             if (log.isDebugEnabled()) {
                 log.debug("Procedemos a cerrar el statement y el resultset");
             }
-            if (st != null) {
-                st.close();
+            if (ps != null) {
+                ps.close();
             }
             if (rs != null) {
                 rs.close();
@@ -593,18 +603,23 @@ public class MeLanbide11DAO {
     }
 
     public int eliminarMinimis(String id, Connection con) throws Exception {
-        Statement st = null;
+        PreparedStatement ps = null;
         try {
             String query = null;
             query = "DELETE FROM "
                     + ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_SUBSOLIC,
                             ConstantesMeLanbide11.FICHERO_PROPIEDADES)
-                    + " WHERE ID=" + (id != null && !id.equals("") ? id : "null");
+                    + " WHERE ID = ?";
             if (log.isDebugEnabled()) {
                 log.debug("sql = " + query);
             }
-            st = con.createStatement();
-            return st.executeUpdate(query);
+            ps = con.prepareStatement(query);
+            if (id != null && !id.equals("")) {
+                ps.setInt(1, Integer.parseInt(id));
+            } else {
+                ps.setNull(1, Types.INTEGER);
+            }
+            return ps.executeUpdate();
         } catch (Exception ex) {
             log.error("Se ha producido un error Eliminando Minimis ID : " + id, ex);
             throw new Exception(ex);
@@ -612,8 +627,8 @@ public class MeLanbide11DAO {
             if (log.isDebugEnabled()) {
                 log.debug("Procedemos a cerrar el statement y el resultset");
             }
-            if (st != null) {
-                st.close();
+            if (ps != null) {
+                ps.close();
             }
         }
     }
@@ -665,7 +680,7 @@ public class MeLanbide11DAO {
     }
 
     public boolean modificarMinimis(MinimisVO datModif, Connection con) throws Exception {
-        Statement st = null;
+        PreparedStatement ps = null;
         String query = "";
         String fechaSub = "";
         if (datModif != null && datModif.getFecha() != null && !datModif.getFecha().toString().equals("")) {
@@ -677,14 +692,18 @@ public class MeLanbide11DAO {
             query = "UPDATE "
                     + ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_SUBSOLIC,
                             ConstantesMeLanbide11.FICHERO_PROPIEDADES)
-                    + " SET ESTADO='" + datModif.getEstado() + "'" + ", ORGANISMO='" + datModif.getOrganismo() + "'"
-                    + ", OBJETO='" + datModif.getObjeto() + "'" + ", IMPORTE=" + datModif.getImporte()
-                    + ", FECHA=TO_DATE('" + fechaSub + "','dd/mm/yyyy')" + " WHERE ID=" + datModif.getId();
+                    + " SET ESTADO = ?, ORGANISMO = ?, OBJETO = ?, IMPORTE = ?, FECHA = TO_DATE(?,'dd/mm/yyyy') WHERE ID = ?";
             if (log.isDebugEnabled()) {
                 log.debug("sql = " + query);
             }
-            st = con.createStatement();
-            int insert = st.executeUpdate(query);
+            ps = con.prepareStatement(query);
+            ps.setString(1, datModif.getEstado());
+            ps.setString(2, datModif.getOrganismo());
+            ps.setString(3, datModif.getObjeto());
+            ps.setDouble(4, datModif.getImporte());
+            ps.setString(5, fechaSub);
+            ps.setInt(6, datModif.getId());
+            int insert = ps.executeUpdate();
             if (insert > 0) {
                 return true;
             } else {
@@ -698,8 +717,8 @@ public class MeLanbide11DAO {
             if (log.isDebugEnabled()) {
                 log.debug("Procedemos a cerrar el statement");
             }
-            if (st != null) {
-                st.close();
+            if (ps != null) {
+                ps.close();
             }
         }
     }
@@ -831,7 +850,7 @@ public class MeLanbide11DAO {
     }
 
     public DesgloseRSBVO getDesgloseRSBPorID(String id, Connection con) throws Exception {
-        Statement st = null;
+        PreparedStatement ps = null;
         ResultSet rs = null;
         DesgloseRSBVO det = new DesgloseRSBVO();
         try {
@@ -839,12 +858,17 @@ public class MeLanbide11DAO {
             query = "SELECT * FROM "
                     + ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_DESGRSB,
                             ConstantesMeLanbide11.FICHERO_PROPIEDADES)
-                    + " WHERE ID=" + (id != null && !id.equals("") ? id : "null");
+                    + " WHERE ID = ?";
             if (log.isDebugEnabled()) {
                 log.debug("sql = " + query);
             }
-            st = con.createStatement();
-            rs = st.executeQuery(query);
+            ps = con.prepareStatement(query);
+            if (id != null && !id.equals("")) {
+                ps.setInt(1, Integer.parseInt(id));
+            } else {
+                ps.setNull(1, Types.INTEGER);
+            }
+            rs = ps.executeQuery();
             while (rs.next()) {
                 det = (DesgloseRSBVO) MeLanbide11MappingUtils.getInstance().mapRSB(rs, DesgloseRSBVO.class);
             }
@@ -855,8 +879,8 @@ public class MeLanbide11DAO {
             if (log.isDebugEnabled()) {
                 log.debug("Procedemos a cerrar el statement y el resultset");
             }
-            if (st != null) {
-                st.close();
+            if (ps != null) {
+                ps.close();
             }
             if (rs != null) {
                 rs.close();
@@ -996,7 +1020,7 @@ public class MeLanbide11DAO {
 
     public List<DesplegableAdmonLocalVO> getValoresDesplegablesAdmonLocalxdes_cod(String des_cod, Connection con)
             throws Exception {
-        Statement st = null;
+        PreparedStatement ps = null;
         ResultSet rs = null;
         List<DesplegableAdmonLocalVO> lista = new ArrayList<DesplegableAdmonLocalVO>();
         DesplegableAdmonLocalVO valoresDesplegable = new DesplegableAdmonLocalVO();
@@ -1005,12 +1029,13 @@ public class MeLanbide11DAO {
             query = "SELECT * FROM "
                     + ConfigurationParameter.getParameter(ConstantesMeLanbide11.TABLA_VALORES_DESPLEGABLES,
                             ConstantesMeLanbide11.FICHERO_PROPIEDADES)
-                    + " WHERE DES_COD='" + des_cod + "' order by DES_NOM";
+                    + " WHERE DES_COD = ? order by DES_NOM";
             if (log.isDebugEnabled()) {
                 log.debug("sql = " + query);
             }
-            st = con.createStatement();
-            rs = st.executeQuery(query);
+            ps = con.prepareStatement(query);
+            ps.setString(1, des_cod);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 valoresDesplegable = (DesplegableAdmonLocalVO) MeLanbide11MappingUtils.getInstance().map(rs,
                         DesplegableAdmonLocalVO.class);
@@ -1024,8 +1049,8 @@ public class MeLanbide11DAO {
             if (log.isDebugEnabled()) {
                 log.debug("Procedemos a cerrar el statement y el resultset");
             }
-            if (st != null) {
-                st.close();
+            if (ps != null) {
+                ps.close();
             }
             if (rs != null) {
                 rs.close();
@@ -1035,7 +1060,7 @@ public class MeLanbide11DAO {
     }
 
     public DatosTablaDesplegableExtVO getDatosMapeoDesplegableExterno(String codDes, Connection con) throws Exception {
-        Statement st = null;
+        PreparedStatement ps = null;
         ResultSet rs = null;
         DatosTablaDesplegableExtVO datosMapeoDesplegableExterno = new DatosTablaDesplegableExtVO();
         try {
@@ -1043,12 +1068,17 @@ public class MeLanbide11DAO {
             query = "SELECT CODIGO,TABLA,CAMPO_CODIGO,CAMPO_VALOR FROM "
                     + ConfigurationParameter.getParameter(ConstantesMeLanbide11.TABLA_CODIGOS_DESPLEGABLES_EXTERNOS,
                             ConstantesMeLanbide11.FICHERO_PROPIEDADES)
-                    + " WHERE CODIGO='" + (codDes != null && !codDes.equals("") ? codDes : "null") + "'";
+                    + " WHERE CODIGO = ?";
             if (log.isDebugEnabled()) {
                 log.debug("sql = " + query);
             }
-            st = con.createStatement();
-            rs = st.executeQuery(query);
+            ps = con.prepareStatement(query);
+            if (codDes != null && !codDes.equals("")) {
+                ps.setString(1, codDes);
+            } else {
+                ps.setNull(1, Types.VARCHAR);
+            }
+            rs = ps.executeQuery();
             while (rs.next()) {
                 datosMapeoDesplegableExterno = (DatosTablaDesplegableExtVO) MeLanbide11MappingUtils.getInstance()
                         .map(rs, DatosTablaDesplegableExtVO.class);
@@ -1061,8 +1091,8 @@ public class MeLanbide11DAO {
             if (log.isDebugEnabled()) {
                 log.debug("Procedemos a cerrar el statement y el resultset");
             }
-            if (st != null) {
-                st.close();
+            if (ps != null) {
+                ps.close();
             }
             if (rs != null) {
                 rs.close();
