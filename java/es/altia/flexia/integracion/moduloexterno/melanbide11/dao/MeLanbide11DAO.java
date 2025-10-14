@@ -1234,8 +1234,7 @@ public class MeLanbide11DAO {
                     + "  + NVL(c.RSBPAGEXTRA,0) " + "  + NVL((" + "    SELECT SUM(NVL(d.RSBIMPORTE,0)) " + "    FROM "
                     + tablaDesgRsb + " d " + "    WHERE TRIM(d.NUM_EXP)=TRIM(c.NUM_EXP) "
                     + "      AND UPPER(REPLACE(REPLACE(TRIM(d.DNICONTRSB),' ',''),'-','')) "
-                    + "          = UPPER(REPLACE(REPLACE(TRIM(c.DNICONT),' ',''),'-','')) "
-                    + "      AND d.RSBCONCEPTO IS NOT NULL" + "  ),0) "
+                    + "          = UPPER(REPLACE(REPLACE(TRIM(c.DNICONT),' ',''),'-','')) " + "  ),0) "
                     + "WHERE TRIM(c.NUM_EXP)=TRIM(?) "
                     + "  AND UPPER(REPLACE(REPLACE(TRIM(c.DNICONT),' ',''),'-','')) "
                     + "      = UPPER(REPLACE(REPLACE(TRIM(?),' ',''),'-','')) " + "  AND ("
@@ -1243,8 +1242,7 @@ public class MeLanbide11DAO {
                     + "      SELECT SUM(NVL(d.RSBIMPORTE,0)) " + "      FROM " + tablaDesgRsb + " d "
                     + "      WHERE TRIM(d.NUM_EXP)=TRIM(c.NUM_EXP) "
                     + "        AND UPPER(REPLACE(REPLACE(TRIM(d.DNICONTRSB),' ',''),'-','')) "
-                    + "            = UPPER(REPLACE(REPLACE(TRIM(c.DNICONT),' ',''),'-','')) "
-                    + "        AND d.RSBCONCEPTO IS NOT NULL" + "    ),0)"
+                    + "            = UPPER(REPLACE(REPLACE(TRIM(c.DNICONT),' ',''),'-','')) " + "    ),0)"
                     + "  ) <> NVL(c.RSBCOMPCONV,0)";
 
             ps = con.prepareStatement(updateQuery);
