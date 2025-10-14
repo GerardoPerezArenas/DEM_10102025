@@ -510,52 +510,52 @@
         <div style="width:100%; padding:4px 2px 2px 2px; text-align:left;">
          
           <div class="lineaFormulario" style="padding-top:4px;">
-            <div class="etiquetaLPEEL">
+            <div class="etiqueta" style="width: 250px; float: left;">
               <span class="label-bilingual">
                 <span class="label-es"><%=meLanbide11I18n.getMensaje(1,"tablaDesglose.salarioBase")%></span>
                 <span class="label-eu"><%=meLanbide11I18n.getMensaje(2,"tablaDesglose.salarioBase")%></span>
               </span>
             </div>
-            <div class="campoFormulario">
+            <div style="float: left;">
               <input id="rsbSalBase" name="rsbSalBase" type="text" class="inputTexto" size="10" maxlength="10"
                      onchange="reemplazarPuntos(this);" onblur="validarNumeroReal(this);" value="<%=vSalBase%>" />
             </div>
           </div>
 
           <div class="lineaFormulario" style="padding-top:10px;">
-            <div class="etiquetaLPEEL">
+            <div class="etiqueta" style="width: 250px; float: left;">
               <span class="label-bilingual">
                 <span class="label-es"><%=meLanbide11I18n.getMensaje(1,"tablaDesglose.pagasExtra")%></span>
                 <span class="label-eu"><%=meLanbide11I18n.getMensaje(2,"tablaDesglose.pagasExtra")%></span>
               </span>
             </div>
-            <div class="campoFormulario">
+            <div style="float: left;">
               <input id="rsbPagasExtra" name="rsbPagasExtra" type="text" class="inputTexto" size="10" maxlength="10"
                      onchange="reemplazarPuntos(this);" onblur="validarNumeroReal(this);" value="<%=vPagas%>" />
             </div>
           </div>
 
           <div class="lineaFormulario" style="padding-top:10px;">
-            <div class="etiquetaLPEEL">
+            <div class="etiqueta" style="width: 250px; float: left;">
               <span class="label-bilingual">
                 <span class="label-es"><%=meLanbide11I18n.getMensaje(1,"tablaDesglose.complementosSalariales")%></span>
                 <span class="label-eu"><%=meLanbide11I18n.getMensaje(2,"tablaDesglose.complementosSalariales")%></span>
               </span>
             </div>
-            <div class="campoFormulario">
+            <div style="float: left;">
               <input id="rsbCompImporte" name="rsbCompImporte" type="text" class="inputTexto" size="10" maxlength="10"
                      onchange="reemplazarPuntos(this);" onblur="validarNumeroReal(this);" value="<%=vCompImp%>" />
             </div>
           </div>       
 
           <div class="lineaFormulario" style="padding-top:10px;">
-            <div class="etiquetaLPEEL">
+            <div class="etiqueta" style="width: 250px; float: left;">
               <span class="label-bilingual">
                 <span class="label-es"><%=meLanbide11I18n.getMensaje(1,"tablaDesglose.extrasalariales")%></span>
                 <span class="label-eu"><%=meLanbide11I18n.getMensaje(2,"tablaDesglose.extrasalariales")%></span>
               </span>
             </div>
-            <div class="campoFormulario">
+            <div style="float: left;">
               <input id="rsbCompExtra" name="rsbCompExtra" type="text" class="inputTexto" size="10" maxlength="10"
                      onchange="reemplazarPuntos(this);" onblur="validarNumeroReal(this);" value="<%=vCompExtra%>" />
             </div>
