@@ -198,12 +198,14 @@ public class MeLanbide11DAO {
             // NOTA: Separamos ahora la suma de complementos salariales (RSBTIPO='1') de la
             // de extrasalariales (RSBTIPO='2').
             // Solo la suma salarial (tipo=1) se asignar� a rsbImporte para la pesta�a 1.
+            // Adem�s, solo se suman complementos fijos (RSBCONCEPTO='F' o NULL).
             String query = "SELECT c.*, " + "       NVL(c.RSBSALBASE,0) RSBSALBASE_CALC, "
                     + "       NVL(c.RSBPAGEXTRA,0) RSBPAGEXTRA_CALC, "
                     + "       NVL((SELECT SUM(NVL(d.RSBIMPORTE,0)) FROM " + tablaDesg + " d "
                     + "             WHERE TRIM(d.NUM_EXP)=TRIM(c.NUM_EXP) "
                     + "               AND UPPER(REPLACE(REPLACE(TRIM(d.DNICONTRSB),' ',''),'-','')) = UPPER(REPLACE(REPLACE(TRIM(c.DNICONT),' ',''),'-','')) "
-                    + "               AND d.RSBTIPO='1'),0) AS IMP_COMP_SAL, "
+                    + "               AND d.RSBTIPO='1'"
+                    + "               AND (d.RSBCONCEPTO='F' OR d.RSBCONCEPTO IS NULL)),0) AS IMP_COMP_SAL, "
                     + "       NVL((SELECT SUM(NVL(d2.RSBIMPORTE,0)) FROM " + tablaDesg + " d2 "
                     + "             WHERE TRIM(d2.NUM_EXP)=TRIM(c.NUM_EXP) "
                     + "               AND UPPER(REPLACE(REPLACE(TRIM(d2.DNICONTRSB),' ',''),'-','')) = UPPER(REPLACE(REPLACE(TRIM(c.DNICONT),' ',''),'-','')) "
@@ -1225,11 +1227,13 @@ public class MeLanbide11DAO {
                     ConstantesMeLanbide11.FICHERO_PROPIEDADES);
 
             // Consulta que actualiza RSBCOMPCONV con la suma calculada
+            // Solo se suman complementos fijos (RSBCONCEPTO='F' o NULL)
             String updateQuery = "UPDATE " + tablaContratacion + " c " + "SET RSBCOMPCONV = " + "  NVL(c.RSBSALBASE,0) "
                     + "  + NVL(c.RSBPAGEXTRA,0) " + "  + NVL((" + "    SELECT SUM(NVL(d.RSBIMPORTE,0)) " + "    FROM "
                     + tablaDesgRsb + " d " + "    WHERE TRIM(d.NUM_EXP)=TRIM(c.NUM_EXP) "
                     + "      AND UPPER(REPLACE(REPLACE(TRIM(d.DNICONTRSB),' ',''),'-','')) "
-                    + "          = UPPER(REPLACE(REPLACE(TRIM(c.DNICONT),' ',''),'-','')) " + "  ),0) "
+                    + "          = UPPER(REPLACE(REPLACE(TRIM(c.DNICONT),' ',''),'-','')) "
+                    + "      AND (d.RSBCONCEPTO='F' OR d.RSBCONCEPTO IS NULL)" + "  ),0) "
                     + "WHERE TRIM(c.NUM_EXP)=TRIM('" + numExp + "') "
                     + "  AND UPPER(REPLACE(REPLACE(TRIM(c.DNICONT),' ',''),'-','')) "
                     + "      = UPPER(REPLACE(REPLACE(TRIM('" + dni + "'),' ',''),'-','')) " + "  AND ("
@@ -1237,7 +1241,8 @@ public class MeLanbide11DAO {
                     + "      SELECT SUM(NVL(d.RSBIMPORTE,0)) " + "      FROM " + tablaDesgRsb + " d "
                     + "      WHERE TRIM(d.NUM_EXP)=TRIM(c.NUM_EXP) "
                     + "        AND UPPER(REPLACE(REPLACE(TRIM(d.DNICONTRSB),' ',''),'-','')) "
-                    + "            = UPPER(REPLACE(REPLACE(TRIM(c.DNICONT),' ',''),'-','')) " + "    ),0)"
+                    + "            = UPPER(REPLACE(REPLACE(TRIM(c.DNICONT),' ',''),'-','')) "
+                    + "        AND (d.RSBCONCEPTO='F' OR d.RSBCONCEPTO IS NULL)" + "    ),0)"
                     + "  ) <> NVL(c.RSBCOMPCONV,0)";
 
             if (log.isDebugEnabled()) {
