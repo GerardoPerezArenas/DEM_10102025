@@ -140,13 +140,13 @@ public class MeLanbide11DAO {
     }
 
     /**
-     * Obtiene solo el DNI (DNICONT) de una contratación concreta por ID y número de
+     * Obtiene solo el DNI (DNICONT) de una contrataciï¿½n concreta por ID y nï¿½mero de
      * expediente. Evita cargar la lista completa de contrataciones cuando
-     * únicamente se necesita resolver el filtro para la tabla de desglose RSB.
+     * ï¿½nicamente se necesita resolver el filtro para la tabla de desglose RSB.
      * 
-     * @param numExp     Número de expediente
+     * @param numExp     Nï¿½mero de expediente
      * @param idContrato ID de la fila en MELANBIDE11_CONTRATACION
-     * @param con        Conexión
+     * @param con        Conexiï¿½n
      * @return DNI sin normalizar (tal cual en tabla) o null si no existe
      */
     public String getDniContratacionById(String numExp, String idContrato, Connection con) throws Exception {
@@ -168,7 +168,7 @@ public class MeLanbide11DAO {
             }
             return null;
         } catch (Exception e) {
-            log.error("Error obteniendo DNI por ID de contratación", e);
+            log.error("Error obteniendo DNI por ID de contrataciï¿½n", e);
             throw new Exception(e);
         } finally {
             if (rs != null)
@@ -197,7 +197,7 @@ public class MeLanbide11DAO {
 
             // NOTA: Separamos ahora la suma de complementos salariales (RSBTIPO='1') de la
             // de extrasalariales (RSBTIPO='2').
-            // Solo la suma salarial (tipo=1) se asignará a rsbImporte para la pestaña 1.
+            // Solo la suma salarial (tipo=1) se asignarï¿½ a rsbImporte para la pestaï¿½a 1.
             String query = "SELECT c.*, " + "       NVL(c.RSBSALBASE,0) RSBSALBASE_CALC, "
                     + "       NVL(c.RSBPAGEXTRA,0) RSBPAGEXTRA_CALC, "
                     + "       NVL((SELECT SUM(NVL(d.RSBIMPORTE,0)) FROM " + tablaDesg + " d "
@@ -226,12 +226,12 @@ public class MeLanbide11DAO {
                 Double complementosExtras = rs.getDouble("IMP_COMP_EXTRA");
                 if (rs.wasNull())
                     complementosExtras = 0.0;
-                // Solo guardamos en VO los salariales (requerimiento pestaña 1)
+                // Solo guardamos en VO los salariales (requerimiento pestaï¿½a 1)
                 contratacion.setRsbImporte(complementosSalariales);
 
                 if (log.isDebugEnabled()) {
                     log.debug("*** CARGA COMPLEMENTOS SALARIALES (CORRELACIONADA) ***");
-                    log.debug("ID Contratación: " + contratacion.getId());
+                    log.debug("ID Contrataciï¿½n: " + contratacion.getId());
                     log.debug("Salario Base: " + contratacion.getRsbSalBase());
                     log.debug("Pagas Extra: " + contratacion.getRsbPagExtra());
                     log.debug("Complementos Salariales (tipo=1) calculados: " + complementosSalariales);
@@ -242,7 +242,7 @@ public class MeLanbide11DAO {
             return contratacion;
 
         } catch (Exception ex) {
-            log.error("Error recuperando Contratación : " + id, ex);
+            log.error("Error recuperando Contrataciï¿½n : " + id, ex);
             throw new Exception(ex);
         } finally {
             if (st != null)
@@ -307,7 +307,7 @@ public class MeLanbide11DAO {
 
         try {
             if (log.isDebugEnabled())
-                log.debug("FLUJO RSB - Paso 6: Calculando RSB total para inserción");
+                log.debug("FLUJO RSB - Paso 6: Calculando RSB total para inserciï¿½n");
 
             // RSB total = base + extras + complementos (SOLO SUMA)
             Double rsbTotal = calculaRsbTotal(nuevaContratacion.getNumExp(), nuevaContratacion.getDni(),
@@ -315,7 +315,7 @@ public class MeLanbide11DAO {
             nuevaContratacion.setRsbCompConv(rsbTotal);
 
             // *** NO MODIFICAR IMPSUBVCONT - preservar valor original del usuario ***
-            // El importe de subvención es independiente del cálculo RSB
+            // El importe de subvenciï¿½n es independiente del cï¿½lculo RSB
 
             if (log.isDebugEnabled()) {
                 log.debug("FLUJO RSB (INSERT): total=" + rsbTotal + " - IMPSUBVCONT preservado: "
@@ -367,12 +367,12 @@ public class MeLanbide11DAO {
                 actualizarRsbCompConv(nuevaContratacion.getNumExp(), nuevaContratacion.getDni(), con);
                 return true;
             } else {
-                log.debug("No se ha podido guardar una nueva Contratación");
+                log.debug("No se ha podido guardar una nueva Contrataciï¿½n");
                 return false;
             }
 
         } catch (Exception ex) {
-            log.debug("Error al insertar una nueva Contratación: " + ex.getMessage());
+            log.debug("Error al insertar una nueva Contrataciï¿½n: " + ex.getMessage());
             throw new Exception(ex);
         } finally {
             if (st != null)
@@ -380,7 +380,7 @@ public class MeLanbide11DAO {
         }
     }
 
-    // === modificarContratacion (reemplaza tu método por este) ===
+    // === modificarContratacion (reemplaza tu mï¿½todo por este) ===
     public boolean modificarContratacion(ContratacionVO datModif, Connection con) throws Exception {
         Statement st = null;
         String query = "";
@@ -408,7 +408,7 @@ public class MeLanbide11DAO {
 
         try {
             if (log.isDebugEnabled())
-                log.debug("FLUJO RSB - Paso 6: Calculando RSB total para actualización");
+                log.debug("FLUJO RSB - Paso 6: Calculando RSB total para actualizaciï¿½n");
 
             // RSB total = base + extras + complementos (SOLO SUMA)
             Double rsbTotal = calculaRsbTotal(datModif.getNumExp(), datModif.getDni(), datModif.getRsbSalBase(),
@@ -416,7 +416,7 @@ public class MeLanbide11DAO {
             datModif.setRsbCompConv(rsbTotal);
 
             // *** NO MODIFICAR IMPSUBVCONT - preservar valor original del usuario ***
-            // El importe de subvención es independiente del cálculo RSB
+            // El importe de subvenciï¿½n es independiente del cï¿½lculo RSB
 
             if (log.isDebugEnabled()) {
                 log.debug("FLUJO RSB (UPDATE): total=" + rsbTotal + " - IMPSUBVCONT preservado: "
@@ -740,8 +740,8 @@ public class MeLanbide11DAO {
     }
 
     /**
-     * Recupera las líneas de desglose RSB filtradas por expediente y DNI del
-     * contratado. Si no existen resultados devuelve lista vacía.
+     * Recupera las lï¿½neas de desglose RSB filtradas por expediente y DNI del
+     * contratado. Si no existen resultados devuelve lista vacï¿½a.
      */
     public List<DesgloseRSBVO> getDatosDesgloseRSBPorDni(String numExp, String dni, int codOrganizacion, Connection con)
             throws Exception {
@@ -892,14 +892,14 @@ public class MeLanbide11DAO {
     /**
      * Actualiza los campos basicos del RSB en la tabla de contratacion y recalcula
      * RSBCOMPCONV = NVL(RSBSALBASE,0)+NVL(RSBPAGEXTRA,0)+NVL(RSBCOMPIMPORT,0). Se
-     * usa para persistir los valores de la pestaña 1 (salario base, pagas extra y
+     * usa para persistir los valores de la pestaï¿½a 1 (salario base, pagas extra y
      * complementos salariales calculados en pantalla). No altera otros campos.
      *
      * @param idRegistro     ID de la contratacion
      * @param salarioBase    salario base (nullable)
      * @param pagasExtra     pagas extraordinarias (nullable)
      * @param compSalariales complementos salariales (nullable)
-     * @return true si se actualizó alguna fila
+     * @return true si se actualizï¿½ alguna fila
      */
     public boolean actualizarDesgloseBasico(String idRegistro, Double salarioBase, Double pagasExtra,
             Double compSalariales, Connection con) throws Exception {
@@ -938,7 +938,7 @@ public class MeLanbide11DAO {
         }
     }
 
-    /** Nueva versión con RSBTIPO y RSBIMPORTE */
+    /** Nueva versiï¿½n con RSBTIPO y RSBIMPORTE */
     public boolean actualizarDesgloseBasico(String idRegistro, Double salarioBase, Double pagasExtra,
             Double compImporte, String rsbTipo, Connection con) throws Exception {
         if (idRegistro == null || idRegistro.trim().length() == 0) {
@@ -1105,11 +1105,11 @@ public class MeLanbide11DAO {
 
     /**
      * Obtiene la suma de complementos salariales de la tabla MELANBIDE11_DESGRSB
-     * para un DNI específico en un expediente
+     * para un DNI especï¿½fico en un expediente
      * 
-     * @param numExp Número de expediente
+     * @param numExp Nï¿½mero de expediente
      * @param dni    DNI del contratado
-     * @param con    Conexión a base de datos
+     * @param con    Conexiï¿½n a base de datos
      * @return Suma total de complementos salariales
      * @throws Exception
      */
@@ -1123,7 +1123,8 @@ public class MeLanbide11DAO {
             String sql = "SELECT NVL(SUM(NVL(RSBIMPORTE,0)),0) " + "FROM " + tabla + " "
                     + "WHERE TRIM(NUM_EXP)=TRIM(?) "
                     + "  AND UPPER(REPLACE(REPLACE(TRIM(DNICONTRSB),' ',''),'-','')) = "
-                    + "      UPPER(REPLACE(REPLACE(TRIM(?),' ',''),'-',''))";
+                    + "      UPPER(REPLACE(REPLACE(TRIM(?),' ',''),'-',''))"
+                    + "  AND (RSBCONCEPTO = 'F' OR RSBCONCEPTO IS NULL)";
 
             ps = con.prepareStatement(sql);
             ps.setString(1, numExp);
@@ -1140,11 +1141,11 @@ public class MeLanbide11DAO {
 
     /**
      * Obtiene las sumas de complementos salariales y extrasalariales por separado
-     * basándose en el campo RSBTIPO de la tabla MELANBIDE11_DESGRSB
+     * basï¿½ndose en el campo RSBTIPO de la tabla MELANBIDE11_DESGRSB
      * 
-     * @param numExp Número de expediente
+     * @param numExp Nï¿½mero de expediente
      * @param dni    DNI del contratado
-     * @param con    Conexión a la base de datos
+     * @param con    Conexiï¿½n a la base de datos
      * @return ComplementosPorTipo con las sumas separadas
      * @throws Exception
      */
@@ -1202,9 +1203,9 @@ public class MeLanbide11DAO {
     }
 
     /**
-     * Actualiza automáticamente el campo RSBCOMPCONV calculando la suma de:
+     * Actualiza automï¿½ticamente el campo RSBCOMPCONV calculando la suma de:
      * RSBSALBASE + RSBPAGEXTRA + suma de RSBIMPORTE de MELANBIDE11_DESGRSB Solo
-     * actualiza si el cálculo es diferente al valor actual
+     * actualiza si el cï¿½lculo es diferente al valor actual
      */
     public boolean actualizarRsbCompConv(String numExp, String dni, Connection con) throws Exception {
         Statement st = null;
@@ -1253,7 +1254,7 @@ public class MeLanbide11DAO {
             }
 
         } catch (Exception ex) {
-            log.error("Error al actualizar RSBCOMPCONV automáticamente", ex);
+            log.error("Error al actualizar RSBCOMPCONV automï¿½ticamente", ex);
             throw new Exception(ex);
         } finally {
             if (st != null) {
@@ -1266,7 +1267,7 @@ public class MeLanbide11DAO {
 
     /**
      * Obtiene el siguiente ID para la tabla DESGRSB mediante MAX(ID)+1. (Se evita
-     * depender de una secuencia que no está definida en constantes).
+     * depender de una secuencia que no estï¿½ definida en constantes).
      */
     private int getNextIdDesglose(Connection con) throws Exception {
         Statement st = null;
@@ -1292,15 +1293,15 @@ public class MeLanbide11DAO {
     }
 
     /**
-     * Reemplaza (borrando e insertando) las líneas de desglose RSB para un
-     * expediente + DNI. Después recalcula RSBCOMPCONV en la tabla principal.
+     * Reemplaza (borrando e insertando) las lï¿½neas de desglose RSB para un
+     * expediente + DNI. Despuï¿½s recalcula RSBCOMPCONV en la tabla principal.
      *
-     * @param numExp Número de expediente
+     * @param numExp Nï¿½mero de expediente
      * @param dni    DNI contratado
-     * @param lineas Lista de líneas (puede ser vacía o null -&gt; implica borrar
+     * @param lineas Lista de lï¿½neas (puede ser vacï¿½a o null -&gt; implica borrar
      *               todo)
-     * @param con    Conexión
-     * @return true si la operación global finaliza sin errores
+     * @param con    Conexiï¿½n
+     * @return true si la operaciï¿½n global finaliza sin errores
      * @throws Exception
      */
     public boolean reemplazarDesgloseRSB(String numExp, String dni, List<DesgloseRSBVO> lineas, Connection con)
@@ -1362,7 +1363,7 @@ public class MeLanbide11DAO {
     }
 
     /**
-     * Obtiene todas las contrataciones de un expediente específico.
+     * Obtiene todas las contrataciones de un expediente especï¿½fico.
      */
     public List<ContratacionVO> getContratacionesByExpediente(String numExpediente, Connection con) throws Exception {
         log.debug("getContratacionesByExpediente - numExp: " + numExpediente);
@@ -1397,7 +1398,7 @@ public class MeLanbide11DAO {
                 contratacion.setApellido2(rs.getString("APELLIDO_2"));
                 contratacion.setFechaNacimiento(rs.getDate("FECHA_NACIMIENTO"));
 
-                // Conversión segura de edad String a Integer
+                // Conversiï¿½n segura de edad String a Integer
                 String edadStr = rs.getString("EDAD");
                 if (edadStr != null && !edadStr.trim().isEmpty()) {
                     try {
@@ -1421,7 +1422,7 @@ public class MeLanbide11DAO {
                 contratacion.setcProfesionalidad(rs.getString("C_PROFESIONALIDAD"));
                 contratacion.setModalidadContrato(rs.getString("MODALIDAD_CONTRATO"));
                 contratacion.setJornada(rs.getString("JORNADA"));
-                // Conversión segura de PORC_JORNADA String a Double
+                // Conversiï¿½n segura de PORC_JORNADA String a Double
                 String porcJornadaStr = rs.getString("PORC_JORNADA");
                 if (porcJornadaStr != null && !porcJornadaStr.trim().isEmpty()) {
                     try {
@@ -1432,7 +1433,7 @@ public class MeLanbide11DAO {
                 } else {
                     contratacion.setPorcJornada(null);
                 }
-                // Conversión segura de HORAS_CONV String a Integer
+                // Conversiï¿½n segura de HORAS_CONV String a Integer
                 String horasConvStr = rs.getString("HORAS_CONV");
                 if (horasConvStr != null && !horasConvStr.trim().isEmpty()) {
                     try {
@@ -1449,7 +1450,7 @@ public class MeLanbide11DAO {
                 contratacion.setGrupoCotizacion(rs.getString("GRUPO_COTIZACION"));
                 contratacion.setDireccionCT(rs.getString("DIRECCION_CT"));
                 contratacion.setNumSS(rs.getString("NUM_SS"));
-                // Conversión segura de COSTE_CONTRATO String a Double
+                // Conversiï¿½n segura de COSTE_CONTRATO String a Double
                 String costeContratoStr = rs.getString("COSTE_CONTRATO");
                 if (costeContratoStr != null && !costeContratoStr.trim().isEmpty()) {
                     try {
@@ -1505,7 +1506,7 @@ public class MeLanbide11DAO {
     }
 
     /**
-     * Obtiene una contratación específica por su ID.
+     * Obtiene una contrataciï¿½n especï¿½fica por su ID.
      */
     public ContratacionVO getContratacionById(String id, Connection con) throws Exception {
         log.debug("getContratacionById - id: " + id);
@@ -1539,7 +1540,7 @@ public class MeLanbide11DAO {
                 contratacion.setApellido2(rs.getString("APELLIDO_2"));
                 contratacion.setFechaNacimiento(rs.getDate("FECHA_NACIMIENTO"));
 
-                // Conversión segura de edad String a Integer (método getContratacionById)
+                // Conversiï¿½n segura de edad String a Integer (mï¿½todo getContratacionById)
                 String edadStr2 = rs.getString("EDAD");
                 if (edadStr2 != null && !edadStr2.trim().isEmpty()) {
                     try {
@@ -1563,7 +1564,7 @@ public class MeLanbide11DAO {
                 contratacion.setcProfesionalidad(rs.getString("C_PROFESIONALIDAD"));
                 contratacion.setModalidadContrato(rs.getString("MODALIDAD_CONTRATO"));
                 contratacion.setJornada(rs.getString("JORNADA"));
-                // Conversión segura de PORC_JORNADA String a Double
+                // Conversiï¿½n segura de PORC_JORNADA String a Double
                 String porcJornadaStr = rs.getString("PORC_JORNADA");
                 if (porcJornadaStr != null && !porcJornadaStr.trim().isEmpty()) {
                     try {
@@ -1574,7 +1575,7 @@ public class MeLanbide11DAO {
                 } else {
                     contratacion.setPorcJornada(null);
                 }
-                // Conversión segura de HORAS_CONV String a Integer
+                // Conversiï¿½n segura de HORAS_CONV String a Integer
                 String horasConvStr = rs.getString("HORAS_CONV");
                 if (horasConvStr != null && !horasConvStr.trim().isEmpty()) {
                     try {
@@ -1591,7 +1592,7 @@ public class MeLanbide11DAO {
                 contratacion.setGrupoCotizacion(rs.getString("GRUPO_COTIZACION"));
                 contratacion.setDireccionCT(rs.getString("DIRECCION_CT"));
                 contratacion.setNumSS(rs.getString("NUM_SS"));
-                // Conversión segura de COSTE_CONTRATO String a Double
+                // Conversiï¿½n segura de COSTE_CONTRATO String a Double
                 String costeContratoStr = rs.getString("COSTE_CONTRATO");
                 if (costeContratoStr != null && !costeContratoStr.trim().isEmpty()) {
                     try {
@@ -1628,10 +1629,10 @@ public class MeLanbide11DAO {
                 contratacion.setTitReqPuesto(rs.getString("TIT_REQ_PUESTO"));
                 contratacion.setFunciones(rs.getString("FUNCIONES"));
 
-                log.debug("getContratacionById - Contratación encontrada");
+                log.debug("getContratacionById - Contrataciï¿½n encontrada");
                 return contratacion;
             } else {
-                log.debug("getContratacionById - Contratación no encontrada");
+                log.debug("getContratacionById - Contrataciï¿½n no encontrada");
                 return null;
             }
 
@@ -1647,11 +1648,11 @@ public class MeLanbide11DAO {
     }
 
     /**
-     * Elimina una contratación por ID
+     * Elimina una contrataciï¿½n por ID
      * 
-     * @param id  ID de la contratación
-     * @param con Conexión a la base de datos
-     * @return true si se eliminó correctamente
+     * @param id  ID de la contrataciï¿½n
+     * @param con Conexiï¿½n a la base de datos
+     * @return true si se eliminï¿½ correctamente
      * @throws Exception
      */
     public boolean eliminarContratacionAJAX(String id, Connection con) throws Exception {
@@ -1667,15 +1668,15 @@ public class MeLanbide11DAO {
             boolean deleted = rowsAffected > 0;
 
             if (deleted) {
-                log.debug("eliminarContratacionAJAX - Contratación eliminada: " + id);
+                log.debug("eliminarContratacionAJAX - Contrataciï¿½n eliminada: " + id);
             } else {
-                log.debug("eliminarContratacionAJAX - No se encontró contratación con ID: " + id);
+                log.debug("eliminarContratacionAJAX - No se encontrï¿½ contrataciï¿½n con ID: " + id);
             }
 
             return deleted;
         } catch (SQLException e) {
             log.error("Error SQL en eliminarContratacionAJAX", e);
-            throw new Exception("Error al eliminar contratación: " + e.getMessage());
+            throw new Exception("Error al eliminar contrataciï¿½n: " + e.getMessage());
         } finally {
             if (ps != null)
                 ps.close();
