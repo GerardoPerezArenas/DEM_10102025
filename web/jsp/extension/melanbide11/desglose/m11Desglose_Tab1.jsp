@@ -1,35 +1,31 @@
 <%@taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
 <%@taglib uri="/WEB-INF/tlds/c.tld" prefix="c" %>
-<%@page import="es.altia.agora.business.escritorio.UsuarioValueObject" %>
+<%-- ✅ CAMBIO 1: Cabecera estándar unificada con imports necesarios --%>
+<%@page import="es.altia.flexia.integracion.moduloexterno.melanbide11.i18n.MeLanbide11I18n"%>
+<%@page import="es.altia.agora.business.escritorio.UsuarioValueObject"%>
 <%@page import="es.altia.common.service.config.Config"%>
 <%@page import="es.altia.common.service.config.ConfigServiceHelper"%>
-<%@page import="es.altia.flexia.integracion.moduloexterno.melanbide11.i18n.MeLanbide11I18n" %>
 <%@page import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConfigurationParameter"%>
 <%@page import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeLanbide11"%>
 <%@page import="es.altia.flexia.integracion.moduloexterno.melanbide11.vo.ContratacionVO" %>
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%-- Fragmento simplificado: se elimina estructura html/head/body para inline dentro de contenedor --%>
-<div style="padding:6px 8px 4px 8px;" class="m11-form">
-    <%
-      UsuarioValueObject usuarioVO = new UsuarioValueObject();
-      int idiomaUsuario = 1;
-      int apl = 5;
-      String css = "";
-      if (session.getAttribute("usuario") != null){
-          usuarioVO = (UsuarioValueObject) session.getAttribute("usuario");
-          apl = usuarioVO.getAppCod();
-          idiomaUsuario = usuarioVO.getIdioma();
-          css = usuarioVO.getCss();
-      }
-
+<%-- ✅ CAMBIO 2: Obtención estándar del usuario y configuración de idioma --%>
+<%
+  UsuarioValueObject usuario = (UsuarioValueObject) session.getAttribute("usuario");
+  int idiomaUsuario = (usuario != null) ? usuario.getIdioma() : 1;
+  int apl = (usuario != null) ? usuario.getAppCod() : 5;
+  String css = (usuario != null) ? usuario.getCss() : "";
   MeLanbide11I18n meLanbide11I18n = MeLanbide11I18n.getInstance();
-      String numExpediente = (String)request.getAttribute("numExp");
-
-   
-      String nuevo       = request.getAttribute("nuevo") != null ? (String)request.getAttribute("nuevo") : "1";
+  String numExpediente = (String)request.getAttribute("numExp");
+%>
+<%-- ✅ CAMBIO 3: Enlaces a CSS y JS estándar del módulo --%>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/extension/melanbide11/melanbide11.css"/>
+<script src="<%=request.getContextPath()%>/scripts/extension/melanbide11/JavaScriptUtil.js"></script>
+<%
+  String nuevo       = request.getAttribute("nuevo") != null ? (String)request.getAttribute("nuevo") : "1";
       String idRegistro  = request.getAttribute("id")    != null ? (String)request.getAttribute("id")    : "";
 
     
@@ -260,6 +256,7 @@
         }
       }
 
+      // ✅ CAMBIO 8: Función cancelar con mensaje i18n según idioma del usuario
       window.cancelar = function(){
         console.log("=== EJECUTANDO CANCELAR DESGLOSE ===");
         try{
@@ -488,9 +485,11 @@
   
     </script>
     <div>
+  <%-- ✅ CAMBIO 10: Mensajes de error en hidden inputs con i18n según idioma del usuario --%>
   <input type="hidden" id="errorBD" name="errorBD" value="<%=meLanbide11I18n.getMensaje(idiomaUsuario,"error.errorBD")%>"/>
   <input type="hidden" id="generico" name="generico" value="<%=meLanbide11I18n.getMensaje(idiomaUsuario,"error.generico")%>"/>
 
+  <%-- ✅ CAMBIO 9: Mensaje de procesando con i18n según idioma del usuario --%>
   <div id="barraProgresoLPEEL" style="visibility:hidden;display:none;">
         <div class="contenedorHidepage">
           <div class="textoHide">
@@ -509,53 +508,45 @@
         <input type="hidden" id="idRegistroContratacion" name="idRegistroContratacion" value="<%=idRegistro%>" />
         <div style="width:100%; padding:4px 2px 2px 2px; text-align:left;">
          
+          <%-- ✅ CAMBIO 4: Etiqueta unificada con i18n según idioma del usuario --%>
           <div class="lineaFormulario" style="padding-top:4px;">
-            <div class="etiquetaLPEEL">
-              <span class="label-bilingual">
-                <span class="label-es"><%=meLanbide11I18n.getMensaje(1,"tablaDesglose.salarioBase")%></span>
-                <span class="label-eu"><%=meLanbide11I18n.getMensaje(2,"tablaDesglose.salarioBase")%></span>
-              </span>
+            <div class="etiqueta">
+              <%=meLanbide11I18n.getMensaje(idiomaUsuario,"tablaDesglose.salarioBase")%>
             </div>
-            <div class="campoFormulario">
+            <div class="valor">
               <input id="rsbSalBase" name="rsbSalBase" type="text" class="inputTexto" size="10" maxlength="10"
                      onchange="reemplazarPuntos(this);" onblur="validarNumeroReal(this);" value="<%=vSalBase%>" />
             </div>
           </div>
 
+          <%-- ✅ CAMBIO 5: Etiqueta unificada con i18n según idioma del usuario --%>
           <div class="lineaFormulario" style="padding-top:10px;">
-            <div class="etiquetaLPEEL">
-              <span class="label-bilingual">
-                <span class="label-es"><%=meLanbide11I18n.getMensaje(1,"tablaDesglose.pagasExtra")%></span>
-                <span class="label-eu"><%=meLanbide11I18n.getMensaje(2,"tablaDesglose.pagasExtra")%></span>
-              </span>
+            <div class="etiqueta">
+              <%=meLanbide11I18n.getMensaje(idiomaUsuario,"tablaDesglose.pagasExtra")%>
             </div>
-            <div class="campoFormulario">
+            <div class="valor">
               <input id="rsbPagasExtra" name="rsbPagasExtra" type="text" class="inputTexto" size="10" maxlength="10"
                      onchange="reemplazarPuntos(this);" onblur="validarNumeroReal(this);" value="<%=vPagas%>" />
             </div>
           </div>
 
+          <%-- ✅ CAMBIO 6: Etiqueta unificada con i18n según idioma del usuario --%>
           <div class="lineaFormulario" style="padding-top:10px;">
-            <div class="etiquetaLPEEL">
-              <span class="label-bilingual">
-                <span class="label-es"><%=meLanbide11I18n.getMensaje(1,"tablaDesglose.complementosSalariales")%></span>
-                <span class="label-eu"><%=meLanbide11I18n.getMensaje(2,"tablaDesglose.complementosSalariales")%></span>
-              </span>
+            <div class="etiqueta">
+              <%=meLanbide11I18n.getMensaje(idiomaUsuario,"tablaDesglose.complementosSalariales")%>
             </div>
-            <div class="campoFormulario">
+            <div class="valor">
               <input id="rsbCompImporte" name="rsbCompImporte" type="text" class="inputTexto" size="10" maxlength="10"
                      onchange="reemplazarPuntos(this);" onblur="validarNumeroReal(this);" value="<%=vCompImp%>" />
             </div>
           </div>       
 
+          <%-- ✅ CAMBIO 7: Etiqueta unificada con i18n según idioma del usuario --%>
           <div class="lineaFormulario" style="padding-top:10px;">
-            <div class="etiquetaLPEEL">
-              <span class="label-bilingual">
-                <span class="label-es"><%=meLanbide11I18n.getMensaje(1,"tablaDesglose.extrasalariales")%></span>
-                <span class="label-eu"><%=meLanbide11I18n.getMensaje(2,"tablaDesglose.extrasalariales")%></span>
-              </span>
+            <div class="etiqueta">
+              <%=meLanbide11I18n.getMensaje(idiomaUsuario,"tablaDesglose.extrasalariales")%>
             </div>
-            <div class="campoFormulario">
+            <div class="valor">
               <input id="rsbCompExtra" name="rsbCompExtra" type="text" class="inputTexto" size="10" maxlength="10"
                      onchange="reemplazarPuntos(this);" onblur="validarNumeroReal(this);" value="<%=vCompExtra%>" />
             </div>
