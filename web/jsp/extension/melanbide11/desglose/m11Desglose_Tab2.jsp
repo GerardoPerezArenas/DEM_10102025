@@ -1,6 +1,9 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="es.altia.flexia.integracion.moduloexterno.melanbide11.i18n.MeLanbide11I18n" %>
-<%@page import="es.altia.agora.business.escritorio.UsuarioValueObject" %>
+<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
+<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="/WEB-INF/tlds/c.tld" prefix="c" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page import="es.altia.agora.business.escritorio.UsuarioValueObject" %>
+<%@ page import="es.altia.flexia.integracion.moduloexterno.melanbide11.i18n.MeLanbide11I18n" %>
 <%
 	UsuarioValueObject usuarioTab2 = new UsuarioValueObject();
 	int idiomaUsuarioTab2 = 1; int aplTab2 = 5; String cssTab2 = "";
@@ -14,8 +17,6 @@
 	String numExpedienteTab2 = (String) request.getAttribute("numExp");
 	String idContratoTab2 = (String) request.getAttribute("id");
 %>
-</style>
-
 
 <div class="m11-desglose-wrapper">
 
@@ -59,7 +60,7 @@
 	
 	<div id="m11DialogOverlay" class="m11-dialog-overlay" role="dialog" aria-modal="true" aria-labelledby="m11DialogTitle" style="display:none">
 		<div class="m11-dialog">
-			<header id="m11DialogTitle" class="m11-title">Editar línea</header>
+			<header id="m11DialogTitle" class="m11-title"></header>
 			<div class="body">
 				<div class="lineaFormulario">
 					<div class="etiqueta">
@@ -88,7 +89,7 @@
 			</div>
 			<footer>
 				<input type="button" id="dlgAceptar" class="botonGeneral" value="<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "btn.aceptar") %>" />
-				<input type="button" id="dlgCancelar" class="botonGeneral" value="Cancelar" />
+				<input type="button" id="dlgCancelar" class="botonGeneral" value="<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "btn.cancelar") %>" />
 			</footer>
 		</div>
 	</div>
@@ -99,6 +100,10 @@
 	var ctx = '<%=request.getContextPath()%>';
 	var numExp = '<%= (numExpedienteTab2!=null?numExpedienteTab2:"") %>';
 	var idContrato = '<%= (idContratoTab2!=null?idContratoTab2:"") %>';
+	
+	// i18n messages
+	var i18n_dialogTituloAlta = '<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.dialog.titulo.alta") %>';
+	var i18n_dialogTituloModificar = '<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.dialog.titulo.modificar") %>';
 	
 	// Variables de tabla
 	var tablaDesgloseTipo1 = null;
@@ -131,7 +136,7 @@
 	function mostrarVacio(){ muestraEstado('vacio'); }
 
   function crearTablasDesglose(){
-    // Crear con ancho dinámico para evitar scroll horizontal
+    // Crear con ancho dinï¿½mico para evitar scroll horizontal
     var anchoInicial = 600; // Ancho inicial conservador
     
     tablaDesgloseTipo1 = new FixedColumnTable(document.getElementById('tablaDesgloseRSB'), anchoInicial, anchoInicial, 'tablaDesgloseRSB');
@@ -149,11 +154,11 @@
     tablaDesgloseTipo2.dblClkFunction = 'dblClckTablaDesgloseTipo2';
   }
 	function recalcularAnchoTabla(){
-		// Eliminar scroll horizontal ajustando dinámicamente el ancho de las tablas
+		// Eliminar scroll horizontal ajustando dinï¿½micamente el ancho de las tablas
 		try {
 			var contenedor = document.getElementById('m11Container') || document.body;
 			var anchoContenedor = contenedor.offsetWidth || 750;
-			var anchoDisponible = Math.max(600, anchoContenedor - 100); // Más margen para evitar scrolls
+			var anchoDisponible = Math.max(600, anchoContenedor - 100); // Mï¿½s margen para evitar scrolls
 			
 			console.log('Recalculando ancho tabla:', anchoDisponible);
 			
@@ -184,11 +189,11 @@
 			selectors.forEach(function(selector) {
 				var elementos = document.querySelectorAll(selector);
 				for (var i = 0; i < elementos.length; i++) {
-					// Solo aplicar estilos si el elemento no está oculto
+					// Solo aplicar estilos si el elemento no estï¿½ oculto
 					if (elementos[i].style.display !== 'none') {
 						elementos[i].style.maxWidth = anchoDisponible + 'px';
 						elementos[i].style.overflowX = 'hidden';
-						// No forzar width: 100% en wrappers que podrían necesitar display específico
+						// No forzar width: 100% en wrappers que podrï¿½an necesitar display especï¿½fico
 						if (!elementos[i].id || (elementos[i].id.indexOf('wrapper') === -1 && elementos[i].id.indexOf('tabla') === -1)) {
 							elementos[i].style.width = '100%';
 						}
@@ -198,7 +203,7 @@
 			
 			// Forzar que NO aparezcan scrolls horizontales en divs internos
 			setTimeout(function() {
-				// Ocultar solo los scrolls horizontales específicos de FixedColumnTable
+				// Ocultar solo los scrolls horizontales especï¿½ficos de FixedColumnTable
 				var scrollElements = document.querySelectorAll('[id*="hScroll_"]:not([id*="wrapper"]):not([id*="tabla"])');
 				for (var i = 0; i < scrollElements.length; i++) {
 					scrollElements[i].style.display = 'none';
@@ -216,7 +221,7 @@
 				}
 			}, 50);
 			
-			// Solo ocultar scrolls específicos, no todos los elementos
+			// Solo ocultar scrolls especï¿½ficos, no todos los elementos
 			setTimeout(function() {
 				var scrollsEspecificos = document.querySelectorAll('[id^="hScroll_"], [id*="_hScroll"]');
 				for (var i = 0; i < scrollsEspecificos.length; i++) {
@@ -273,7 +278,7 @@
 		var esNuevo = (def == null); def = def || { importe: 0, concepto: '', observ: '' };
 		var titulo = document.getElementById('m11DialogTitle'); 
 		if (titulo) { 
-			titulo.textContent = esNuevo ? 'Alta retribución' : 'Modificar retribución'; 
+			titulo.textContent = esNuevo ? i18n_dialogTituloAlta : i18n_dialogTituloModificar; 
 		}
 		var elImp = document.getElementById('dlgImporte'); 
 		var elCon = document.getElementById('dlgConcepto'); 
@@ -302,7 +307,7 @@
 	document.getElementById('dlgAceptar').onclick = function(){
 		var elImp=document.getElementById('dlgImporte'), elCon=document.getElementById('dlgConceptoCodigo'), elObs=document.getElementById('dlgObserv');
 		var impNum = parseImporte((elImp && elImp.value)||'0');
-		if(isNaN(impNum) || impNum<0){ jsp_alerta('A','Importe no válido'); try{ elImp && elImp.focus(); }catch(e){} return; }
+		if(isNaN(impNum) || impNum<0){ jsp_alerta('A','Importe no vï¿½lido'); try{ elImp && elImp.focus(); }catch(e){} return; }
 		var codigoConcepto = (elCon && elCon.value) || '';
 		if(!codigoConcepto){ jsp_alerta('A','Debe seleccionar un concepto'); return; }
 		var datos = { importe: impNum, concepto: codigoConcepto, observ: (elObs && elObs.value)||'' };
@@ -314,7 +319,7 @@
 		mostrarOpcionesConcepto();
 	};
 	
-	// También manejar click en el contenedor dropdown
+	// Tambiï¿½n manejar click en el contenedor dropdown
 	document.addEventListener('click', function(event) {
 		var dropdown = document.querySelector('.dropdown-container');
 		if (dropdown && dropdown.contains(event.target)) {
@@ -323,7 +328,7 @@
 	});
 
 	function mostrarOpcionesConcepto() {
-		// Cerrar dropdown existente si está abierto
+		// Cerrar dropdown existente si estï¿½ abierto
 		cerrarDropdownConcepto();
 		
 		var opciones = [
@@ -331,7 +336,7 @@
 			{ codigo: 'V', texto: 'Variable' }
 		];
 		
-		// Crear el menú dropdown
+		// Crear el menï¿½ dropdown
 		var menuHtml = '<div class="dropdown-menu">';
 		for (var i = 0; i < opciones.length; i++) {
 			menuHtml += '<div class="dropdown-option" data-codigo="' + opciones[i].codigo + '" data-texto="' + opciones[i].texto + '">' + 
@@ -339,7 +344,7 @@
 		}
 		menuHtml += '</div>';
 		
-		// Agregar el menú al contenedor
+		// Agregar el menï¿½ al contenedor
 		var contenedorDropdown = document.querySelector('.dropdown-container');
 		if (contenedorDropdown) {
 			contenedorDropdown.insertAdjacentHTML('beforeend', menuHtml);

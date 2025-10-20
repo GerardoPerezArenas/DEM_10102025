@@ -142,7 +142,7 @@ import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeL
             line-height: 1.2;
           "
         >
-          Desglose retribucin salarial bruta
+          <%= I18N.getMensaje(idiomaUsuario, "label.m11.desglose.titulo") %>
         </h1>
         <div style="text-align: center; font-size: 13px; margin: 10px">
           <strong>Expediente:</strong> <%=
@@ -182,7 +182,7 @@ import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeL
           id="btnAceptar"
           name="btnAceptar"
           class="botonGeneral"
-          value="Aceptar"
+          value="<%= I18N.getMensaje(idiomaUsuario, "btn.aceptar") %>"
           onclick="aceptarDesglose();"
         />
         <input
@@ -190,7 +190,7 @@ import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeL
           id="btnCancelar"
           name="btnCancelar"
           class="botonGeneral"
-          value="Cancelar"
+          value="<%= I18N.getMensaje(idiomaUsuario, "btn.cancelar") %>"
           onclick="cancelarDesglose();"
         />
       </div>
@@ -258,7 +258,7 @@ import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeL
           if (typeof window.guardarDesglose === "function") {
             window.guardarDesglose();
 
-            // Cerrar modal después de guardar
+            // Cerrar modal despuï¿½s de guardar
             setTimeout(function () {
               try {
                 // Intentar callback al padre
