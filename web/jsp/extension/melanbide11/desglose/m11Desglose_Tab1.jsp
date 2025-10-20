@@ -1,16 +1,9 @@
-<%@taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
-<%@taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
-<%@taglib uri="/WEB-INF/tlds/c.tld" prefix="c" %>
-<%@page import="es.altia.agora.business.escritorio.UsuarioValueObject" %>
-<%@page import="es.altia.common.service.config.Config"%>
-<%@page import="es.altia.common.service.config.ConfigServiceHelper"%>
-<%@page import="es.altia.flexia.integracion.moduloexterno.melanbide11.i18n.MeLanbide11I18n" %>
-<%@page import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConfigurationParameter"%>
-<%@page import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeLanbide11"%>
-<%@page import="es.altia.flexia.integracion.moduloexterno.melanbide11.vo.ContratacionVO" %>
-<%@page import="java.util.ArrayList" %>
-<%@page import="java.util.List" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
+<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="/WEB-INF/tlds/c.tld" prefix="c" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page import="es.altia.agora.business.escritorio.UsuarioValueObject" %>
+<%@ page import="es.altia.flexia.integracion.moduloexterno.melanbide11.i18n.MeLanbide11I18n" %>
 <%-- Fragmento simplificado: se elimina estructura html/head/body para inline dentro de contenedor --%>
 <div style="padding:6px 8px 4px 8px;" class="m11-form">
     <%
@@ -511,10 +504,7 @@
          
           <div class="lineaFormulario" style="padding-top:4px;">
             <div class="etiquetaLPEEL">
-              <span class="label-bilingual">
-                <span class="label-es"><%=meLanbide11I18n.getMensaje(1,"tablaDesglose.salarioBase")%></span>
-                <span class="label-eu"><%=meLanbide11I18n.getMensaje(2,"tablaDesglose.salarioBase")%></span>
-              </span>
+              <%=meLanbide11I18n.getMensaje(idiomaUsuario,"tablaDesglose.salarioBase")%>
             </div>
             <div class="campoFormulario">
               <input id="rsbSalBase" name="rsbSalBase" type="text" class="inputTexto" size="10" maxlength="10"
@@ -524,10 +514,7 @@
 
           <div class="lineaFormulario" style="padding-top:10px;">
             <div class="etiquetaLPEEL">
-              <span class="label-bilingual">
-                <span class="label-es"><%=meLanbide11I18n.getMensaje(1,"tablaDesglose.pagasExtra")%></span>
-                <span class="label-eu"><%=meLanbide11I18n.getMensaje(2,"tablaDesglose.pagasExtra")%></span>
-              </span>
+              <%=meLanbide11I18n.getMensaje(idiomaUsuario,"tablaDesglose.pagasExtra")%>
             </div>
             <div class="campoFormulario">
               <input id="rsbPagasExtra" name="rsbPagasExtra" type="text" class="inputTexto" size="10" maxlength="10"
@@ -537,10 +524,7 @@
 
           <div class="lineaFormulario" style="padding-top:10px;">
             <div class="etiquetaLPEEL">
-              <span class="label-bilingual">
-                <span class="label-es"><%=meLanbide11I18n.getMensaje(1,"tablaDesglose.complementosSalariales")%></span>
-                <span class="label-eu"><%=meLanbide11I18n.getMensaje(2,"tablaDesglose.complementosSalariales")%></span>
-              </span>
+              <%=meLanbide11I18n.getMensaje(idiomaUsuario,"tablaDesglose.complementosSalariales")%>
             </div>
             <div class="campoFormulario">
               <input id="rsbCompImporte" name="rsbCompImporte" type="text" class="inputTexto" size="10" maxlength="10"
@@ -550,10 +534,7 @@
 
           <div class="lineaFormulario" style="padding-top:10px;">
             <div class="etiquetaLPEEL">
-              <span class="label-bilingual">
-                <span class="label-es"><%=meLanbide11I18n.getMensaje(1,"tablaDesglose.extrasalariales")%></span>
-                <span class="label-eu"><%=meLanbide11I18n.getMensaje(2,"tablaDesglose.extrasalariales")%></span>
-              </span>
+              <%=meLanbide11I18n.getMensaje(idiomaUsuario,"tablaDesglose.extrasalariales")%>
             </div>
             <div class="campoFormulario">
               <input id="rsbCompExtra" name="rsbCompExtra" type="text" class="inputTexto" size="10" maxlength="10"
