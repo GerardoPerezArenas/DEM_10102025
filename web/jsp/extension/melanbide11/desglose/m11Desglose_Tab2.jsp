@@ -271,7 +271,7 @@
 			.forEach(function(id){ var el=document.getElementById(id); if(el){ el.disabled = !enabled; }});
 	}
 
-	// Dilogo inline
+	// Dilogo overlay con estilos inline para asegurar posicionamiento correcto
 	var _dlgOnOk = null, _dlgTipo = '1';
 	function abrirDialogoLinea(tipo, def, onOk) {
 		_dlgTipo = String(tipo || '1'); _dlgOnOk = (typeof onOk === 'function') ? onOk : null;
@@ -296,13 +296,37 @@
 		if (elConCod) elConCod.value = def.concepto || '';
 		if (elObs) elObs.value = def.observ || '';
 		var overlay = document.getElementById('m11DialogOverlay'); 
-		if (overlay) { 
-			overlay.style.display = 'flex'; 
-			try { (document.body||document.documentElement).style.overflow='hidden'; }catch(e){} 
+		if (overlay) {
+			// Aplicar estilos inline para asegurar overlay correcto
+			overlay.style.position = 'fixed';
+			overlay.style.top = '0';
+			overlay.style.left = '0';
+			overlay.style.width = '100%';
+			overlay.style.height = '100%';
+			overlay.style.zIndex = '999999';
+			overlay.style.display = 'flex';
+			overlay.style.alignItems = 'center';
+			overlay.style.justifyContent = 'center';
+			overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+			// Prevenir scroll del body
+			try { 
+				document.body.style.overflow = 'hidden'; 
+			} catch(e) {} 
 			setTimeout(function(){ try{ elImp && elImp.focus(); }catch(e){} },10); 
 		}
 	}
-	function cerrarDialogo(){ var o=document.getElementById('m11DialogOverlay'); if(o){o.style.display='none';} try{ (document.body||document.documentElement).style.overflow=''; }catch(e){} _dlgOnOk=null; try{ setTimeout(recalcularAnchoTabla,60);}catch(e){} }
+	function cerrarDialogo(){ 
+		var o=document.getElementById('m11DialogOverlay'); 
+		if(o){
+			o.style.display='none';
+		} 
+		// Restaurar scroll del body
+		try{ 
+			document.body.style.overflow = ''; 
+		}catch(e){} 
+		_dlgOnOk=null; 
+		try{ setTimeout(recalcularAnchoTabla,60);}catch(e){} 
+	}
 	document.getElementById('dlgCancelar').onclick = function(){ cerrarDialogo(); };
 	document.getElementById('dlgAceptar').onclick = function(){
 		var elImp=document.getElementById('dlgImporte'), elCon=document.getElementById('dlgConceptoCodigo'), elObs=document.getElementById('dlgObserv');
