@@ -1,76 +1,79 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="es.altia.flexia.integracion.moduloexterno.melanbide11.i18n.MeLanbide11I18n" %>
-<%@page import="es.altia.agora.business.escritorio.UsuarioValueObject" %>
+<%-- âœ… CAMBIO 1: Cabecera estÃ¡ndar unificada con imports necesarios --%>
+<%@page import="es.altia.flexia.integracion.moduloexterno.melanbide11.i18n.MeLanbide11I18n"%>
+<%@page import="es.altia.agora.business.escritorio.UsuarioValueObject"%>
+<%-- âœ… CAMBIO 2: ObtenciÃ³n estÃ¡ndar del usuario y configuraciÃ³n de idioma --%>
 <%
-	UsuarioValueObject usuarioTab2 = new UsuarioValueObject();
-	int idiomaUsuarioTab2 = 1; int aplTab2 = 5; String cssTab2 = "";
-	if (session.getAttribute("usuario") != null){
-		usuarioTab2 = (UsuarioValueObject) session.getAttribute("usuario");
-		idiomaUsuarioTab2 = usuarioTab2.getIdioma();
-		aplTab2 = usuarioTab2.getAppCod();
-		cssTab2 = usuarioTab2.getCss();
-	}
-	MeLanbide11I18n i18nM11Tab2 = MeLanbide11I18n.getInstance();
+	UsuarioValueObject usuario = (UsuarioValueObject) session.getAttribute("usuario");
+	int idiomaUsuario = (usuario != null) ? usuario.getIdioma() : 1;
+	int apl = (usuario != null) ? usuario.getAppCod() : 5;
+	String css = (usuario != null) ? usuario.getCss() : "";
+	MeLanbide11I18n meLanbide11I18n = MeLanbide11I18n.getInstance();
 	String numExpedienteTab2 = (String) request.getAttribute("numExp");
 	String idContratoTab2 = (String) request.getAttribute("id");
 %>
-</style>
+<%-- âœ… CAMBIO 3: Enlaces a CSS y JS estÃ¡ndar del mÃ³dulo --%>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/extension/melanbide11/melanbide11.css"/>
+<script src="<%=request.getContextPath()%>/scripts/extension/melanbide11/JavaScriptUtil.js"></script>
 
 
 <div class="m11-desglose-wrapper">
 
+  <%-- âœ… CAMBIO 4: TÃ­tulo con legendAzul e i18n segÃºn idioma del usuario --%>
+  <div class="legendAzul"><%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.titulo1") %></div>
 
-  <div class="legendAzul"><%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.titulo1") %></div>
-
-	<div class="m11-loader" id="loaderDesgloseRSB"><%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.cargando") %></div>
+	<div class="m11-loader" id="loaderDesgloseRSB"><%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.cargando") %></div>
 	<div id="wrapperTablaDesgloseRSB" class="m11-desglose-wrapper" style="display:none; width:100%;">
 		<div id="tablaDesgloseRSB" align="center"></div>
 	</div>
 
 
+	 <%-- âœ… CAMBIO 5: Botones con i18n segÃºn idioma del usuario --%>
 	 <div class="botonera" style="text-align: center; margin: 20px 0 10px 0; padding-top: 10px">
-		<input type="button" id="btnNuevoT1" class="botonGeneral" value="<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "btn.nuevo") %>" onclick="m11_nuevoLineaTipo1();" />
-		<input type="button" id="btnModificarT1" class="botonGeneral" value="<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "btn.modificar") %>" onclick="m11_modificarLineaTipo1();" />
-		<input type="button" id="btnEliminarT1" class="botonGeneral" value="<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "btn.eliminar") %>" onclick="m11_eliminarLineaTipo1();" />
+		<input type="button" id="btnNuevoT1" class="botonGeneral" value="<%= meLanbide11I18n.getMensaje(idiomaUsuario, "btn.nuevo") %>" onclick="m11_nuevoLineaTipo1();" />
+		<input type="button" id="btnModificarT1" class="botonGeneral" value="<%= meLanbide11I18n.getMensaje(idiomaUsuario, "btn.modificar") %>" onclick="m11_modificarLineaTipo1();" />
+		<input type="button" id="btnEliminarT1" class="botonGeneral" value="<%= meLanbide11I18n.getMensaje(idiomaUsuario, "btn.eliminar") %>" onclick="m11_eliminarLineaTipo1();" />
 	</div>
 
 	<div id="mensajeVacioDesglose" class="m11-empty" style="display:none;">
-		<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.sinLineas") %>
+		<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.sinLineas") %>
 	</div>
 	
-  <div class="legendAzul" style="margin-top:12px;"><%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.titulo2") %></div>
+  <%-- âœ… CAMBIO 6: TÃ­tulo con legendAzul e i18n segÃºn idioma del usuario --%>
+  <div class="legendAzul" style="margin-top:12px;"><%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.titulo2") %></div>
 
-	<div class="m11-loader" id="loaderDesgloseRSB2" style="display:none;"><%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.cargando") %></div>
+	<div class="m11-loader" id="loaderDesgloseRSB2" style="display:none;"><%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.cargando") %></div>
 	<div id="wrapperTablaDesgloseRSB2" class="m11-desglose-wrapper" style="display:none; width:100%;">
 		<div id="tablaDesgloseRSB2" align="center"></div>
 	</div>
 
 	
 	<div  class="botonera" style="text-align: center; margin: 20px 0 10px 0; padding-top: 10px"
-		<input type="button" id="btnNuevoT2" class="botonGeneral" value="<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "btn.nuevo") %>" onclick="m11_nuevoLineaTipo2();" />
-		<input type="button" id="btnModificarT2" class="botonGeneral" value="<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "btn.modificar") %>" onclick="m11_modificarLineaTipo2();" />
-		<input type="button" id="btnEliminarT2" class="botonGeneral" value="<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "btn.eliminar") %>" onclick="m11_eliminarLineaTipo2();" />
+		<input type="button" id="btnNuevoT2" class="botonGeneral" value="<%= meLanbide11I18n.getMensaje(idiomaUsuario, "btn.nuevo") %>" onclick="m11_nuevoLineaTipo2();" />
+		<input type="button" id="btnModificarT2" class="botonGeneral" value="<%= meLanbide11I18n.getMensaje(idiomaUsuario, "btn.modificar") %>" onclick="m11_modificarLineaTipo2();" />
+		<input type="button" id="btnEliminarT2" class="botonGeneral" value="<%= meLanbide11I18n.getMensaje(idiomaUsuario, "btn.eliminar") %>" onclick="m11_eliminarLineaTipo2();" />
 	</div>
 
 	<div id="mensajeVacioDesglose2" class="m11-empty" style="display:none;">
-		<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.sinLineas") %>
+		<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.sinLineas") %>
 	</div>
 	
 	
 	<div id="m11DialogOverlay" class="m11-dialog-overlay" role="dialog" aria-modal="true" aria-labelledby="m11DialogTitle" style="display:none">
 		<div class="m11-dialog">
-			<header id="m11DialogTitle" class="m11-title">Editar línea</header>
+			<header id="m11DialogTitle" class="m11-title">Editar lï¿½nea</header>
 			<div class="body">
+				<%-- âœ… CAMBIO 8: Etiquetas de modal con i18n segÃºn idioma del usuario --%>
 				<div class="lineaFormulario">
 					<div class="etiqueta">
-						<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.col.importe") %>
+						<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.col.importe") %>
 					</div>
 					<input type="text" id="dlgImporte" class="inputTexto" placeholder="0,00" style="text-align: right;" />
 				</div>
 				
 				<div class="lineaFormulario">
 					<div class="etiqueta">
-						<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.col.concepto") %>
+						<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.col.concepto") %>
 					</div>
 					<div class="dropdown-container">
 						<input type="text" id="dlgConcepto" class="inputTexto dropdown-input" readonly="true" placeholder="Seleccionar concepto..." />
@@ -81,14 +84,15 @@
 				
 				<div class="lineaFormulario">
 					<div class="etiqueta">
-						<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.col.observ") %>
+						<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.col.observ") %>
 					</div>
 					<textarea id="dlgObserv" class="inputTexto" maxlength="500" rows="3" placeholder="Observaciones..."></textarea>
 				</div>
 			</div>
 			<footer>
-				<input type="button" id="dlgAceptar" class="botonGeneral" value="<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "btn.aceptar") %>" />
-				<input type="button" id="dlgCancelar" class="botonGeneral" value="Cancelar" />
+				<%-- âœ… CAMBIO 7: Botones de modal con i18n segÃºn idioma del usuario --%>
+				<input type="button" id="dlgAceptar" class="botonGeneral" value="<%= meLanbide11I18n.getMensaje(idiomaUsuario, "btn.aceptar") %>" />
+				<input type="button" id="dlgCancelar" class="botonGeneral" value="<%= meLanbide11I18n.getMensaje(idiomaUsuario, "btn.cancelar") %>" />
 			</footer>
 		</div>
 	</div>
@@ -130,30 +134,31 @@
 	}
 	function mostrarVacio(){ muestraEstado('vacio'); }
 
+  // âœ… CAMBIO 9: Columnas de tabla con i18n segÃºn idioma del usuario
   function crearTablasDesglose(){
-    // Crear con ancho dinámico para evitar scroll horizontal
+    // Crear con ancho dinï¿½mico para evitar scroll horizontal
     var anchoInicial = 600; // Ancho inicial conservador
     
     tablaDesgloseTipo1 = new FixedColumnTable(document.getElementById('tablaDesgloseRSB'), anchoInicial, anchoInicial, 'tablaDesgloseRSB');
-    tablaDesgloseTipo1.addColumna('100', 'right', '<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.col.importe") %>');
-    tablaDesgloseTipo1.addColumna('120', 'left',  '<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.col.concepto") %>');
-    tablaDesgloseTipo1.addColumna('380', 'left', '<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.col.observ") %>');
+    tablaDesgloseTipo1.addColumna('100', 'right', '<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.col.importe") %>');
+    tablaDesgloseTipo1.addColumna('120', 'left',  '<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.col.concepto") %>');
+    tablaDesgloseTipo1.addColumna('380', 'left', '<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.col.observ") %>');
     tablaDesgloseTipo1.displayCabecera = true; tablaDesgloseTipo1.height = 200; tablaDesgloseTipo1.altoCabecera = 30;
     tablaDesgloseTipo1.dblClkFunction = 'dblClckTablaDesgloseTipo1';
 
     tablaDesgloseTipo2 = new FixedColumnTable(document.getElementById('tablaDesgloseRSB2'), anchoInicial, anchoInicial, 'tablaDesgloseRSB2');
-    tablaDesgloseTipo2.addColumna('100', 'right', '<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.col.importe") %>');
-    tablaDesgloseTipo2.addColumna('120', 'left',  '<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.col.concepto") %>');
-    tablaDesgloseTipo2.addColumna('380', 'left', '<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.col.observ") %>');
+    tablaDesgloseTipo2.addColumna('100', 'right', '<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.col.importe") %>');
+    tablaDesgloseTipo2.addColumna('120', 'left',  '<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.col.concepto") %>');
+    tablaDesgloseTipo2.addColumna('380', 'left', '<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.col.observ") %>');
     tablaDesgloseTipo2.displayCabecera = true; tablaDesgloseTipo2.height = 200; tablaDesgloseTipo2.altoCabecera = 30;
     tablaDesgloseTipo2.dblClkFunction = 'dblClckTablaDesgloseTipo2';
   }
 	function recalcularAnchoTabla(){
-		// Eliminar scroll horizontal ajustando dinámicamente el ancho de las tablas
+		// Eliminar scroll horizontal ajustando dinï¿½micamente el ancho de las tablas
 		try {
 			var contenedor = document.getElementById('m11Container') || document.body;
 			var anchoContenedor = contenedor.offsetWidth || 750;
-			var anchoDisponible = Math.max(600, anchoContenedor - 100); // Más margen para evitar scrolls
+			var anchoDisponible = Math.max(600, anchoContenedor - 100); // Mï¿½s margen para evitar scrolls
 			
 			console.log('Recalculando ancho tabla:', anchoDisponible);
 			
@@ -184,11 +189,11 @@
 			selectors.forEach(function(selector) {
 				var elementos = document.querySelectorAll(selector);
 				for (var i = 0; i < elementos.length; i++) {
-					// Solo aplicar estilos si el elemento no está oculto
+					// Solo aplicar estilos si el elemento no estï¿½ oculto
 					if (elementos[i].style.display !== 'none') {
 						elementos[i].style.maxWidth = anchoDisponible + 'px';
 						elementos[i].style.overflowX = 'hidden';
-						// No forzar width: 100% en wrappers que podrían necesitar display específico
+						// No forzar width: 100% en wrappers que podrï¿½an necesitar display especï¿½fico
 						if (!elementos[i].id || (elementos[i].id.indexOf('wrapper') === -1 && elementos[i].id.indexOf('tabla') === -1)) {
 							elementos[i].style.width = '100%';
 						}
@@ -198,7 +203,7 @@
 			
 			// Forzar que NO aparezcan scrolls horizontales en divs internos
 			setTimeout(function() {
-				// Ocultar solo los scrolls horizontales específicos de FixedColumnTable
+				// Ocultar solo los scrolls horizontales especï¿½ficos de FixedColumnTable
 				var scrollElements = document.querySelectorAll('[id*="hScroll_"]:not([id*="wrapper"]):not([id*="tabla"])');
 				for (var i = 0; i < scrollElements.length; i++) {
 					scrollElements[i].style.display = 'none';
@@ -216,7 +221,7 @@
 				}
 			}, 50);
 			
-			// Solo ocultar scrolls específicos, no todos los elementos
+			// Solo ocultar scrolls especï¿½ficos, no todos los elementos
 			setTimeout(function() {
 				var scrollsEspecificos = document.querySelectorAll('[id^="hScroll_"], [id*="_hScroll"]');
 				for (var i = 0; i < scrollsEspecificos.length; i++) {
@@ -266,14 +271,14 @@
 			.forEach(function(id){ var el=document.getElementById(id); if(el){ el.disabled = !enabled; }});
 	}
 
-	// Dilogo inline
+	// Dilogo overlay con estilos inline para asegurar posicionamiento correcto
 	var _dlgOnOk = null, _dlgTipo = '1';
 	function abrirDialogoLinea(tipo, def, onOk) {
 		_dlgTipo = String(tipo || '1'); _dlgOnOk = (typeof onOk === 'function') ? onOk : null;
 		var esNuevo = (def == null); def = def || { importe: 0, concepto: '', observ: '' };
 		var titulo = document.getElementById('m11DialogTitle'); 
 		if (titulo) { 
-			titulo.textContent = esNuevo ? 'Alta retribución' : 'Modificar retribución'; 
+			titulo.textContent = esNuevo ? 'Alta retribuciï¿½n' : 'Modificar retribuciï¿½n'; 
 		}
 		var elImp = document.getElementById('dlgImporte'); 
 		var elCon = document.getElementById('dlgConcepto'); 
@@ -291,18 +296,42 @@
 		if (elConCod) elConCod.value = def.concepto || '';
 		if (elObs) elObs.value = def.observ || '';
 		var overlay = document.getElementById('m11DialogOverlay'); 
-		if (overlay) { 
-			overlay.style.display = 'flex'; 
-			try { (document.body||document.documentElement).style.overflow='hidden'; }catch(e){} 
+		if (overlay) {
+			// Aplicar estilos inline para asegurar overlay correcto
+			overlay.style.position = 'fixed';
+			overlay.style.top = '0';
+			overlay.style.left = '0';
+			overlay.style.width = '100%';
+			overlay.style.height = '100%';
+			overlay.style.zIndex = '999999';
+			overlay.style.display = 'flex';
+			overlay.style.alignItems = 'center';
+			overlay.style.justifyContent = 'center';
+			overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+			// Prevenir scroll del body
+			try { 
+				document.body.style.overflow = 'hidden'; 
+			} catch(e) {} 
 			setTimeout(function(){ try{ elImp && elImp.focus(); }catch(e){} },10); 
 		}
 	}
-	function cerrarDialogo(){ var o=document.getElementById('m11DialogOverlay'); if(o){o.style.display='none';} try{ (document.body||document.documentElement).style.overflow=''; }catch(e){} _dlgOnOk=null; try{ setTimeout(recalcularAnchoTabla,60);}catch(e){} }
+	function cerrarDialogo(){ 
+		var o=document.getElementById('m11DialogOverlay'); 
+		if(o){
+			o.style.display='none';
+		} 
+		// Restaurar scroll del body
+		try{ 
+			document.body.style.overflow = ''; 
+		}catch(e){} 
+		_dlgOnOk=null; 
+		try{ setTimeout(recalcularAnchoTabla,60);}catch(e){} 
+	}
 	document.getElementById('dlgCancelar').onclick = function(){ cerrarDialogo(); };
 	document.getElementById('dlgAceptar').onclick = function(){
 		var elImp=document.getElementById('dlgImporte'), elCon=document.getElementById('dlgConceptoCodigo'), elObs=document.getElementById('dlgObserv');
 		var impNum = parseImporte((elImp && elImp.value)||'0');
-		if(isNaN(impNum) || impNum<0){ jsp_alerta('A','Importe no válido'); try{ elImp && elImp.focus(); }catch(e){} return; }
+		if(isNaN(impNum) || impNum<0){ jsp_alerta('A','Importe no vï¿½lido'); try{ elImp && elImp.focus(); }catch(e){} return; }
 		var codigoConcepto = (elCon && elCon.value) || '';
 		if(!codigoConcepto){ jsp_alerta('A','Debe seleccionar un concepto'); return; }
 		var datos = { importe: impNum, concepto: codigoConcepto, observ: (elObs && elObs.value)||'' };
@@ -314,7 +343,7 @@
 		mostrarOpcionesConcepto();
 	};
 	
-	// También manejar click en el contenedor dropdown
+	// Tambiï¿½n manejar click en el contenedor dropdown
 	document.addEventListener('click', function(event) {
 		var dropdown = document.querySelector('.dropdown-container');
 		if (dropdown && dropdown.contains(event.target)) {
@@ -323,7 +352,7 @@
 	});
 
 	function mostrarOpcionesConcepto() {
-		// Cerrar dropdown existente si está abierto
+		// Cerrar dropdown existente si estï¿½ abierto
 		cerrarDropdownConcepto();
 		
 		var opciones = [
@@ -331,7 +360,7 @@
 			{ codigo: 'V', texto: 'Variable' }
 		];
 		
-		// Crear el menú dropdown
+		// Crear el menï¿½ dropdown
 		var menuHtml = '<div class="dropdown-menu">';
 		for (var i = 0; i < opciones.length; i++) {
 			menuHtml += '<div class="dropdown-option" data-codigo="' + opciones[i].codigo + '" data-texto="' + opciones[i].texto + '">' + 
@@ -339,7 +368,7 @@
 		}
 		menuHtml += '</div>';
 		
-		// Agregar el menú al contenedor
+		// Agregar el menï¿½ al contenedor
 		var contenedorDropdown = document.querySelector('.dropdown-container');
 		if (contenedorDropdown) {
 			contenedorDropdown.insertAdjacentHTML('beforeend', menuHtml);
@@ -396,7 +425,7 @@
 	}
 
 	function guardarLineasDesglose(callback){
-		if(!dniCache || (dniCache+'').trim()===''){ jsp_alerta('A','<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.alert.seleccione") %>'); return; }
+		if(!dniCache || (dniCache+'').trim()===''){ jsp_alerta('A','<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.alert.seleccione") %>'); return; }
 		var raw = construirRawDesdeCache();
 		var xhr = new XMLHttpRequest();
 		var url = ctx + '/PeticionModuloIntegracion.do?tarea=preparar&modulo=MELANBIDE11&operacion=guardarLineasDesgloseRSB&tipo=0&numExp=' + encodeURIComponent(numExp) + '&dni=' + encodeURIComponent(dniCache);
@@ -457,12 +486,12 @@
 	}
 
 	// Exponer manejadores
-	window.m11_nuevoLineaTipo1 = function(){ if(!dniCache){ actualizarEstadoBotones(); jsp_alerta('A','<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.alert.seleccione") %>'); return; } agregarLinea(1); };
-	window.m11_modificarLineaTipo1 = function(){ if(!dniCache){ actualizarEstadoBotones(); jsp_alerta('A','<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.alert.seleccione") %>'); return; } if (!tablaDesgloseTipo1 || tablaDesgloseTipo1.selectedIndex == -1){ jsp_alerta('A','Seleccione una fila de la tabla de complementos salariales'); return; } modificarLinea(1); };
-	window.m11_eliminarLineaTipo1 = function(){ if(!dniCache){ actualizarEstadoBotones(); jsp_alerta('A','<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.alert.seleccione") %>'); return; } if (!tablaDesgloseTipo1 || tablaDesgloseTipo1.selectedIndex == -1){ jsp_alerta('A','Seleccione una fila de la tabla de complementos salariales'); return; } eliminarLinea(1); };
-	window.m11_nuevoLineaTipo2 = function(){ if(!dniCache){ actualizarEstadoBotones(); jsp_alerta('A','<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.alert.seleccione") %>'); return; } agregarLinea(2); };
-	window.m11_modificarLineaTipo2 = function(){ if(!dniCache){ actualizarEstadoBotones(); jsp_alerta('A','<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.alert.seleccione") %>'); return; } if (!tablaDesgloseTipo2 || tablaDesgloseTipo2.selectedIndex == -1){ jsp_alerta('A','Seleccione una fila de la tabla de complementos extrasalariales'); return; } modificarLinea(2); };
-	window.m11_eliminarLineaTipo2 = function(){ if(!dniCache){ actualizarEstadoBotones(); jsp_alerta('A','<%= i18nM11Tab2.getMensaje(idiomaUsuarioTab2, "tab2.desglose.alert.seleccione") %>'); return; } if (!tablaDesgloseTipo2 || tablaDesgloseTipo2.selectedIndex == -1){ jsp_alerta('A','Seleccione una fila de la tabla de complementos extrasalariales'); return; } eliminarLinea(2); };
+	window.m11_nuevoLineaTipo1 = function(){ if(!dniCache){ actualizarEstadoBotones(); jsp_alerta('A','<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.alert.seleccione") %>'); return; } agregarLinea(1); };
+	window.m11_modificarLineaTipo1 = function(){ if(!dniCache){ actualizarEstadoBotones(); jsp_alerta('A','<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.alert.seleccione") %>'); return; } if (!tablaDesgloseTipo1 || tablaDesgloseTipo1.selectedIndex == -1){ jsp_alerta('A','Seleccione una fila de la tabla de complementos salariales'); return; } modificarLinea(1); };
+	window.m11_eliminarLineaTipo1 = function(){ if(!dniCache){ actualizarEstadoBotones(); jsp_alerta('A','<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.alert.seleccione") %>'); return; } if (!tablaDesgloseTipo1 || tablaDesgloseTipo1.selectedIndex == -1){ jsp_alerta('A','Seleccione una fila de la tabla de complementos salariales'); return; } eliminarLinea(1); };
+	window.m11_nuevoLineaTipo2 = function(){ if(!dniCache){ actualizarEstadoBotones(); jsp_alerta('A','<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.alert.seleccione") %>'); return; } agregarLinea(2); };
+	window.m11_modificarLineaTipo2 = function(){ if(!dniCache){ actualizarEstadoBotones(); jsp_alerta('A','<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.alert.seleccione") %>'); return; } if (!tablaDesgloseTipo2 || tablaDesgloseTipo2.selectedIndex == -1){ jsp_alerta('A','Seleccione una fila de la tabla de complementos extrasalariales'); return; } modificarLinea(2); };
+	window.m11_eliminarLineaTipo2 = function(){ if(!dniCache){ actualizarEstadoBotones(); jsp_alerta('A','<%= meLanbide11I18n.getMensaje(idiomaUsuario, "tab2.desglose.alert.seleccione") %>'); return; } if (!tablaDesgloseTipo2 || tablaDesgloseTipo2.selectedIndex == -1){ jsp_alerta('A','Seleccione una fila de la tabla de complementos extrasalariales'); return; } eliminarLinea(2); };
 
 	// Doble click
 	window.dblClckTablaDesgloseTipo1 = function(){ if (tablaDesgloseTipo1 && tablaDesgloseTipo1.selectedIndex != -1) { m11_modificarLineaTipo1(); } };

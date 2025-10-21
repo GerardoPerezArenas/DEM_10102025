@@ -131,7 +131,7 @@ import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeL
     <jsp:setProperty name="descriptor" property="apl_cod" value="<%=apl%>" />
 
     <div id="m11Container" style="width: 750px; margin: 10px auto 12px auto">
-      <!-- Cabecera con estilo unificado -->
+      <%-- ✅ CAMBIO 1: Cabecera con i18n según idioma del usuario --%>
       <div class="legendAzul">
         <h1
           id="tituloPrincipalM11"
@@ -142,7 +142,7 @@ import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeL
             line-height: 1.2;
           "
         >
-          Desglose retribucin salarial bruta
+          <%= I18N.getMensaje(idiomaUsuario, "label.m11.desglose.cabecera") %>
         </h1>
         <div style="text-align: center; font-size: 13px; margin: 10px">
           <strong>Expediente:</strong> <%=
@@ -150,15 +150,14 @@ import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeL
         </div>
       </div>
 
+      <%-- ✅ CAMBIO 2: Títulos de pestañas con i18n según idioma del usuario --%>
       <div id="tab-panel-m11" class="tab-pane m11-tabs">
         <div class="tab-header-container">
           <h2 class="tab" data-tab="tabPageM11_1">
-            <%= I18N.getMensaje(idiomaUsuario, "label.m11.desglose.titulo.tab1")
-            %>
+            <%= I18N.getMensaje(idiomaUsuario, "label.m11.desglose.titulo.tab1") %>
           </h2>
           <h2 class="tab" data-tab="tabPageM11_2">
-            <%= I18N.getMensaje(idiomaUsuario, "label.m11.desglose.titulo.tab2")
-            %>
+            <%= I18N.getMensaje(idiomaUsuario, "label.m11.desglose.titulo.tab2") %>
           </h2>
         </div>
         
@@ -173,6 +172,7 @@ import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeL
         </div>
       </div>
 
+      <%-- ✅ CAMBIO 3: Botones con i18n según idioma del usuario --%>
       <div
         class="botonera"
         style="text-align: center; margin: 20px 0 10px 0; padding-top: 10px"
@@ -182,7 +182,7 @@ import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeL
           id="btnAceptar"
           name="btnAceptar"
           class="botonGeneral"
-          value="Aceptar"
+          value="<%= I18N.getMensaje(idiomaUsuario, "btn.aceptar") %>"
           onclick="aceptarDesglose();"
         />
         <input
@@ -190,7 +190,7 @@ import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeL
           id="btnCancelar"
           name="btnCancelar"
           class="botonGeneral"
-          value="Cancelar"
+          value="<%= I18N.getMensaje(idiomaUsuario, "btn.cancelar") %>"
           onclick="cancelarDesglose();"
         />
       </div>
@@ -258,7 +258,7 @@ import="es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeL
           if (typeof window.guardarDesglose === "function") {
             window.guardarDesglose();
 
-            // Cerrar modal despu�s de guardar
+            // Cerrar modal despu�s de guardar
             setTimeout(function () {
               try {
                 // Intentar callback al padre
