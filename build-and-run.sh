@@ -62,10 +62,37 @@ if [ ! -d "${TOMCAT_DIR}" ]; then
     
     if [ ! -f "${TOMCAT_ARCHIVE}" ]; then
         log_info "Descargando desde ${TOMCAT_URL}..."
-        curl -L -o "${TOMCAT_ARCHIVE}" "${TOMCAT_URL}" || {
+        
+        # Intentar con curl primero
+        if curl -L -o "${TOMCAT_ARCHIVE}" "${TOMCAT_URL}" 2>/dev/null; then
+            log_info "Descarga completada con curl"
+        # Si curl falla, intentar con wget
+        elif wget -O "${TOMCAT_ARCHIVE}" "${TOMCAT_URL}" 2>/dev/null; then
+            log_info "Descarga completada con wget"
+        else
             log_error "Error al descargar Tomcat"
+            echo ""
+            echo "==========================================="
+            echo "  INSTRUCCIONES DE INSTALACIÓN MANUAL"
+            echo "==========================================="
+            echo ""
+            echo "1. Descarga Tomcat manualmente desde:"
+            echo "   ${TOMCAT_URL}"
+            echo ""
+            echo "2. Coloca el archivo en este directorio:"
+            echo "   $(pwd)/${TOMCAT_ARCHIVE}"
+            echo ""
+            echo "3. Ejecuta este script nuevamente:"
+            echo "   ./build-and-run.sh"
+            echo ""
+            echo "Alternativamente, puedes usar cualquier versión de Tomcat 9.x:"
+            echo "1. Descarga Tomcat 9 desde https://tomcat.apache.org/download-90.cgi"
+            echo "2. Extráela en este directorio"
+            echo "3. Renombra la carpeta a: ${TOMCAT_DIR}"
+            echo "4. Ejecuta este script nuevamente"
+            echo ""
             exit 1
-        }
+        fi
     else
         log_info "Archivo de Tomcat ya existe, usando copia local..."
     fi

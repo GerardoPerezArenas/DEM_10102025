@@ -1,5 +1,6 @@
 # Build artifacts
 build/
+demo-build/
 *.class
 *.jar
 *.war
