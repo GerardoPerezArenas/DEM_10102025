@@ -68,7 +68,7 @@ private static String escJS(Object v){
         });
     }
 
-    // Navegación a Desglose RSB con selección obligatoria
+    // Navegaciï¿½n a Desglose RSB con selecciï¿½n obligatoria
     function irDesgloseRSB(){
         if (typeof tabaAccesos === 'undefined' || tabaAccesos.selectedIndex == -1){
             jsp_alerta('A','<%=meLanbide11I18n.getMensaje(idiomaUsuario,"msg.msjNoSelecFila")%>');
@@ -193,8 +193,26 @@ private static String escJS(Object v){
                     } else if (celda.nodeName === "FECHNACCONT") { fila[8] = val;
                     } else if (celda.nodeName === "EDADCONT") { fila[9] = val;
                     } else if (celda.nodeName === "SEXOCONT") { fila[10] = val;
-                    } else if (celda.nodeName === "MAY55CONT") { fila[11] = val;
-                    } else if (celda.nodeName === "ACCFORCONT") { fila[12] = val;
+                    } else if (celda.nodeName === "MAY55CONT") {
+                        if (val && val !== '-') {
+                            var barraSeparadora = ' / ';
+                            var partes = val.split(barraSeparadora);
+                            if (partes.length > 1) {
+                                var idiomaActivo = <%=idiomaUsuario%>;
+                                val = (idiomaActivo === 2) ? partes[1] : partes[0];
+                            }
+                        }
+                        fila[11] = val;
+                    } else if (celda.nodeName === "ACCFORCONT") {
+                        if (val && val !== '-') {
+                            var barraSeparadora = ' / ';
+                            var partes = val.split(barraSeparadora);
+                            if (partes.length > 1) {
+                                var idiomaActivo = <%=idiomaUsuario%>;
+                                val = (idiomaActivo === 2) ? partes[1] : partes[0];
+                            }
+                        }
+                        fila[12] = val;
                     } else if (celda.nodeName === "CODFORCONT") { fila[13] = val;
                     } else if (celda.nodeName === "DENFORCONT") { fila[14] = val;
                     } else if (celda.nodeName === "PUESTOCONT") { fila[15] = val;
@@ -304,7 +322,7 @@ private static String escJS(Object v){
 
         tabaAccesos.addColumna('70',  'center', '<%=meLanbide11I18n.getMensaje(idiomaUsuario,"contratacion.tablaContrataciones.importeSub")%>');
 
-        // Históricos al final
+        // Histï¿½ricos al final
         tabaAccesos.addColumna('330', 'center', '<%=meLanbide11I18n.getMensaje(idiomaUsuario,"contratacion.tablaContrataciones.desTitulacion")%> (consulta)');
         tabaAccesos.addColumna('330', 'center', '<%=meLanbide11I18n.getMensaje(idiomaUsuario,"contratacion.historico.titulacion")%> (consulta)');
 
@@ -475,7 +493,7 @@ private static String escJS(Object v){
                             if(idiomaUsuario==ConstantesMeLanbide11.CODIGO_IDIOMA_EUSKERA){
                                 descripcion=descripcionDobleIdioma[1];
                             }else{
-                                // Cogemos la primera posición que debería ser castellano
+                                // Cogemos la primera posiciï¿½n que deberï¿½a ser castellano
                                 descripcion=descripcionDobleIdioma[0];
                             }
                 }
@@ -522,7 +540,7 @@ private static String escJS(Object v){
                             if(idiomaUsuario==ConstantesMeLanbide11.CODIGO_IDIOMA_EUSKERA){
                                 descripcion=descripcionDobleIdioma[1];
                             }else{
-                                // Cogemos la primera posición que debería ser castellano
+                                // Cogemos la primera posiciï¿½n que deberï¿½a ser castellano
                                 descripcion=descripcionDobleIdioma[0];
                             }
                 }
@@ -558,7 +576,7 @@ private static String escJS(Object v){
                             if(idiomaUsuario==ConstantesMeLanbide11.CODIGO_IDIOMA_EUSKERA){
                                 descripcion=descripcionDobleIdioma[1];
                             }else{
-                                // Cogemos la primera posición que debería ser castellano
+                                // Cogemos la primera posiciï¿½n que deberï¿½a ser castellano
                                 descripcion=descripcionDobleIdioma[0];
                             }
                 }
