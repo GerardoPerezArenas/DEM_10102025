@@ -8,7 +8,7 @@ import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.DesgloseRSBVO;
 /**
  * Parser utilitario para las lineas de desglose RSB. Formato esperado: filas
  * separadas por ';;' y columnas por '|' Cada fila: tipo|importe|concepto|observ
- * - tipo: '1' (salarial) o '2' (extrasalarial). Se permiten otros códigos; se
+ * - tipo: '1' (salarial) o '2' (extrasalarial). Se permiten otros cÃ³digos; se
  * almacenan tal cual. - importe: double (se aceptan comas decimales) -
  * concepto: texto libre - observ: texto libre; se duplican comillas simples
  * para prevenir SQL rudimentario (legacy)
@@ -21,7 +21,7 @@ public final class DesgloseRSBParser {
     public static List<DesgloseRSBVO> parse(String raw) {
         List<DesgloseRSBVO> lista = new ArrayList<DesgloseRSBVO>();
         if (raw == null || raw.trim().isEmpty()) {
-            return lista; // vacío => solo borrado
+            return lista; // vacÃ­o => solo borrado
         }
         String[] filas = raw.split(";;");
         for (String fila : filas) {

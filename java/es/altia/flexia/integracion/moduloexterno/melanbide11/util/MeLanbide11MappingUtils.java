@@ -79,11 +79,11 @@ public class MeLanbide11MappingUtils {
     /**
      * Comprueba de forma segura si el ResultSet contiene una columna con la
      * etiqueta dada. Evita lanzar SQLException en mapeos parciales cuando algunos
-     * SELECT no incluyen columnas reciÈn aÒadidas.
+     * SELECT no incluyen columnas reci√©n a√±adidas.
      */
     private boolean hasColumn(ResultSet rs, String columnLabel) {
         try {
-            // Acceso por nombre; devolver· excepciÛn si no existe la etiqueta.
+            // Acceso por nombre; devolver√° excepci√≥n si no existe la etiqueta.
             rs.findColumn(columnLabel);
             return true;
         } catch (SQLException ex) {
@@ -173,13 +173,13 @@ public class MeLanbide11MappingUtils {
             Double rsbSalBase = new Double(rs.getDouble("RSBSALBASE"));
             if (!rs.wasNull() && rsbSalBase != 0) {
                 contratacion.setRsbSalBase(rsbSalBase.doubleValue());
-                log.info("*** MAPPING RSB *** Mapeado RSBSALBASE: " + rsbSalBase + " para contrataciÛn ID: "
+                log.info("*** MAPPING RSB *** Mapeado RSBSALBASE: " + rsbSalBase + " para contrataci√≥n ID: "
                         + contratacion.getId());
             } else {
-                log.info("*** MAPPING RSB *** RSBSALBASE es null o 0 para contrataciÛn ID: " + contratacion.getId());
+                log.info("*** MAPPING RSB *** RSBSALBASE es null o 0 para contrataci√≥n ID: " + contratacion.getId());
             }
         } else {
-            log.warn("*** MAPPING RSB *** Columna RSBSALBASE NO existe en ResultSet para contrataciÛn ID: "
+            log.warn("*** MAPPING RSB *** Columna RSBSALBASE NO existe en ResultSet para contrataci√≥n ID: "
                     + contratacion.getId());
         }
 
@@ -187,13 +187,13 @@ public class MeLanbide11MappingUtils {
             Double rsbPagExtra = new Double(rs.getDouble("RSBPAGEXTRA"));
             if (!rs.wasNull() && rsbPagExtra != 0) {
                 contratacion.setRsbPagExtra(rsbPagExtra.doubleValue());
-                log.info("*** MAPPING RSB *** Mapeado RSBPAGEXTRA: " + rsbPagExtra + " para contrataciÛn ID: "
+                log.info("*** MAPPING RSB *** Mapeado RSBPAGEXTRA: " + rsbPagExtra + " para contrataci√≥n ID: "
                         + contratacion.getId());
             } else {
-                log.info("*** MAPPING RSB *** RSBPAGEXTRA es null o 0 para contrataciÛn ID: " + contratacion.getId());
+                log.info("*** MAPPING RSB *** RSBPAGEXTRA es null o 0 para contrataci√≥n ID: " + contratacion.getId());
             }
         } else {
-            log.warn("*** MAPPING RSB *** Columna RSBPAGEXTRA NO existe en ResultSet para contrataciÛn ID: "
+            log.warn("*** MAPPING RSB *** Columna RSBPAGEXTRA NO existe en ResultSet para contrataci√≥n ID: "
                     + contratacion.getId());
         }
 
@@ -201,18 +201,18 @@ public class MeLanbide11MappingUtils {
             Double rsbCompConv = new Double(rs.getDouble("RSBCOMPCONV"));
             if (!rs.wasNull() && rsbCompConv != 0) {
                 contratacion.setRsbCompConv(rsbCompConv.doubleValue());
-                log.info("*** MAPPING RSB *** Mapeado RSBCOMPCONV: " + rsbCompConv + " para contrataciÛn ID: "
+                log.info("*** MAPPING RSB *** Mapeado RSBCOMPCONV: " + rsbCompConv + " para contrataci√≥n ID: "
                         + contratacion.getId());
                 log.info("*** MAPPING RSB DETALLE *** ID: " + contratacion.getId() + " - RSBCOMPCONV desde BD: "
                         + rsbCompConv + " - getRsbComputableTotal(): " + contratacion.getRsbComputableTotal());
             } else {
-                log.info("*** MAPPING RSB *** RSBCOMPCONV es null o 0 para contrataciÛn ID: " + contratacion.getId());
+                log.info("*** MAPPING RSB *** RSBCOMPCONV es null o 0 para contrataci√≥n ID: " + contratacion.getId());
                 log.info("*** MAPPING RSB DETALLE *** ID: " + contratacion.getId() + " - RSBCOMPCONV desde BD: "
                         + rsbCompConv + " (NULL/0)" + " - getRsbComputableTotal(): "
                         + contratacion.getRsbComputableTotal());
             }
         } else {
-            log.warn("*** MAPPING RSB *** Columna RSBCOMPCONV NO existe en ResultSet para contrataciÛn ID: "
+            log.warn("*** MAPPING RSB *** Columna RSBCOMPCONV NO existe en ResultSet para contrataci√≥n ID: "
                     + contratacion.getId());
         }
 
