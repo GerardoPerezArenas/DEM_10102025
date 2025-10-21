@@ -212,9 +212,9 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
 
     public String cargarListaDesglose(int codOrganizacion, int codTramite, int ocurrenciaTramite, String numExpediente,
             HttpServletRequest request, HttpServletResponse response) {
-        // Compatibilidad hacia atrás: esta operación antigua mostraba un listado
+        // Compatibilidad hacia atrï¿½s: esta operaciï¿½n antigua mostraba un listado
         // simple.
-        // Ahora redirigimos al nuevo flujo de Desglose RSB (modal con pestañas).
+        // Ahora redirigimos al nuevo flujo de Desglose RSB (modal con pestaï¿½as).
         try {
             if (request.getAttribute("numExp") == null) {
                 request.setAttribute("numExp", numExpediente);
@@ -408,7 +408,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
             if (listaSexo != null && listaSexo.size() > 0) {
                 listaSexo = traducirDesplegable(request, listaSexo);
             } else {
-                log.warn("cargarModificarContratacion - listaSexo está vacía o null, inicializando lista vacía");
+                log.warn("cargarModificarContratacion - listaSexo estï¿½ vacï¿½a o null, inicializando lista vacï¿½a");
                 listaSexo = new ArrayList<DesplegableAdmonLocalVO>();
             }
             request.setAttribute("listaSexo", listaSexo);
@@ -422,7 +422,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
             if (listaMayor55 != null && listaMayor55.size() > 0) {
                 listaMayor55 = traducirDesplegable(request, listaMayor55);
             } else {
-                log.warn("cargarModificarContratacion - listaMayor55 está vacía o null, inicializando lista vacía");
+                log.warn("cargarModificarContratacion - listaMayor55 estï¿½ vacï¿½a o null, inicializando lista vacï¿½a");
                 listaMayor55 = new ArrayList<DesplegableAdmonLocalVO>();
             }
             request.setAttribute("listaMayor55", listaMayor55);
@@ -437,7 +437,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                 listaFinFormativa = traducirDesplegable(request, listaFinFormativa);
             } else {
                 log.warn(
-                        "cargarModificarContratacion - listaFinFormativa está vacía o null, inicializando lista vacía");
+                        "cargarModificarContratacion - listaFinFormativa estï¿½ vacï¿½a o null, inicializando lista vacï¿½a");
                 listaFinFormativa = new ArrayList<DesplegableAdmonLocalVO>();
             }
             request.setAttribute("listaFinFormativa", listaFinFormativa);
@@ -451,7 +451,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
             if (listaJornada != null && listaJornada.size() > 0) {
                 listaJornada = traducirDesplegable(request, listaJornada);
             } else {
-                log.warn("cargarModificarContratacion - listaJornada está vacía o null, inicializando lista vacía");
+                log.warn("cargarModificarContratacion - listaJornada estï¿½ vacï¿½a o null, inicializando lista vacï¿½a");
                 listaJornada = new ArrayList<DesplegableAdmonLocalVO>();
             }
             request.setAttribute("listaJornada", listaJornada);
@@ -466,7 +466,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                 listaGrupoCotizacion = traducirDesplegable(request, listaGrupoCotizacion);
             } else {
                 log.warn(
-                        "cargarModificarContratacion - listaGrupoCotizacion está vacía o null, inicializando lista vacía");
+                        "cargarModificarContratacion - listaGrupoCotizacion estï¿½ vacï¿½a o null, inicializando lista vacï¿½a");
                 listaGrupoCotizacion = new ArrayList<DesplegableAdmonLocalVO>();
             }
             request.setAttribute("listaGrupoCotizacion", listaGrupoCotizacion);
@@ -481,7 +481,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                 listaTipRetribucion = traducirDesplegable(request, listaTipRetribucion);
             } else {
                 log.warn(
-                        "cargarModificarContratacion - listaTipRetribucion está vacía o null, inicializando lista vacía");
+                        "cargarModificarContratacion - listaTipRetribucion estï¿½ vacï¿½a o null, inicializando lista vacï¿½a");
                 listaTipRetribucion = new ArrayList<DesplegableAdmonLocalVO>();
             }
             request.setAttribute("listaTipRetribucion", listaTipRetribucion);
@@ -512,7 +512,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
             log.info("cargarModificarContratacion - listaOcupacion cargada: "
                     + (listaOcupacion != null ? listaOcupacion.size() : "null") + " elementos");
             if (listaOcupacion == null || listaOcupacion.size() == 0) {
-                log.warn("cargarModificarContratacion - listaOcupacion está vacía o null, inicializando lista vacía");
+                log.warn("cargarModificarContratacion - listaOcupacion estï¿½ vacï¿½a o null, inicializando lista vacï¿½a");
                 listaOcupacion = new ArrayList<DesplegableExternoVO>();
             }
             request.setAttribute("listaOcupacion", listaOcupacion);
@@ -530,7 +530,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
             log.info("cargarModificarContratacion - listaTitulacion cargada: "
                     + (listaTitulacion != null ? listaTitulacion.size() : "null") + " elementos");
             if (listaTitulacion == null || listaTitulacion.size() == 0) {
-                log.warn("cargarModificarContratacion - listaTitulacion está vacía o null, inicializando lista vacía");
+                log.warn("cargarModificarContratacion - listaTitulacion estï¿½ vacï¿½a o null, inicializando lista vacï¿½a");
                 listaTitulacion = new ArrayList<DesplegableExternoVO>();
             }
             request.setAttribute("listaTitulacion", listaTitulacion);
@@ -549,7 +549,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                     + (listaCProfesionalidad != null ? listaCProfesionalidad.size() : "null") + " elementos");
             if (listaCProfesionalidad == null || listaCProfesionalidad.size() == 0) {
                 log.warn(
-                        "cargarModificarContratacion - listaCProfesionalidad está vacía o null, inicializando lista vacía");
+                        "cargarModificarContratacion - listaCProfesionalidad estï¿½ vacï¿½a o null, inicializando lista vacï¿½a");
                 listaCProfesionalidad = new ArrayList<DesplegableExternoVO>();
             }
             request.setAttribute("listaCProfesionalidad", listaCProfesionalidad);
@@ -581,13 +581,13 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                     try {
                         lista = MeLanbide11Manager.getInstance().getDatosContratacion(numExp, codOrganizacion, adapt);
                     } catch (Exception ex) {
-                        log.error("Error al recuperar la lista de contratación después de eliminar una contratación",
+                        log.error("Error al recuperar la lista de contrataciï¿½n despuï¿½s de eliminar una contrataciï¿½n",
                                 ex);
                     }
                 }
             }
         } catch (Exception ex) {
-            log.error("Error eliminando una contratación: " + ex.getMessage(), ex);
+            log.error("Error eliminando una contrataciï¿½n: " + ex.getMessage(), ex);
             codigoOperacion = "2";
         }
         String xmlSalida = null;
@@ -694,20 +694,35 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
             nuevaContratacion.setDesOcupacion(desOcupacion);
             nuevaContratacion.setDesOcupacionLibre(desOcupacionLibre);
 
-            // Mejorar manejo de campos de titulación para nueva contratación
+            // Mejorar manejo de campos de titulaciï¿½n para nueva contrataciï¿½n
 
-            // Si desTitulacionLibre viene vacío, establecer como null
+            // Si desTitulacionLibre viene vacï¿½o, establecer como null
             if (desTitulacionLibre != null && !desTitulacionLibre.trim().equals("")) {
                 nuevaContratacion.setDesTitulacionLibre(desTitulacionLibre.trim());
             } else {
                 nuevaContratacion.setDesTitulacionLibre(null);
             }
 
-            // Si titulacion viene vacío, establecer como null
+            // Si titulacion viene vacï¿½o, establecer como null
             if (titulacion != null && !titulacion.trim().equals("")) {
                 nuevaContratacion.setTitulacion(titulacion.trim());
             } else {
                 nuevaContratacion.setTitulacion(null);
+            }
+
+            nuevaContratacion.setcProfesionalidad(cProfesionalidad);
+            nuevaContratacion.setModalidadContrato(modalidadContrato);
+            nuevaContratacion.setJornada(jornada);
+            if (porcJornada != null && !"".equals(porcJornada)) {
+                nuevaContratacion.setPorcJornada(Double.parseDouble(porcJornada));
+            }
+            if (horasConv != null && !"".equals(horasConv)) {
+                nuevaContratacion.setHorasConv(Integer.parseInt(horasConv));
+            }
+            if (fechaInicio != null && !"".equals(fechaInicio)) {
+                nuevaContratacion.setFechaInicio(new java.sql.Date(formatoFecha.parse(fechaInicio).getTime()));
+            }
+            if (fechaFin != null && !"".equals(fechaFin)) {
                 nuevaContratacion.setFechaFin(new java.sql.Date(formatoFecha.parse(fechaFin).getTime()));
             }
             nuevaContratacion.setMesesContrato(mesesContrato);
@@ -745,7 +760,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
             if (rsbCompConv != null && !"".equals(rsbCompConv)) {
                 nuevaContratacion.setRsbCompConv(Double.parseDouble(rsbCompConv));
 
-                // Verificar que coincida con el cálculo interno
+                // Verificar que coincida con el cï¿½lculo interno
                 Double totalCalculado = nuevaContratacion.getRsbComputableTotal();
                 if (totalCalculado != null && Math.abs(Double.parseDouble(rsbCompConv) - totalCalculado) > 0.01) {
                     log.warn("ADVERTENCIA: Discrepancia entre total enviado (" + rsbCompConv + ") y total calculado ("
@@ -892,17 +907,17 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                 datModif.setDesOcupacion(desOcupacion);
                 datModif.setDesOcupacionLibre(desOcupacionLibre);
 
-                // Mejorar manejo de campos de titulación
+                // Mejorar manejo de campos de titulaciï¿½n
                 log.info("*** FLUJO RSB - PASO 2: SETEANDO CAMPOS DE TITULACION ***");
 
-                // Si desTitulacionLibre viene vacío, mantener el valor original o null
+                // Si desTitulacionLibre viene vacï¿½o, mantener el valor original o null
                 if (desTitulacionLibre != null && !desTitulacionLibre.trim().equals("")) {
                     datModif.setDesTitulacionLibre(desTitulacionLibre.trim());
                 } else {
                     datModif.setDesTitulacionLibre(null);
                 }
 
-                // Si titulacion viene vacío, mantener el valor original o null
+                // Si titulacion viene vacï¿½o, mantener el valor original o null
                 if (titulacion != null && !titulacion.trim().equals("")) {
                     datModif.setTitulacion(titulacion.trim());
                 } else {
@@ -910,7 +925,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                 }
 
                 // *** DATOS RSB COMPLETADOS ***
-                log.info("Los datos RSB han sido procesados correctamente en la sección anterior.");
+                log.info("Los datos RSB han sido procesados correctamente en la secciï¿½n anterior.");
                 log.info("*** FIN PASO 2 ***");
 
                 datModif.setcProfesionalidad(cProfesionalidad);
@@ -942,7 +957,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                 datModif.setTipRetribucion(tipRetribucion);
 
                 log.info("*** FLUJO RSB - PASO 1.5: ASIGNACION IMPSUBVCONT ***");
-                log.info("Parámetro importeSub recibido: '" + importeSub + "'");
+                log.info("Parï¿½metro importeSub recibido: '" + importeSub + "'");
                 log.info("IMPSUBVCONT ORIGINAL en datModif: "
                         + (datModif.getImporteSub() != null ? datModif.getImporteSub() : "NULL"));
 
@@ -952,7 +967,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                     datModif.setImporteSub(importeSubParsed);
                     log.info("IMPSUBVCONT ASIGNADO: " + importeSubParsed);
                 } else {
-                    log.info("IMPSUBVCONT ASIGNADO: NULL (parámetro vacío o null)");
+                    log.info("IMPSUBVCONT ASIGNADO: NULL (parï¿½metro vacï¿½o o null)");
                 }
 
                 log.info("IMPSUBVCONT FINAL en datModif: "
@@ -987,7 +1002,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                 if (rsbCompConv != null && !"".equals(rsbCompConv)) {
                     datModif.setRsbCompConv(Double.parseDouble(rsbCompConv));
 
-                    // Verificar que coincida con el cálculo interno
+                    // Verificar que coincida con el cï¿½lculo interno
                     Double totalCalculado = datModif.getRsbComputableTotal();
                     if (totalCalculado != null && Math.abs(Double.parseDouble(rsbCompConv) - totalCalculado) > 0.01) {
                         log.warn("ADVERTENCIA: Discrepancia entre total enviado (" + rsbCompConv
@@ -1002,7 +1017,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                         + (datModif.getImporteSub() != null ? datModif.getImporteSub() : "NULL"));
                 log.info("datModif.getRsbComputableTotal(): "
                         + (datModif.getRsbComputableTotal() != null ? datModif.getRsbComputableTotal() : "NULL"));
-                log.info("¿SON IGUALES ImporteSub y RsbTotal?: "
+                log.info("ï¿½SON IGUALES ImporteSub y RsbTotal?: "
                         + (datModif.getImporteSub() != null && datModif.getRsbComputableTotal() != null
                                 ? datModif.getImporteSub().equals(datModif.getRsbComputableTotal())
                                 : "ALGUNO ES NULL"));
@@ -1025,7 +1040,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                 // *** FLUJO RSB - PASO 4: DESPUES DE PERSISTIR ***
                 log.info("*** FLUJO RSB - PASO 4: DESPUES DE PERSISTIR EN BD ***");
                 if (!modOK) {
-                    log.error("ERROR: La modificación en BD falló!");
+                    log.error("ERROR: La modificaciï¿½n en BD fallï¿½!");
                 }
                 log.info("*** FIN PASO 4 ***");
 
@@ -1045,7 +1060,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                                 }
                             }
                         } else {
-                            log.error("ERROR: Lista recuperada está vacía o es NULL!");
+                            log.error("ERROR: Lista recuperada estï¿½ vacï¿½a o es NULL!");
                         }
                         log.info("*** FIN PASO 6 ***");
                     } catch (BDException bde) {
@@ -1067,7 +1082,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
         if (lista != null && !lista.isEmpty()) {
             // Lista cargada correctamente
         } else {
-            // Lista vacía o null
+            // Lista vacï¿½a o null
         }
         log.info("*** FIN PASO 7 ***");
 
@@ -1084,7 +1099,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
         log.info("*** FIN PASO 8 ***");
 
         log.info("========== FIN OPERACION MODIFICAR CONTRATACION ==========");
-        log.info("RESULTADO FINAL - Código: " + codigoOperacion);
+        log.info("RESULTADO FINAL - Cï¿½digo: " + codigoOperacion);
         log.info("==============================================================");
 
         retornarXML(xmlSalida, response);
@@ -1603,7 +1618,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
             xmlSalida.append(getDescripcionDesplegable(request, fila.getDesTipRetribucion()));
             xmlSalida.append("</TIPRSB>");
 
-            // Añadir campos RSB antes del importe de subvención
+            // Aï¿½adir campos RSB antes del importe de subvenciï¿½n
             xmlSalida.append("<RSBSALBASE>");
             if (fila.getRsbSalBase() != null && !"".equals(fila.getRsbSalBase())) {
                 xmlSalida.append(fila.getRsbSalBase());
@@ -1628,7 +1643,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
             }
             xmlSalida.append("</RSBCOMPCONV>");
 
-            // Campo calculado - Retribución salarial bruta computable total
+            // Campo calculado - Retribuciï¿½n salarial bruta computable total
             xmlSalida.append("<RSBCOMPUTABLE>");
             if (fila.getRsbComputableTotal() != null) {
                 xmlSalida.append(fila.getRsbComputableTotal());
@@ -1765,7 +1780,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
             response.setHeader("Pragma", "no-cache");
             response.setHeader("Expires", "0");
             PrintWriter out = response.getWriter();
-            out.print(json.toString()); // no cerramos explícitamente para que el contenedor gestione
+            out.print(json.toString()); // no cerramos explï¿½citamente para que el contenedor gestione
             out.flush();
             // No navegamos a JSP: respuesta directa JSON
             return null;
@@ -1789,9 +1804,9 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
     }
 
     /**
-     * Nueva acción para la pantalla de Desglose RSB (modal con pestañas). Alineada
+     * Nueva acciï¿½n para la pantalla de Desglose RSB (modal con pestaï¿½as). Alineada
      * con la llamada usando parametro operacion=cargarDesgloseRSB. Coloca en
-     * request los atributos necesarios y define las URLs de las pestañas.
+     * request los atributos necesarios y define las URLs de las pestaï¿½as.
      */
     public String cargarDesgloseRSB(int codOrganizacion, int codTramite, int ocurrenciaTramite, String numExpediente,
             HttpServletRequest request, HttpServletResponse response) {
@@ -1854,7 +1869,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                     }
                 }
             } catch (Exception inner) {
-                log.warn("[cargarDesgloseRSB] Error cargando datos iniciales de contratación para pestaña 1", inner);
+                log.warn("[cargarDesgloseRSB] Error cargando datos iniciales de contrataciï¿½n para pestaï¿½a 1", inner);
             }
 
             request.setAttribute("urlPestanaResumen", "/jsp/extension/melanbide11/desglose/m11Desglose_Tab1.jsp");
@@ -1866,10 +1881,10 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
     }
 
     /**
-     * Operación AJAX invocada desde la pestaña 1 para guardar los campos básicos
+     * Operaciï¿½n AJAX invocada desde la pestaï¿½a 1 para guardar los campos bï¿½sicos
      * del RSB (salario base, pagas extra y total complementos salariales). Recibe
-     * parámetros: idRegistro (ID de la contratación), rsbSalBase, rsbPagasExtra,
-     * rsbCompImporte. Devuelve JSON mínimo con codigoOperacion 0 si OK.
+     * parï¿½metros: idRegistro (ID de la contrataciï¿½n), rsbSalBase, rsbPagasExtra,
+     * rsbCompImporte. Devuelve JSON mï¿½nimo con codigoOperacion 0 si OK.
      */
     public String guardarDesgloseRSB(int codOrganizacion, int codTramite, int ocurrenciaTramite, String numExpediente,
             HttpServletRequest request, HttpServletResponse response) {
@@ -1879,32 +1894,32 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
         } catch (Exception ex) {
             log.error("Error obteniendo adaptador BBDD", ex);
         }
-        String idRegistro = request.getParameter("idRegistro"); // ID de la contratación
+        String idRegistro = request.getParameter("idRegistro"); // ID de la contrataciï¿½n
         String sSalBase = request.getParameter("rsbSalBase");
         String sPagas = request.getParameter("rsbPagasExtra");
         String sComp = request.getParameter("rsbCompImporte"); // Complementos salariales (principal)
-        // Extrasalariales solo informativos: no se persisten aquí (vienen del detalle)
+        // Extrasalariales solo informativos: no se persisten aquï¿½ (vienen del detalle)
 
         Double vSalBase = parseDoubleSafe(sSalBase);
         Double vPagas = parseDoubleSafe(sPagas);
         Double vComp = parseDoubleSafe(sComp);
 
-        int codigoOperacion = 0; // 0 OK,1=BD,2=Sin filas,3=Parámetros,4=Genérico
+        int codigoOperacion = 0; // 0 OK,1=BD,2=Sin filas,3=Parï¿½metros,4=Genï¿½rico
         double salariales = 0d;
         double extrasalariales = 0d;
         if (adapt == null) {
             codigoOperacion = 4; // sin adaptador
         } else if (idRegistro == null || idRegistro.trim().isEmpty()) {
-            codigoOperacion = 3; // parámetros
+            codigoOperacion = 3; // parï¿½metros
         } else {
             try {
                 boolean ok = MeLanbide11Manager.getInstance().guardarDesgloseBasico(idRegistro, vSalBase, vPagas, vComp,
                         adapt);
                 if (!ok) {
-                    codigoOperacion = 2; // no se actualizó ninguna fila (ID inexistente?)
+                    codigoOperacion = 2; // no se actualizï¿½ ninguna fila (ID inexistente?)
                 } else {
-                    // Recuperar totales detallados para refresco rápido (si tenemos numExp/dni se
-                    // podría ampliar)
+                    // Recuperar totales detallados para refresco rï¿½pido (si tenemos numExp/dni se
+                    // podrï¿½a ampliar)
                 }
             } catch (Exception e) {
                 log.error("[guardarDesgloseRSB] Error BD", e);
@@ -1941,10 +1956,10 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
     }
 
     /**
-     * Operación AJAX para reemplazar las líneas del desglose (pestaña 2).
-     * Parámetros esperados: - numExp - dni - lineas: formato CSV simplificado por
+     * Operaciï¿½n AJAX para reemplazar las lï¿½neas del desglose (pestaï¿½a 2).
+     * Parï¿½metros esperados: - numExp - dni - lineas: formato CSV simplificado por
      * filas separado con ';;' y columnas con '|' =&gt; tipo|importe|concepto|observ
-     * Ej: 1|1234.56|F|Observación línea 1;;2|100|V|Obs 2. Devuelve JSON:
+     * Ej: 1|1234.56|F|Observaciï¿½n lï¿½nea 1;;2|100|V|Obs 2. Devuelve JSON:
      * {"resultado":{"codigoOperacion":X,"salariales":n,"extrasalariales":m,"totalComputable":t}}
      */
     public String guardarLineasDesgloseRSB(int codOrganizacion, int codTramite, int ocurrenciaTramite,
@@ -1956,10 +1971,10 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
         String dni = request.getParameter("dni");
         String raw = request.getParameter("lineas");
 
-        int codigoOperacion = 0; // 0 OK,1 BD,2 Sin filas (todo borrado ok),3 Parámetros,4 Genérico
+        int codigoOperacion = 0; // 0 OK,1 BD,2 Sin filas (todo borrado ok),3 Parï¿½metros,4 Genï¿½rico
         double salariales = 0d;
         double extrasalariales = 0d;
-        double totalComputable = 0d; // RSBCOMPCONV derivado (no lo recalculamos aquí salvo sumar)
+        double totalComputable = 0d; // RSBCOMPCONV derivado (no lo recalculamos aquï¿½ salvo sumar)
 
         AdaptadorSQLBD adapt = null;
         try {
@@ -1969,13 +1984,13 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
         }
 
         if (adapt == null || numExp == null || dni == null || dni.trim().isEmpty()) {
-            codigoOperacion = 3; // parámetros/adaptador
+            codigoOperacion = 3; // parï¿½metros/adaptador
         } else {
             try {
                 List<DesgloseRSBVO> lista = parseLineasDesglose(raw);
                 boolean ok = MeLanbide11Manager.getInstance().reemplazarDesgloseRSB(numExp, dni, lista, adapt);
                 if (!ok) {
-                    codigoOperacion = 2; // no se insertó nada (pudo ser solo borrado o fallo silencioso)
+                    codigoOperacion = 2; // no se insertï¿½ nada (pudo ser solo borrado o fallo silencioso)
                 }
                 // Recuperar sumas por tipo para devolver
                 try {
@@ -1985,12 +2000,12 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
                         salariales = comp.getSalariales();
                         extrasalariales = comp.getExtrasalariales();
                     }
-                    totalComputable = salariales; // se sumará con salario base y pagas en otra llamada si aplica
+                    totalComputable = salariales; // se sumarï¿½ con salario base y pagas en otra llamada si aplica
                 } catch (Exception sumEx) {
                     log.warn("[guardarLineasDesgloseRSB] No se pudieron recuperar sumas por tipo", sumEx);
                 }
             } catch (Exception e) {
-                log.error("[guardarLineasDesgloseRSB] Error BD reemplazando líneas", e);
+                log.error("[guardarLineasDesgloseRSB] Error BD reemplazando lï¿½neas", e);
                 codigoOperacion = 1; // BD
             }
         }
@@ -2021,7 +2036,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
     }
 
     /**
-     * Acción AJAX (pestaña 2) que devuelve las líneas del desglose RSB en formato
+     * Acciï¿½n AJAX (pestaï¿½a 2) que devuelve las lï¿½neas del desglose RSB en formato
      * JSON. Respuesta:
      * {"lineas":[{"tipo":"1","importe":123.45,"concepto":"X","observ":"Y"},...]}
      */
@@ -2033,16 +2048,16 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
         if (numExp == null || numExp.trim().isEmpty()) {
             numExp = numExpediente; // fallback
         }
-        // Parámetro id de la contratación seleccionada (opcional)
+        // Parï¿½metro id de la contrataciï¿½n seleccionada (opcional)
         String idSeleccion = request.getParameter("id");
-        String dniSeleccion = null; // Se resolverá si llega id
+        String dniSeleccion = null; // Se resolverï¿½ si llega id
         try {
             adapt = this.getAdaptSQLBD(String.valueOf(codOrganizacion));
             if (adapt != null && numExp != null && numExp.trim().length() > 0) {
                 boolean usarFiltro = (idSeleccion != null && idSeleccion.trim().length() > 0);
                 if (usarFiltro) {
                     try {
-                        // Optimización: resolver sólo el DNI de la contratación sin cargar toda la
+                        // Optimizaciï¿½n: resolver sï¿½lo el DNI de la contrataciï¿½n sin cargar toda la
                         // lista
                         java.sql.Connection con = null;
                         try {
@@ -2150,7 +2165,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
     }
 
     /**
-     * Método auxiliar para construir campos JSON de forma segura.
+     * Mï¿½todo auxiliar para construir campos JSON de forma segura.
      */
     private void appendJsonCampo(StringBuilder json, String campo, String valor, boolean esUltimo) {
         json.append("\"").append(campo).append("\":");
@@ -2165,8 +2180,8 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
     }
 
     /**
-     * Operación AJAX para listar todas las contrataciones de un expediente.
-     * Invocada desde el CRUD de la pestaña 1.
+     * Operaciï¿½n AJAX para listar todas las contrataciones de un expediente.
+     * Invocada desde el CRUD de la pestaï¿½a 1.
      */
     public String listarContratacionesAJAX(int codOrganizacion, int codTramite, int ocurrenciaTramite,
             String numExpediente, HttpServletRequest request, HttpServletResponse response) {
@@ -2220,7 +2235,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
         } finally {
             if (adapt != null) {
                 try {
-                    // No existe método close, no necesitamos cerrar explícitamente
+                    // No existe mï¿½todo close, no necesitamos cerrar explï¿½citamente
                 } catch (Exception e) {
                     log.error("Error cerrando adaptador", e);
                 }
@@ -2231,8 +2246,8 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
     }
 
     /**
-     * Operación AJAX para eliminar una contratación específica. Invocada desde el
-     * CRUD de la pestaña 1.
+     * Operaciï¿½n AJAX para eliminar una contrataciï¿½n especï¿½fica. Invocada desde el
+     * CRUD de la pestaï¿½a 1.
      */
     public String eliminarContratacionAJAX(int codOrganizacion, int codTramite, int ocurrenciaTramite,
             String numExpediente, HttpServletRequest request, HttpServletResponse response) {
@@ -2241,7 +2256,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
         AdaptadorSQLBD adapt = null;
         try {
             if (idStr == null || idStr.trim().isEmpty()) {
-                throw new Exception("ID de contratación requerido");
+                throw new Exception("ID de contrataciï¿½n requerido");
             }
 
             adapt = this.getAdaptSQLBD(String.valueOf(codOrganizacion));
@@ -2276,7 +2291,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
         } finally {
             if (adapt != null) {
                 try {
-                    // No existe método close, no necesitamos cerrar explícitamente
+                    // No existe mï¿½todo close, no necesitamos cerrar explï¿½citamente
                 } catch (Exception e) {
                     log.error("Error cerrando adaptador", e);
                 }
@@ -2287,8 +2302,8 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
     }
 
     /**
-     * Operación AJAX para obtener una contratación específica por ID. Invocada
-     * desde el CRUD de la pestaña 1.
+     * Operaciï¿½n AJAX para obtener una contrataciï¿½n especï¿½fica por ID. Invocada
+     * desde el CRUD de la pestaï¿½a 1.
      */
     public String getContratacionAJAX(int codOrganizacion, int codTramite, int ocurrenciaTramite, String numExpediente,
             HttpServletRequest request, HttpServletResponse response) {
@@ -2297,7 +2312,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
         AdaptadorSQLBD adapt = null;
         try {
             if (idStr == null || idStr.trim().isEmpty()) {
-                throw new Exception("ID de contratación requerido");
+                throw new Exception("ID de contrataciï¿½n requerido");
             }
 
             adapt = this.getAdaptSQLBD(String.valueOf(codOrganizacion));
@@ -2306,7 +2321,7 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
             ContratacionVO contratacion = manager.getContratacionById(idStr, adapt);
 
             if (contratacion == null) {
-                throw new Exception("Contratación no encontrada");
+                throw new Exception("Contrataciï¿½n no encontrada");
             }
 
             StringBuilder json = new StringBuilder();
@@ -2333,14 +2348,14 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
             try {
                 response.setContentType("application/json; charset=UTF-8");
                 response.getWriter()
-                        .write("{\"error\":\"Error obteniendo contratación: " + escapeJson(e.getMessage()) + "\"}");
+                        .write("{\"error\":\"Error obteniendo contrataciï¿½n: " + escapeJson(e.getMessage()) + "\"}");
             } catch (Exception ex) {
                 log.error("Error escribiendo respuesta de error", ex);
             }
         } finally {
             if (adapt != null) {
                 try {
-                    // No existe método close, no necesitamos cerrar explícitamente
+                    // No existe mï¿½todo close, no necesitamos cerrar explï¿½citamente
                 } catch (Exception e) {
                     log.error("Error cerrando adaptador", e);
                 }
