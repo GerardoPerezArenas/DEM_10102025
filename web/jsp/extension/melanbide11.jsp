@@ -194,16 +194,18 @@ private static String escJS(Object v){
                     } else if (celda.nodeName === "EDADCONT") { fila[9] = val;
                     } else if (celda.nodeName === "SEXOCONT") { fila[10] = val;                    
                     } else if (celda.nodeName === "MAY55CONT") {
-                        if (val && val !== '-') {
-                            var barraSeparadora = '<%=ConfigurationParameter.getParameter(ConstantesMeLanbide11.BARRA_SEPARADORA_IDIOMA_DESPLEGABLES, ConstantesMeLanbide11.FICHERO_PROPIEDADES)%>';
-                            var partes = val.split(barraSeparadora);
-                            if (partes.length > 1) {
-                                var idiomaActivo = <%=idiomaUsuario%>;
-                                var codigoEuskera = <%=ConstantesMeLanbide11.CODIGO_IDIOMA_EUSKERA%>;
-                                val = (idiomaActivo === codigoEuskera) ? partes[1] : partes[0];
-                            }
-                        }
-                        fila[11] = val;
+
+    if (val && val !== '-') {
+        var barraSeparadora = '<%=ConfigurationParameter.getParameter(ConstantesMeLanbide11.BARRA_SEPARADORA_IDIOMA_DESPLEGABLES, ConstantesMeLanbide11.FICHERO_PROPIEDADES)%>';
+        var partes = val.split(barraSeparadora);
+        if (partes.length > 1) {
+            var idiomaActivo = <%=idiomaUsuario%>;
+            var codigoEuskera = <%=ConstantesMeLanbide11.CODIGO_IDIOMA_EUSKERA%>;
+            val = (idiomaActivo === codigoEuskera) ? partes[1] : partes[0];
+        }
+    }
+    fila[11] = val;
+}
                     } else if (celda.nodeName === "ACCFORCONT") {
                         if (val && val !== '-') {
                             var barraSeparadora = '<%=ConfigurationParameter.getParameter(ConstantesMeLanbide11.BARRA_SEPARADORA_IDIOMA_DESPLEGABLES, ConstantesMeLanbide11.FICHERO_PROPIEDADES)%>';
