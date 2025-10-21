@@ -153,7 +153,7 @@ public class MeLanbide11Manager {
                         break;
                     }
                 }
-                // TraducciÛn de TitReqPuesto usando desplegable INTERNO (listaTitReqPuesto)
+                // Traducci√≥n de TitReqPuesto usando desplegable INTERNO (listaTitReqPuesto)
                 for (DesplegableAdmonLocalVO valordesp : listaTitReqPuesto) {
                     if (valordesp.getDes_val_cod().equals(cont.getTitReqPuesto())) {
                         cont.setDesTitReqPuesto(valordesp.getDes_nom());
@@ -180,9 +180,9 @@ public class MeLanbide11Manager {
                         break;
                     }
                 }
-                // Inicializar desTitulacion con el cÛdigo original como fallback
+                // Inicializar desTitulacion con el c√≥digo original como fallback
                 if (cont.getTitulacion() != null && !"".equals(cont.getTitulacion().trim())) {
-                    cont.setDesTitulacion(cont.getTitulacion()); // fallback al cÛdigo
+                    cont.setDesTitulacion(cont.getTitulacion()); // fallback al c√≥digo
                 }
                 // Intentar traducir con el desplegable externo
                 for (DesplegableExternoVO valordesp : listaTitulacion) {
@@ -201,16 +201,16 @@ public class MeLanbide11Manager {
 
             return lista;
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando datos sobre las contrataciones ", e);
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando datos sobre las contrataciones ", e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando datos sobre las contrataciones ", ex);
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando datos sobre las contrataciones ", ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
     }
@@ -222,10 +222,10 @@ public class MeLanbide11Manager {
             MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
             return meLanbide11DAO.getContratacionPorID(id, con);
         } catch (BDException e) {
-            log.error("Se ha producido una excepcion en la BBDD recuperando datos sobre una contrataciÛn:  " + id, e);
+            log.error("Se ha producido una excepcion en la BBDD recuperando datos sobre una contrataci√≥n:  " + id, e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepcion en la BBDD recuperando datos sobre una contrataciÛn:  " + id, ex);
+            log.error("Se ha producido una excepcion en la BBDD recuperando datos sobre una contrataci√≥n:  " + id, ex);
             throw new Exception(ex);
         } finally {
             try {
@@ -243,16 +243,16 @@ public class MeLanbide11Manager {
             MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
             return meLanbide11DAO.eliminarContratacion(id, con);
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD al eliminar una contrataciÛn:  " + id, e);
+            log.error("Se ha producido una excepci√≥n en la BBDD al eliminar una contrataci√≥n:  " + id, e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn en la BBDD al eliminar una contrataciÛn:   " + id, ex);
+            log.error("Se ha producido una excepci√≥n en la BBDD al eliminar una contrataci√≥n:   " + id, ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
     }
@@ -346,7 +346,7 @@ public class MeLanbide11Manager {
                         break;
                     }
                 }
-                // NUEVO: descripciÛn TITREQPUESTO
+                // NUEVO: descripci√≥n TITREQPUESTO
                 for (DesplegableAdmonLocalVO valordesp : listaTitReqPuesto) {
                     if (valordesp.getDes_val_cod().equals(cont.getTitReqPuesto())) {
                         cont.setDesTitReqPuesto(valordesp.getDes_nom());
@@ -373,9 +373,9 @@ public class MeLanbide11Manager {
                         break;
                     }
                 }
-                // Inicializar desTitulacion con el cÛdigo original como fallback
+                // Inicializar desTitulacion con el c√≥digo original como fallback
                 if (cont.getTitulacion() != null && !"".equals(cont.getTitulacion().trim())) {
-                    cont.setDesTitulacion(cont.getTitulacion()); // fallback al cÛdigo
+                    cont.setDesTitulacion(cont.getTitulacion()); // fallback al c√≥digo
                 }
                 // Intentar traducir con el desplegable externo
                 for (DesplegableExternoVO valordesp : listaTitulacion) {
@@ -391,8 +391,8 @@ public class MeLanbide11Manager {
                     }
                 }
 
-                // Log detallado de campos RSB despuÈs del mapeo
-                log.info("*** MANAGER RSB DEBUG *** ContrataciÛn ID: " + cont.getId());
+                // Log detallado de campos RSB despu√©s del mapeo
+                log.info("*** MANAGER RSB DEBUG *** Contrataci√≥n ID: " + cont.getId());
                 log.info("*** MANAGER RSB *** rsbSalBase: "
                         + (cont.getRsbSalBase() != null ? cont.getRsbSalBase() : "NULL"));
                 log.info("*** MANAGER RSB *** rsbPagExtra: "
@@ -405,16 +405,16 @@ public class MeLanbide11Manager {
 
             return lista;
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando las contrataciones:  " + e);
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando las contrataciones:  " + e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn general en la BBDD recuperando las contrataciones:   " + ex);
+            log.error("Se ha producido una excepci√≥n general en la BBDD recuperando las contrataciones:   " + ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
     }
@@ -427,16 +427,16 @@ public class MeLanbide11Manager {
             MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
             insertOK = meLanbide11DAO.crearNuevaContratacion(nuevaContratacion, con);
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD creando una contrataciÛn : " + e.getMessage(), e);
+            log.error("Se ha producido una excepci√≥n en la BBDD creando una contrataci√≥n : " + e.getMessage(), e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn en la BBDD creando una contrataciÛn : " + ex.getMessage(), ex);
+            log.error("Se ha producido una excepci√≥n en la BBDD creando una contrataci√≥n : " + ex.getMessage(), ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
         return insertOK;
@@ -450,17 +450,17 @@ public class MeLanbide11Manager {
             MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
             insertOK = meLanbide11DAO.modificarContratacion(datModif, con);
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD actualizando una contrataciÛn : " + e.getMessage(), e);
+            log.error("Se ha producido una excepci√≥n en la BBDD actualizando una contrataci√≥n : " + e.getMessage(), e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn en la BBDD actualizando una contrataciÛn : " + ex.getMessage(),
+            log.error("Se ha producido una excepci√≥n en la BBDD actualizando una contrataci√≥n : " + ex.getMessage(),
                     ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
         return insertOK;
@@ -490,16 +490,16 @@ public class MeLanbide11Manager {
 
             return lista;
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando datos sobre las minimis ", e);
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando datos sobre las minimis ", e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando datos sobre las minimis ", ex);
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando datos sobre las minimis ", ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
     }
@@ -532,16 +532,16 @@ public class MeLanbide11Manager {
             MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
             return meLanbide11DAO.eliminarMinimis(id, con);
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD al eliminar una minimis:  " + id, e);
+            log.error("Se ha producido una excepci√≥n en la BBDD al eliminar una minimis:  " + id, e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn en la BBDD al eliminar una minimis:   " + id, ex);
+            log.error("Se ha producido una excepci√≥n en la BBDD al eliminar una minimis:   " + id, ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
     }
@@ -571,16 +571,16 @@ public class MeLanbide11Manager {
 
             return lista;
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando las minimis:  " + e);
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando las minimis:  " + e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn general en la BBDD recuperando las minimis:   " + ex);
+            log.error("Se ha producido una excepci√≥n general en la BBDD recuperando las minimis:   " + ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
     }
@@ -593,16 +593,16 @@ public class MeLanbide11Manager {
             MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
             insertOK = meLanbide11DAO.crearNuevaMinimis(nuevaMinimis, con);
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD creando una minimis : " + e.getMessage(), e);
+            log.error("Se ha producido una excepci√≥n en la BBDD creando una minimis : " + e.getMessage(), e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn en la BBDD creando una minimis : " + ex.getMessage(), ex);
+            log.error("Se ha producido una excepci√≥n en la BBDD creando una minimis : " + ex.getMessage(), ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
         return insertOK;
@@ -616,16 +616,16 @@ public class MeLanbide11Manager {
             MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
             insertOK = meLanbide11DAO.modificarMinimis(datModif, con);
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD actualizando una minimis : " + e.getMessage(), e);
+            log.error("Se ha producido una excepci√≥n en la BBDD actualizando una minimis : " + e.getMessage(), e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn en la BBDD actualizando una minimis : " + ex.getMessage(), ex);
+            log.error("Se ha producido una excepci√≥n en la BBDD actualizando una minimis : " + ex.getMessage(), ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
         return insertOK;
@@ -668,22 +668,22 @@ public class MeLanbide11Manager {
 
             return lista;
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando datos del desglose RSB ", e);
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando datos del desglose RSB ", e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando datos del desglose RSB ", ex);
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando datos del desglose RSB ", ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
     }
 
     /**
-     * VersiÛn filtrada por DNI: evita traer todas las lÌneas y filtrar en memoria.
+     * Versi√≥n filtrada por DNI: evita traer todas las l√≠neas y filtrar en memoria.
      */
     public List<DesgloseRSBVO> getDatosDesgloseRSBPorDni(String numExp, String dni, int codOrganizacion,
             AdaptadorSQLBD adapt) throws Exception {
@@ -694,7 +694,7 @@ public class MeLanbide11Manager {
             MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
             lista = meLanbide11DAO.getDatosDesgloseRSBPorDni(numExp, dni, codOrganizacion, con);
 
-            // TraducciÛn de desplegables igual que en mÈtodo general
+            // Traducci√≥n de desplegables igual que en m√©todo general
             List<DesplegableAdmonLocalVO> listaTipo = MeLanbide11Manager.getInstance()
                     .getValoresDesplegablesAdmonLocalxdes_cod(ConfigurationParameter.getParameter(
                             ConstantesMeLanbide11.COD_DES_RSBT, ConstantesMeLanbide11.FICHERO_PROPIEDADES), adapt);
@@ -719,31 +719,31 @@ public class MeLanbide11Manager {
             }
             return lista;
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando datos del desglose RSB (por DNI)", e);
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando datos del desglose RSB (por DNI)", e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando datos del desglose RSB (por DNI)", ex);
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando datos del desglose RSB (por DNI)", ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD (por DNI): " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD (por DNI): " + e.getMessage());
             }
         }
     }
 
     /**
-     * Guarda los valores b·sicos del desglose RSB (salario base, pagas extra y suma
-     * de complementos salariales) en la contrataciÛn indicada recalculando
-     * RSBCOMPCONV. No gestiona todavÌa el detalle de lÌneas de la pestaÒa 2.
+     * Guarda los valores b√°sicos del desglose RSB (salario base, pagas extra y suma
+     * de complementos salariales) en la contrataci√≥n indicada recalculando
+     * RSBCOMPCONV. No gestiona todav√≠a el detalle de l√≠neas de la pesta√±a 2.
      *
-     * @param idRegistro     ID de la contrataciÛn (tabla principal)
+     * @param idRegistro     ID de la contrataci√≥n (tabla principal)
      * @param salarioBase    Salario base
      * @param pagasExtra     Pagas extraordinarias
      * @param compSalariales Complementos salariales (importe total)
      * @param adapt          Adaptador BBDD
-     * @return true si la actualizaciÛn fue correcta
+     * @return true si la actualizaci√≥n fue correcta
      * @throws Exception
      */
     public boolean guardarDesgloseBasico(String idRegistro, Double salarioBase, Double pagasExtra,
@@ -754,22 +754,22 @@ public class MeLanbide11Manager {
             MeLanbide11DAO dao = MeLanbide11DAO.getInstance();
             return dao.actualizarDesgloseBasico(idRegistro, salarioBase, pagasExtra, compSalariales, con);
         } catch (BDException e) {
-            log.error("ExcepciÛn BBDD guardando desglose b·sico RSB id=" + idRegistro, e);
+            log.error("Excepci√≥n BBDD guardando desglose b√°sico RSB id=" + idRegistro, e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("ExcepciÛn guardando desglose b·sico RSB id=" + idRegistro, ex);
+            log.error("Excepci√≥n guardando desglose b√°sico RSB id=" + idRegistro, ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
     }
 
     /**
-     * Nueva versiÛn que incluye rsbTipo (1 = salarial, 2 = extrasalarial). El
+     * Nueva versi√≥n que incluye rsbTipo (1 = salarial, 2 = extrasalarial). El
      * importe compSalariales se guarda siempre en RSBIMPORTE y el tipo en RSBTIPO.
      */
     public boolean guardarDesgloseBasico(String idRegistro, Double salarioBase, Double pagasExtra,
@@ -780,16 +780,16 @@ public class MeLanbide11Manager {
             MeLanbide11DAO dao = MeLanbide11DAO.getInstance();
             return dao.actualizarDesgloseBasico(idRegistro, salarioBase, pagasExtra, compSalariales, rsbTipo, con);
         } catch (BDException e) {
-            log.error("ExcepciÛn BBDD guardando desglose b·sico RSB (tipo) id=" + idRegistro, e);
+            log.error("Excepci√≥n BBDD guardando desglose b√°sico RSB (tipo) id=" + idRegistro, e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("ExcepciÛn guardando desglose b·sico RSB (tipo) id=" + idRegistro, ex);
+            log.error("Excepci√≥n guardando desglose b√°sico RSB (tipo) id=" + idRegistro, ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
     }
@@ -797,7 +797,7 @@ public class MeLanbide11Manager {
     /**
      * Obtiene los complementos salariales y extrasalariales por separado
      * 
-     * @param numExp N˙mero de expediente
+     * @param numExp N√∫mero de expediente
      * @param dni    DNI del contratado
      * @param adapt  Adaptador de base de datos
      * @return ComplementosPorTipo con las sumas separadas
@@ -811,16 +811,16 @@ public class MeLanbide11Manager {
             MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
             return meLanbide11DAO.getSumaComplementosPorTipo(numExp, dni, con);
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando complementos por tipo", e);
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando complementos por tipo", e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando complementos por tipo", ex);
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando complementos por tipo", ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
     }
@@ -847,11 +847,11 @@ public class MeLanbide11Manager {
     }
 
     /*
-     * MÈtodo comentado temporalmente: dependÌa de un DAO inexistente
+     * M√©todo comentado temporalmente: depend√≠a de un DAO inexistente
      * getDniDesdeDesglosePorExpediente(String, Connection). Si se necesita en el
-     * futuro deber· implementarse primero en MeLanbide11DAO (SELECT DISTINCT
+     * futuro deber√° implementarse primero en MeLanbide11DAO (SELECT DISTINCT
      * DNICONT ...) y ajustar el tipo de retorno (String o lista). Mientras tanto se
-     * elimina para permitir la compilaciÛn.
+     * elimina para permitir la compilaci√≥n.
      */
     // public String getDniDesdeDesglosePorExpediente(String numExp, AdaptadorSQLBD
     // adapt) throws Exception {
@@ -861,22 +861,22 @@ public class MeLanbide11Manager {
     // MeLanbide11DAO dao = MeLanbide11DAO.getInstance();
     // return dao.getDniDesdeDesglosePorExpediente(numExp, con);
     // } catch (BDException e) {
-    // log.error("ExcepciÛn BBDD obteniendo DNI desde desglose por expediente
+    // log.error("Excepci√≥n BBDD obteniendo DNI desde desglose por expediente
     // numExp=" + numExp, e);
     // throw new Exception(e);
     // } catch (Exception ex) {
-    // log.error("ExcepciÛn obteniendo DNI desde desglose por expediente numExp=" +
+    // log.error("Excepci√≥n obteniendo DNI desde desglose por expediente numExp=" +
     // numExp, ex);
     // throw new Exception(ex);
     // } finally {
     // try { adapt.devolverConexion(con); } catch (Exception e) { log.error("Error
-    // al cerrar conexiÛn a la BBDD: " + e.getMessage()); }
+    // al cerrar conexi√≥n a la BBDD: " + e.getMessage()); }
     // }
     // }
 
     /**
-     * Reemplaza (borrando e insertando) las lÌneas del desglose RSB para un
-     * expediente + DNI, y recalcula autom·ticamente RSBCOMPCONV.
+     * Reemplaza (borrando e insertando) las l√≠neas del desglose RSB para un
+     * expediente + DNI, y recalcula autom√°ticamente RSBCOMPCONV.
      */
     public boolean reemplazarDesgloseRSB(String numExp, String dni, List<DesgloseRSBVO> lineas, AdaptadorSQLBD adapt)
             throws Exception {
@@ -886,16 +886,16 @@ public class MeLanbide11Manager {
             MeLanbide11DAO dao = MeLanbide11DAO.getInstance();
             return dao.reemplazarDesgloseRSB(numExp, dni, lineas, con);
         } catch (BDException e) {
-            log.error("ExcepciÛn BBDD reemplazando desglose RSB numExp=" + numExp + ", dni=" + dni, e);
+            log.error("Excepci√≥n BBDD reemplazando desglose RSB numExp=" + numExp + ", dni=" + dni, e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("ExcepciÛn reemplazando desglose RSB numExp=" + numExp + ", dni=" + dni, ex);
+            log.error("Excepci√≥n reemplazando desglose RSB numExp=" + numExp + ", dni=" + dni, ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
     }
@@ -908,16 +908,16 @@ public class MeLanbide11Manager {
             MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
             return meLanbide11DAO.getValoresDesplegablesAdmonLocalxdes_cod(des_cod, con);
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando valores de desplegable : " + des_cod, e);
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando valores de desplegable : " + des_cod, e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando valores de desplegable :  " + des_cod, ex);
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando valores de desplegable :  " + des_cod, ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
     }
@@ -931,13 +931,13 @@ public class MeLanbide11Manager {
             return meLanbide11DAO.getDatosMapeoDesplegableExterno(des_cod, con);
         } catch (BDException e) {
             log.error(
-                    "Se ha producido una excepciÛn en la BBDD recuperando valores de datos de tabla de desplegable externo : "
+                    "Se ha producido una excepci√≥n en la BBDD recuperando valores de datos de tabla de desplegable externo : "
                             + des_cod,
                     e);
             throw new Exception(e);
         } catch (Exception ex) {
             log.error(
-                    "Se ha producido una excepciÛn en la BBDD recuperando valores de datos de tabla de desplegable externo :  "
+                    "Se ha producido una excepci√≥n en la BBDD recuperando valores de datos de tabla de desplegable externo :  "
                             + des_cod,
                     ex);
             throw new Exception(ex);
@@ -945,7 +945,7 @@ public class MeLanbide11Manager {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
     }
@@ -958,24 +958,24 @@ public class MeLanbide11Manager {
             MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
             return meLanbide11DAO.getValoresDesplegablesExternos(tablaDesplegable, campoCodigo, campoValor, con);
         } catch (BDException e) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando valores de desplegable externo de tabla : "
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando valores de desplegable externo de tabla : "
                     + tablaDesplegable, e);
             throw new Exception(e);
         } catch (Exception ex) {
-            log.error("Se ha producido una excepciÛn en la BBDD recuperando valores de desplegable externo de tabla :  "
+            log.error("Se ha producido una excepci√≥n en la BBDD recuperando valores de desplegable externo de tabla :  "
                     + tablaDesplegable, ex);
             throw new Exception(ex);
         } finally {
             try {
                 adapt.devolverConexion(con);
             } catch (Exception e) {
-                log.error("Error al cerrar conexiÛn a la BBDD: " + e.getMessage());
+                log.error("Error al cerrar conexi√≥n a la BBDD: " + e.getMessage());
             }
         }
     }
 
     /**
-     * Obtiene todas las contrataciones de un expediente especÌfico. MÈtodo adaptado
+     * Obtiene todas las contrataciones de un expediente espec√≠fico. M√©todo adaptado
      * para AJAX CRUD.
      */
     public List<ContratacionVO> getContratacionesByExpediente(String numExpediente, AdaptadorSQLBD adapt)
@@ -985,7 +985,7 @@ public class MeLanbide11Manager {
     }
 
     /**
-     * Elimina una contrataciÛn por ID. MÈtodo adaptado para AJAX CRUD.
+     * Elimina una contrataci√≥n por ID. M√©todo adaptado para AJAX CRUD.
      */
     public boolean eliminarContratacionAJAX(String idStr, AdaptadorSQLBD adapt) throws Exception {
         log.debug("eliminarContratacionAJAX (AJAX) - id: " + idStr);
@@ -994,7 +994,7 @@ public class MeLanbide11Manager {
     }
 
     /**
-     * Obtiene una contrataciÛn especÌfica por ID. MÈtodo adaptado para AJAX CRUD.
+     * Obtiene una contrataci√≥n espec√≠fica por ID. M√©todo adaptado para AJAX CRUD.
      */
     public ContratacionVO getContratacionById(String idStr, AdaptadorSQLBD adapt) throws Exception {
         log.debug("getContratacionById (AJAX) - id: " + idStr);
