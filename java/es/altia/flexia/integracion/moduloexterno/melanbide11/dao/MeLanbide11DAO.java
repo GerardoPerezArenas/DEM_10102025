@@ -10,6 +10,8 @@ import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.DesgloseRSBVO;
 import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.DatosTablaDesplegableExtVO;
 import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.DesplegableAdmonLocalVO;
 import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.DesplegableExternoVO;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -1680,6 +1682,207 @@ public class MeLanbide11DAO {
             if (ps != null)
                 ps.close();
         }
+    }
+
+    /**
+     * TAREA 5: Calcula la Retribución Salarial Bruta Computable para la Convocatoria.
+     * Fórmula: RSB_COMPUTABLE = SALARIO_BASE + PAGAS_EXTRAS + SUMA(COMPLEMENTOS_FIJOS)
+     * 
+     * @param numExp Número de expediente
+     * @param dni    DNI del contratado
+     * @param con    Conexión a la base de datos
+     * @return RSB Computable calculado, redondeado a 2 decimales
+     * @throws Exception
+     */
+    public BigDecimal calcularRsbComputable(String numExp, String dni, Connection con) throws Exception {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            if (log.isDebugEnabled()) {
+                log.debug("=== CALCULANDO RSB COMPUTABLE ===");
+                log.debug("NumExp: " + numExp + ", DNI: " + dni);
+            }
+            
+            // 1. Obtener salario base y pagas extras de MELANBIDE11_CONTRATACION
+            String tabla = ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_CONTRATACION,
+                    ConstantesMeLanbide11.FICHERO_PROPIEDADES);
+            
+            String sql = "SELECT NVL(RSBSALBASE, 0) AS SALARIO_BASE, NVL(RSBPAGEXTRA, 0) AS PAGAS_EXTRAS " +
+                         "FROM " + tabla + " " +
+                         "WHERE TRIM(NUM_EXP) = TRIM(?) " +
+                         "AND UPPER(REPLACE(REPLACE(TRIM(DNICONT), ' ', ''), '-', '')) = " +
+                         "    UPPER(REPLACE(REPLACE(TRIM(?), ' ', ''), '-', ''))";
+            
+            ps = con.prepareStatement(sql);
+            ps.setString(1, numExp);
+            ps.setString(2, dni);
+            rs = ps.executeQuery();
+            
+            BigDecimal salarioBase = BigDecimal.ZERO;
+            BigDecimal pagasExtras = BigDecimal.ZERO;
+            
+            if (rs.next()) {
+                salarioBase = new BigDecimal(rs.getDouble("SALARIO_BASE"));
+                pagasExtras = new BigDecimal(rs.getDouble("PAGAS_EXTRAS"));
+            }
+            
+            if (rs != null) {
+                rs.close();
+                rs = null;
+            }
+            if (ps != null) {
+                ps.close();
+                ps = null;
+            }
+            
+            // 2. Obtener suma de complementos fijos de MELANBIDE11_DESGRSB
+            BigDecimal sumaComplementosFijos = obtenerSumaComplementosFijos(numExp, dni, con);
+            
+            // 3. Sumar todo
+            BigDecimal rsbComputable = salarioBase.add(pagasExtras).add(sumaComplementosFijos);
+            
+            // 4. Redondear a 2 decimales (ROUND_HALF_UP)
+            rsbComputable = rsbComputable.setScale(2, BigDecimal.ROUND_HALF_UP);
+            
+            if (log.isDebugEnabled()) {
+                log.debug("Salario Base: " + salarioBase);
+                log.debug("Pagas Extras: " + pagasExtras);
+                log.debug("Suma Complementos Fijos: " + sumaComplementosFijos);
+                log.debug("RSB Computable Total: " + rsbComputable);
+                log.debug("=== FIN CÁLCULO RSB COMPUTABLE ===");
+            }
+            
+            // 5. Retornar resultado
+            return rsbComputable;
+            
+        } catch (Exception ex) {
+            log.error("Error al calcular RSB Computable para numExp=" + numExp + ", dni=" + dni, ex);
+            throw new Exception(ex);
+        } finally {
+            if (rs != null)
+                try { rs.close(); } catch (Exception ignore) {}
+            if (ps != null)
+                try { ps.close(); } catch (Exception ignore) {}
+        }
+    }
+
+    /**
+     * TAREA 5: Obtiene la suma de complementos fijos (RSBTIPO='1' AND RSBCONCEPTO='F')
+     * de la tabla MELANBIDE11_DESGRSB
+     * 
+     * @param numExp Número de expediente
+     * @param dni    DNI del contratado
+     * @param con    Conexión a la base de datos
+     * @return Suma de complementos fijos, o 0 si no hay datos
+     * @throws Exception
+     */
+    private BigDecimal obtenerSumaComplementosFijos(String numExp, String dni, Connection con) throws Exception {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            String tabla = ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_DESGRSB,
+                    ConstantesMeLanbide11.FICHERO_PROPIEDADES);
+            
+            // Normalizar DNI (quitar espacios y guiones)
+            String dniNormalizado = dni.replaceAll("[-\\s]", "").trim().toUpperCase();
+            
+            String sql = "SELECT NVL(SUM(NVL(RSBIMPORTE, 0)), 0) AS SUMA_FIJOS " +
+                         "FROM " + tabla + " " +
+                         "WHERE TRIM(NUM_EXP) = TRIM(?) " +
+                         "AND UPPER(REPLACE(REPLACE(TRIM(DNICONTRSB), ' ', ''), '-', '')) = ? " +
+                         "AND RSBTIPO = '1' " +
+                         "AND RSBCONCEPTO = 'F'";
+            
+            ps = con.prepareStatement(sql);
+            ps.setString(1, numExp);
+            ps.setString(2, dniNormalizado);
+            rs = ps.executeQuery();
+            
+            BigDecimal sumaFijos = BigDecimal.ZERO;
+            
+            if (rs.next()) {
+                sumaFijos = new BigDecimal(rs.getDouble("SUMA_FIJOS"));
+            }
+            
+            if (log.isDebugEnabled()) {
+                log.debug("Suma de complementos fijos (RSBTIPO='1', RSBCONCEPTO='F'): " + sumaFijos);
+            }
+            
+            return sumaFijos;
+            
+        } catch (Exception ex) {
+            log.error("Error al obtener suma de complementos fijos para numExp=" + numExp + ", dni=" + dni, ex);
+            throw new Exception(ex);
+        } finally {
+            if (rs != null)
+                try { rs.close(); } catch (Exception ignore) {}
+            if (ps != null)
+                try { ps.close(); } catch (Exception ignore) {}
+        }
+    }
+
+    /**
+     * TAREA 5: Actualiza el campo RSBCOMPCONV en la tabla MELANBIDE11_CONTRATACION
+     * 
+     * @param numExp        Número de expediente
+     * @param dni           DNI del contratado
+     * @param rsbComputable Valor calculado de RSB Computable
+     * @param con           Conexión a la base de datos
+     * @return true si se actualizó correctamente
+     * @throws Exception
+     */
+    public boolean actualizarRsbComputable(String numExp, String dni, BigDecimal rsbComputable, Connection con)
+            throws Exception {
+        PreparedStatement ps = null;
+        
+        try {
+            String tabla = ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_CONTRATACION,
+                    ConstantesMeLanbide11.FICHERO_PROPIEDADES);
+            
+            String sql = "UPDATE " + tabla + " " +
+                         "SET RSBCOMPCONV = ? " +
+                         "WHERE TRIM(NUM_EXP) = TRIM(?) " +
+                         "AND UPPER(REPLACE(REPLACE(TRIM(DNICONT), ' ', ''), '-', '')) = " +
+                         "    UPPER(REPLACE(REPLACE(TRIM(?), ' ', ''), '-', ''))";
+            
+            ps = con.prepareStatement(sql);
+            ps.setBigDecimal(1, rsbComputable);
+            ps.setString(2, numExp);
+            ps.setString(3, dni);
+            
+            int rowsAffected = ps.executeUpdate();
+            
+            if (log.isDebugEnabled()) {
+                log.debug("RSBCOMPCONV actualizado. Filas afectadas: " + rowsAffected + 
+                         ", Valor: " + rsbComputable);
+            }
+            
+            return rowsAffected > 0;
+            
+        } catch (Exception ex) {
+            log.error("Error al actualizar RSBCOMPCONV para numExp=" + numExp + ", dni=" + dni, ex);
+            throw new Exception(ex);
+        } finally {
+            if (ps != null)
+                try { ps.close(); } catch (Exception ignore) {}
+        }
+    }
+
+    /**
+     * TAREA 5: Método de conveniencia que calcula y actualiza el RSB Computable
+     * 
+     * @param numExp Número de expediente
+     * @param dni    DNI del contratado
+     * @param con    Conexión a la base de datos
+     * @return Valor calculado de RSB Computable
+     * @throws Exception
+     */
+    public BigDecimal recalcularRsbComputable(String numExp, String dni, Connection con) throws Exception {
+        BigDecimal rsbComputable = calcularRsbComputable(numExp, dni, con);
+        actualizarRsbComputable(numExp, dni, rsbComputable, con);
+        return rsbComputable;
     }
 
      public List<ComplementoSalarial> obtenerComplementos(Long idContratacion) throws SQLException {
