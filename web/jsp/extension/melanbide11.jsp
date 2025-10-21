@@ -157,97 +157,95 @@ private static String escJS(Object v){
         }
     }
 
+
     function extraerListaContrataciones(nodos) {
-        var elemento = nodos[0];
-        var hijos = elemento ? elemento.childNodes : null;
-        var listaNueva = ['0']; // [0] = CODIGO_OPERACION
+    var elemento = nodos[0];
+    var hijos = elemento ? elemento.childNodes : null;
+    var listaNueva = ['0']; // [0] = CODIGO_OPERACION
 
-        if (!hijos) return listaNueva;
+    if (!hijos) return listaNueva;
 
-        for (var j = 0; j < hijos.length; j++) {
-            var nodo = hijos[j];
+    for (var j = 0; j < hijos.length; j++) {
+        var nodo = hijos[j];
 
-            if (nodo.nodeName === "CODIGO_OPERACION") {
-                if (nodo.childNodes.length > 0 && nodo.childNodes[0].nodeValue != null) {
-                    listaNueva[0] = nodo.childNodes[0].nodeValue;
-                }
-            } else if (nodo.nodeName === "FILA") {
-                var hijosFila = nodo.childNodes;
-
-                var fila = new Array(37);
-                for (var i = 0; i < 37; i++) fila[i] = '-';
-
-                for (var cont = 0; cont < hijosFila.length; cont++) {
-                    var celda = hijosFila[cont];
-                    var hasVal = celda.childNodes.length > 0 && celda.childNodes[0].nodeValue != null && celda.childNodes[0].nodeValue !== "null";
-                    var val = hasVal ? celda.childNodes[0].nodeValue : '-';
-
-                    if (celda.nodeName === "ID") { fila[0] = val;
-                    } else if (celda.nodeName === "NOFECONT") { fila[1] = val;
-                    } else if (celda.nodeName === "IDCONT1") { fila[2] = val;
-                    } else if (celda.nodeName === "IDCONT2") { fila[3] = val;
-                    } else if (celda.nodeName === "DNICONT") { fila[4] = val;
-                    } else if (celda.nodeName === "NOMCONT") { fila[5] = val;
-                    } else if (celda.nodeName === "APE1CONT") { fila[6] = val;
-                    } else if (celda.nodeName === "APE2CONT") { fila[7] = val;
-                    } else if (celda.nodeName === "FECHNACCONT") { fila[8] = val;
-                    } else if (celda.nodeName === "EDADCONT") { fila[9] = val;
-                    } else if (celda.nodeName === "SEXOCONT") { fila[10] = val;                    
-                    } else if (celda.nodeName === "MAY55CONT") {
-
-    if (val && val !== '-') {
-        var barraSeparadora = '<%=ConfigurationParameter.getParameter(ConstantesMeLanbide11.BARRA_SEPARADORA_IDIOMA_DESPLEGABLES, ConstantesMeLanbide11.FICHERO_PROPIEDADES)%>';
-        var partes = val.split(barraSeparadora);
-        if (partes.length > 1) {
-            var idiomaActivo = <%=idiomaUsuario%>;
-            var codigoEuskera = <%=ConstantesMeLanbide11.CODIGO_IDIOMA_EUSKERA%>;
-            val = (idiomaActivo === codigoEuskera) ? partes[1] : partes[0];
-        }
-    }
-    fila[11] = val;
-}
-                    } else if (celda.nodeName === "ACCFORCONT") {
-                        if (val && val !== '-') {
-                            var barraSeparadora = '<%=ConfigurationParameter.getParameter(ConstantesMeLanbide11.BARRA_SEPARADORA_IDIOMA_DESPLEGABLES, ConstantesMeLanbide11.FICHERO_PROPIEDADES)%>';
-                            var partes = val.split(barraSeparadora);
-                            if (partes.length > 1) {
-                                var idiomaActivo = <%=idiomaUsuario%>;
-                                var codigoEuskera = <%=ConstantesMeLanbide11.CODIGO_IDIOMA_EUSKERA%>;
-                                val = (idiomaActivo === codigoEuskera) ? partes[1] : partes[0];
-                            }
-                        }
-                        fila[12] = val;
-                    }                 
-                    } else if (celda.nodeName === "CODFORCONT") { fila[13] = val;
-                    } else if (celda.nodeName === "DENFORCONT") { fila[14] = val;
-                    } else if (celda.nodeName === "PUESTOCONT") { fila[15] = val;
-                    } else if (celda.nodeName === "CODOCUCONT") { fila[16] = val;
-                    } else if (celda.nodeName === "OCUCONT") { fila[17] = val;
-                    } else if (celda.nodeName === "TITREQPUESTO") { fila[18] = val;
-                    } else if (celda.nodeName === "FUNCIONES") { fila[19] = val;
-                    } else if (celda.nodeName === "CPROFESIONALIDAD") { fila[20] = val;
-                    } else if (celda.nodeName === "MODCONT") { fila[21] = val;
-                    } else if (celda.nodeName === "JORCONT") { fila[22] = val;
-                    } else if (celda.nodeName === "PORCJOR") { fila[23] = hasVal ? (val.toString().replace(".", ",")) : '-';
-                    } else if (celda.nodeName === "HORASCONV") { fila[24] = val;
-                    } else if (celda.nodeName === "FECHINICONT") { fila[25] = val;
-                    } else if (celda.nodeName === "FECHFINCONT") { fila[26] = val;
-                    } else if (celda.nodeName === "DURCONT") { fila[27] = val;
-                    } else if (celda.nodeName === "GRSS") { fila[28] = val;
-                    } else if (celda.nodeName === "DIRCENTRCONT") { fila[29] = val;
-                    } else if (celda.nodeName === "NSSCONT") { fila[30] = val;
-                    } else if (celda.nodeName === "CSTCONT") { fila[31] = hasVal ? (val.toString().replace(".", ",")) : '-';
-                    } else if (celda.nodeName === "TIPRSB") { fila[32] = val;
-                    } else if (celda.nodeName === "RSBCOMPUTABLE") { fila[33] = hasVal ? (val.toString().replace(".", ",")) : '-';
-                    } else if (celda.nodeName === "IMPSUBVCONT") { fila[34] = hasVal ? (val.toString().replace(".", ",")) : '-';
-                    } else if (celda.nodeName === "DESTITULACION") { fila[35] = val;
-                    } else if (celda.nodeName === "TITULACION") { fila[36] = val; }
-                }
-                listaNueva.push(fila);
+        if (nodo.nodeName === "CODIGO_OPERACION") {
+            if (nodo.childNodes.length > 0 && nodo.childNodes[0].nodeValue != null) {
+                listaNueva[0] = nodo.childNodes[0].nodeValue;
             }
+        } else if (nodo.nodeName === "FILA") {
+            var hijosFila = nodo.childNodes;
+
+            var fila = new Array(37);
+            for (var i = 0; i < 37; i++) fila[i] = '-';
+
+            for (var cont = 0; cont < hijosFila.length; cont++) {
+                var celda = hijosFila[cont];
+                var hasVal = celda.childNodes.length > 0 && celda.childNodes[0].nodeValue != null && celda.childNodes[0].nodeValue !== "null";
+                var val = hasVal ? celda.childNodes[0].nodeValue : '-';
+
+                if (celda.nodeName === "ID") { fila[0] = val;
+                } else if (celda.nodeName === "NOFECONT") { fila[1] = val;
+                } else if (celda.nodeName === "IDCONT1") { fila[2] = val;
+                } else if (celda.nodeName === "IDCONT2") { fila[3] = val;
+                } else if (celda.nodeName === "DNICONT") { fila[4] = val;
+                } else if (celda.nodeName === "NOMCONT") { fila[5] = val;
+                } else if (celda.nodeName === "APE1CONT") { fila[6] = val;
+                } else if (celda.nodeName === "APE2CONT") { fila[7] = val;
+                } else if (celda.nodeName === "FECHNACCONT") { fila[8] = val;
+                } else if (celda.nodeName === "EDADCONT") { fila[9] = val;
+                } else if (celda.nodeName === "SEXOCONT") { fila[10] = val;
+                } else if (celda.nodeName === "MAY55CONT") {
+                    if (val && val !== '-') {
+                        var barraSeparadora = '<%=ConfigurationParameter.getParameter(ConstantesMeLanbide11.BARRA_SEPARADORA_IDIOMA_DESPLEGABLES, ConstantesMeLanbide11.FICHERO_PROPIEDADES)%>';
+                        var partes = val.split(barraSeparadora);
+                        if (partes.length > 1) {
+                            var idiomaActivo = <%=idiomaUsuario%>;
+                            var codigoEuskera = <%=ConstantesMeLanbide11.CODIGO_IDIOMA_EUSKERA%>;
+                            val = (idiomaActivo === codigoEuskera) ? partes[1] : partes[0];
+                        }
+                    }
+                    fila[11] = val;
+                } else if (celda.nodeName === "ACCFORCONT") {
+                    if (val && val !== '-') {
+                        var barraSeparadora = '<%=ConfigurationParameter.getParameter(ConstantesMeLanbide11.BARRA_SEPARADORA_IDIOMA_DESPLEGABLES, ConstantesMeLanbide11.FICHERO_PROPIEDADES)%>';
+                        var partes = val.split(barraSeparadora);
+                        if (partes.length > 1) {
+                            var idiomaActivo = <%=idiomaUsuario%>;
+                            var codigoEuskera = <%=ConstantesMeLanbide11.CODIGO_IDIOMA_EUSKERA%>;
+                            val = (idiomaActivo === codigoEuskera) ? partes[1] : partes[0];
+                        }
+                    }
+                    fila[12] = val;
+                } else if (celda.nodeName === "CODFORCONT") { fila[13] = val;
+                } else if (celda.nodeName === "DENFORCONT") { fila[14] = val;
+                } else if (celda.nodeName === "PUESTOCONT") { fila[15] = val;
+                } else if (celda.nodeName === "CODOCUCONT") { fila[16] = val;
+                } else if (celda.nodeName === "OCUCONT") { fila[17] = val;
+                } else if (celda.nodeName === "TITREQPUESTO") { fila[18] = val;
+                } else if (celda.nodeName === "FUNCIONES") { fila[19] = val;
+                } else if (celda.nodeName === "CPROFESIONALIDAD") { fila[20] = val;
+                } else if (celda.nodeName === "MODCONT") { fila[21] = val;
+                } else if (celda.nodeName === "JORCONT") { fila[22] = val;
+                } else if (celda.nodeName === "PORCJOR") { fila[23] = hasVal ? (val.toString().replace(".", ",")) : '-';
+                } else if (celda.nodeName === "HORASCONV") { fila[24] = val;
+                } else if (celda.nodeName === "FECHINICONT") { fila[25] = val;
+                } else if (celda.nodeName === "FECHFINCONT") { fila[26] = val;
+                } else if (celda.nodeName === "DURCONT") { fila[27] = val;
+                } else if (celda.nodeName === "GRSS") { fila[28] = val;
+                } else if (celda.nodeName === "DIRCENTRCONT") { fila[29] = val;
+                } else if (celda.nodeName === "NSSCONT") { fila[30] = val;
+                } else if (celda.nodeName === "CSTCONT") { fila[31] = hasVal ? (val.toString().replace(".", ",")) : '-';
+                } else if (celda.nodeName === "TIPRSB") { fila[32] = val;
+                } else if (celda.nodeName === "RSBCOMPUTABLE") { fila[33] = hasVal ? (val.toString().replace(".", ",")) : '-';
+                } else if (celda.nodeName === "IMPSUBVCONT") { fila[34] = hasVal ? (val.toString().replace(".", ",")) : '-';
+                } else if (celda.nodeName === "DESTITULACION") { fila[35] = val;
+                } else if (celda.nodeName === "TITULACION") { fila[36] = val; }
+            }
+            listaNueva.push(fila);
         }
-        return listaNueva;
     }
+    return listaNueva;
+}
 
     function pulsarListasxProyecto() {
         jsp_alerta('I', 'Funcionalidad de Listas por Proyecto en desarrollo');
