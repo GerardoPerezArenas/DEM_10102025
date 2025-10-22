@@ -1,0 +1,32 @@
+# Build artifacts
+build/
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+nbproject/private/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Apache Tomcat
+apache-tomcat-*/
+
+# Node modules (if any)
+node_modules/

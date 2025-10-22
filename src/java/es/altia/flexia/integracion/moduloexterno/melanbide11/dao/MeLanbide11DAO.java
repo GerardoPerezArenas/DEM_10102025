@@ -2089,44 +2089,66 @@ public class MeLanbide11DAO {import java.sql.Types;
     }
 
      public List<ComplementoSalarial> obtenerComplementos(Long idContratacion) throws SQLException {
-        List<ComplementoSalarial> lista = new ArrayList<>();
+        List<ComplementoSalarial> lista = new ArrayList<ComplementoSalarial>();
         String sql = "SELECT ID_COMPLEMENTO, IMPORTE, TIPO, OBSERVACIONES FROM M11_COMPLEMENTOS_SALARIALES WHERE ID_CONTRATACION = ?";
-        try (Connection c = dataSource.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
+        
+        Connection c = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            c = dataSource.getConnection();
+            ps = c.prepareStatement(sql);
             ps.setLong(1, idContratacion);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    ComplementoSalarial comp = new ComplementoSalarial();
-                    comp.setId(rs.getLong("ID_COMPLEMENTO"));
-                    comp.setImporte(rs.getBigDecimal("IMPORTE"));
-                    comp.setTipo(rs.getString("TIPO"));
-                    comp.setObservaciones(rs.getString("OBSERVACIONES"));
-                    comp.setIdContratacion(idContratacion);
-                    lista.add(comp);
-                }
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                ComplementoSalarial comp = new ComplementoSalarial();
+                comp.setId(rs.getLong("ID_COMPLEMENTO"));
+                comp.setImporte(rs.getBigDecimal("IMPORTE"));
+                comp.setTipo(rs.getString("TIPO"));
+                comp.setObservaciones(rs.getString("OBSERVACIONES"));
+                comp.setIdContratacion(idContratacion);
+                lista.add(comp);
             }
+        } finally {
+            if (rs != null) try { rs.close(); } catch (SQLException e) {}
+            if (ps != null) try { ps.close(); } catch (SQLException e) {}
+            if (c != null) try { c.close(); } catch (SQLException e) {}
         }
+        
         return lista;
     }
 
     public List<OtraPercepcion> obtenerOtrasPercepciones(Long idContratacion) throws SQLException {
-        List<OtraPercepcion> lista = new ArrayList<>();
+        List<OtraPercepcion> lista = new ArrayList<OtraPercepcion>();
         String sql = "SELECT ID, IMPORTE, TIPO, OBSERVACIONES FROM M11_OTRAS_PERCEPCIONES WHERE ID_CONTRATACION = ?";
-        try (Connection c = dataSource.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
+        
+        Connection c = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            c = dataSource.getConnection();
+            ps = c.prepareStatement(sql);
             ps.setLong(1, idContratacion);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    OtraPercepcion p = new OtraPercepcion();
-                    p.setId(rs.getLong("ID"));
-                    p.setImporte(rs.getBigDecimal("IMPORTE"));
-                    p.setTipo(rs.getString("TIPO"));
-                    p.setObservaciones(rs.getString("OBSERVACIONES"));
-                    p.setIdContratacion(idContratacion);
-                    lista.add(p);
-                }
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                OtraPercepcion p = new OtraPercepcion();
+                p.setId(rs.getLong("ID"));
+                p.setImporte(rs.getBigDecimal("IMPORTE"));
+                p.setTipo(rs.getString("TIPO"));
+                p.setObservaciones(rs.getString("OBSERVACIONES"));
+                p.setIdContratacion(idContratacion);
+                lista.add(p);
             }
+        } finally {
+            if (rs != null) try { rs.close(); } catch (SQLException e) {}
+            if (ps != null) try { ps.close(); } catch (SQLException e) {}
+            if (c != null) try { c.close(); } catch (SQLException e) {}
         }
+        
         return lista;
     }
 
@@ -2134,25 +2156,42 @@ public class MeLanbide11DAO {import java.sql.Types;
         BigDecimal salarioBase = BigDecimal.ZERO;
         BigDecimal pagasExtra = BigDecimal.ZERO;
         String sqlBase = "SELECT NVL(SALARIO_BASE,0) as SALARIO_BASE, NVL(PAGAS_EXTRAORDINARIAS,0) as PAGAS_EXTRA FROM M11_CONTRATACIONES WHERE ID_CONTRATACION = ?";
-        try (Connection c = dataSource.getConnection();
-             PreparedStatement ps = c.prepareStatement(sqlBase)) {
+        
+        Connection c = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        PreparedStatement ups = null;
+        
+        try {
+            c = dataSource.getConnection();
+            ps = c.prepareStatement(sqlBase);
             ps.setLong(1, idContratacion);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    salarioBase = rs.getBigDecimal("SALARIO_BASE");
-                    pagasExtra = rs.getBigDecimal("PAGAS_EXTRA");
-                }
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                salarioBase = rs.getBigDecimal("SALARIO_BASE");
+                pagasExtra = rs.getBigDecimal("PAGAS_EXTRA");
             }
+            
+            // Close ResultSet and PreparedStatement before calling obtenerComplementos
+            if (rs != null) try { rs.close(); } catch (SQLException e) {}
+            if (ps != null) try { ps.close(); } catch (SQLException e) {}
+            
             List<ComplementoSalarial> complementos = obtenerComplementos(idContratacion);
             BigDecimal computable = CalculosRetribucionUtil.calcularRetribucionComputable(salarioBase, pagasExtra, complementos);
 
             String upd = "UPDATE M11_CONTRATACIONES SET RETRIBUCION_COMPUTABLE = ? WHERE ID_CONTRATACION = ?";
-            try (PreparedStatement ups = c.prepareStatement(upd)) {
-                ups.setBigDecimal(1, computable);
-                ups.setLong(2, idContratacion);
-                ups.executeUpdate();
-            }
+            ups = c.prepareStatement(upd);
+            ups.setBigDecimal(1, computable);
+            ups.setLong(2, idContratacion);
+            ups.executeUpdate();
+            
             return computable;
+        } finally {
+            if (rs != null) try { rs.close(); } catch (SQLException e) {}
+            if (ps != null) try { ps.close(); } catch (SQLException e) {}
+            if (ups != null) try { ups.close(); } catch (SQLException e) {}
+            if (c != null) try { c.close(); } catch (SQLException e) {}
         }
     }
 
