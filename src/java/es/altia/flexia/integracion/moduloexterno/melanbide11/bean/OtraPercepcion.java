@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * Bean para representar otra percepciÛn en el mÛdulo MELANBIDE11
+ * Bean para representar otra percepci√≥n en el m√≥dulo MELANBIDE11
  */
 public class OtraPercepcion implements Serializable {
     
@@ -20,7 +20,7 @@ public class OtraPercepcion implements Serializable {
     public OtraPercepcion() {
     }
     
-    // Constructor con par·metros
+    // Constructor con par√°metros
     public OtraPercepcion(Long id, BigDecimal importe, String tipo, String observaciones, Long idContratacion) {
         this.id = id;
         this.importe = importe;

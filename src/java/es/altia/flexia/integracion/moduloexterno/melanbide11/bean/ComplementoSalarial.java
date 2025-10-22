@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * Bean para representar un complemento salarial en el mÛdulo MELANBIDE11
+ * Bean para representar un complemento salarial en el m√≥dulo MELANBIDE11
  */
 public class ComplementoSalarial implements Serializable {
     
@@ -20,7 +20,7 @@ public class ComplementoSalarial implements Serializable {
     public ComplementoSalarial() {
     }
     
-    // Constructor con par·metros
+    // Constructor con par√°metros
     public ComplementoSalarial(Long id, BigDecimal importe, String tipo, String observaciones, Long idContratacion) {
         this.id = id;
         this.importe = importe;

@@ -1,0 +1,539 @@
+warning: [options] bootstrap class path not set in conjunction with -source 8
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/dao/MeLanbide11DAO_Java6.java:24: error: class MeLanbide11DAO is public, should be declared in a file named MeLanbide11DAO.java
+public class MeLanbide11DAO {
+       ^
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:21: error: cannot find symbol
+import es.altia.flexia.integracion.moduloexterno.melanbide11.dao.MeLanbide11DAO.ComplementosPorTipo;
+                                                                               ^
+  symbol:   class ComplementosPorTipo
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:8: error: cannot find symbol
+import es.altia.flexia.integracion.moduloexterno.melanbide11.dao.MeLanbide11DAO.ComplementosPorTipo;
+                                                                               ^
+  symbol:   class ComplementosPorTipo
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:806: error: cannot find symbol
+    public ComplementosPorTipo getSumaComplementosPorTipo(String numExp, String dni, AdaptadorSQLBD adapt)
+           ^
+  symbol:   class ComplementosPorTipo
+  location: class MeLanbide11Manager
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/dao/MeLanbide11DAO.java:39: error: cannot find symbol
+        System.out.println("DAO: Insertando contratacion para " + contratacion.getDniCont());
+                                                                              ^
+  symbol:   method getDniCont()
+  location: variable contratacion of type ContratacionVO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/dao/MeLanbide11DAO.java:44: error: cannot find symbol
+        System.out.println("DAO: Actualizando contratacion " + contratacion.getIdContratacion());
+                                                                           ^
+  symbol:   method getIdContratacion()
+  location: variable contratacion of type ContratacionVO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/dao/MeLanbide11DAO.java:50: error: cannot find symbol
+        vo.setIdContratacion(idContratacion);
+          ^
+  symbol:   method setIdContratacion(Long)
+  location: variable vo of type ContratacionVO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/dao/MeLanbide11DAO.java:178: error: cannot find symbol
+        System.out.println("DAO: Actualizando minimis " + minimis.getIdMinimis());
+                                                                 ^
+  symbol:   method getIdMinimis()
+  location: variable minimis of type MinimisVO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:50: error: MELANBIDE11 is not abstract and does not override abstract method procesar(String,String,String,String,HttpServletRequest,HttpServletResponse) in ModuloIntegracionExterno
+public class MELANBIDE11 extends ModuloIntegracionExterno {
+       ^
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:1343: error: cannot find symbol
+                PortableContext pc = PortableContext.getInstance();
+                                                    ^
+  symbol:   method getInstance()
+  location: class PortableContext
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:1346: error: cannot find symbol
+                ds = (DataSource) pc.lookup(jndiGenerico, DataSource.class);
+                                    ^
+  symbol:   method lookup(String,Class<DataSource>)
+  location: variable pc of type PortableContext
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:1350: error: cannot find symbol
+                String sql = "SELECT EEA_BDE FROM A_EEA WHERE EEA_APL=" + ConstantesDatos.APP_GESTION_EXPEDIENTES
+                                                                                         ^
+  symbol:   variable APP_GESTION_EXPEDIENTES
+  location: class ConstantesDatos
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:1372: error: constructor AdaptadorSQLBD in class AdaptadorSQLBD cannot be applied to given types;
+                    adapt = new AdaptadorSQLBD(salida);
+                            ^
+  required: no arguments
+  found:    String[]
+  reason: actual and formal argument lists differ in length
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:1436: error: cannot find symbol
+                    idioma = usuario.getIdioma();
+                                    ^
+  symbol:   method getIdioma()
+  location: variable usuario of type UsuarioValueObject
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:1469: error: cannot find symbol
+                PrintWriter out = response.getWriter();
+                                          ^
+  symbol:   method getWriter()
+  location: variable response of type HttpServletResponse
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:1758: error: cannot find symbol
+            ComplementosPorTipo complementos = null;
+            ^
+  symbol:   class ComplementosPorTipo
+  location: class MELANBIDE11
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:1767: error: cannot find symbol
+                complementos = new ComplementosPorTipo(0d, 0d);
+                                   ^
+  symbol:   class ComplementosPorTipo
+  location: class MELANBIDE11
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:1782: error: cannot find symbol
+            PrintWriter out = response.getWriter();
+                                      ^
+  symbol:   method getWriter()
+  location: variable response of type HttpServletResponse
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:1795: error: cannot find symbol
+                PrintWriter out = response.getWriter();
+                                          ^
+  symbol:   method getWriter()
+  location: variable response of type HttpServletResponse
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:1851: error: cannot find symbol
+                                ComplementosPorTipo comp = MeLanbide11Manager.getInstance().getSumaComplementosPorTipo(
+                                ^
+  symbol:   class ComplementosPorTipo
+  location: class MELANBIDE11
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:1935: error: cannot find symbol
+            PrintWriter out = response.getWriter();
+                                      ^
+  symbol:   method getWriter()
+  location: variable response of type HttpServletResponse
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:1952: warning: [removal] Double(String) in Double has been deprecated and marked for removal
+            return new Double(val.replace(',', '.'));
+                   ^
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:1997: error: cannot find symbol
+                    ComplementosPorTipo comp = MeLanbide11Manager.getInstance().getSumaComplementosPorTipo(numExp, dni,
+                    ^
+  symbol:   class ComplementosPorTipo
+  location: class MELANBIDE11
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:2023: error: cannot find symbol
+            PrintWriter out = response.getWriter();
+                                      ^
+  symbol:   method getWriter()
+  location: variable response of type HttpServletResponse
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:2066: error: cannot find symbol
+                                    .getInstance().getDniContratacionById(numExp, idSeleccion, con);
+                                    ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:2070: error: cannot find symbol
+                                    adapt.devolverConexion(con);
+                                         ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:2121: error: cannot find symbol
+            PrintWriter out = response.getWriter();
+                                      ^
+  symbol:   method getWriter()
+  location: variable response of type HttpServletResponse
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:2224: error: cannot find symbol
+            response.getWriter().write(json.toString());
+                    ^
+  symbol:   method getWriter()
+  location: variable response of type HttpServletResponse
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:2230: error: cannot find symbol
+                response.getWriter()
+                        ^
+  symbol:   method getWriter()
+  location: variable response of type HttpServletResponse
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:2275: error: cannot find symbol
+            response.getWriter().write(json.toString());
+                    ^
+  symbol:   method getWriter()
+  location: variable response of type HttpServletResponse
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:2287: error: cannot find symbol
+                response.getWriter().write(json.toString());
+                        ^
+  symbol:   method getWriter()
+  location: variable response of type HttpServletResponse
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:2344: error: cannot find symbol
+            response.getWriter().write(json.toString());
+                    ^
+  symbol:   method getWriter()
+  location: variable response of type HttpServletResponse
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java:2350: error: cannot find symbol
+                response.getWriter()
+                        ^
+  symbol:   method getWriter()
+  location: variable response of type HttpServletResponse
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:43: error: cannot find symbol
+            error.setMensajeExcepError(excepError);
+                 ^
+  symbol:   method setMensajeExcepError(String)
+  location: variable error of type ErrorBean
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:44: error: cannot find symbol
+            error.setTraza(excepError);
+                 ^
+  symbol:   method setTraza(String)
+  location: variable error of type ErrorBean
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:45: error: cannot find symbol
+            error.setCausa(traza);
+                 ^
+  symbol:   method setCausa(String)
+  location: variable error of type ErrorBean
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:54: error: cannot find symbol
+            error.setIdProcedimiento(idProcedimiento);
+                 ^
+  symbol:   method setIdProcedimiento(String)
+  location: variable error of type ErrorBean
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:55: error: cannot find symbol
+            error.setIdClave("");
+                 ^
+  symbol:   method setIdClave(String)
+  location: variable error of type ErrorBean
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:56: error: cannot find symbol
+            error.setSistemaOrigen("REGEXLAN");
+                 ^
+  symbol:   method setSistemaOrigen(String)
+  location: variable error of type ErrorBean
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:57: error: cannot find symbol
+            error.setErrorLog("flexia_debug");
+                 ^
+  symbol:   method setErrorLog(String)
+  location: variable error of type ErrorBean
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:58: error: cannot find symbol
+            error.setIdFlexia(numExp);
+                 ^
+  symbol:   method setIdFlexia(String)
+  location: variable error of type ErrorBean
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:61: error: cannot find symbol
+            RegistroErrores.registroError(error);
+                           ^
+  symbol:   method registroError(ErrorBean)
+  location: class RegistroErrores
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:73: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:74: error: cannot find symbol
+            lista = meLanbide11DAO.getDatosContratacion(numExp, codOrganizacion, con);
+                                  ^
+  symbol:   method getDatosContratacion(String,int,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:211: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:222: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:223: error: cannot find symbol
+            return meLanbide11DAO.getContratacionPorID(id, con);
+                                 ^
+  symbol:   method getContratacionPorID(String,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:232: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:243: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:244: error: method eliminarContratacion in class MeLanbide11DAO cannot be applied to given types;
+            return meLanbide11DAO.eliminarContratacion(id, con);
+                                 ^
+  required: Long
+  found:    String,Connection
+  reason: actual and formal argument lists differ in length
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:253: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:265: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:266: error: cannot find symbol
+            lista = meLanbide11DAO.getContratacion(numExp, con);
+                                  ^
+  symbol:   method getContratacion(String,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:415: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:427: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:428: error: cannot find symbol
+            insertOK = meLanbide11DAO.crearNuevaContratacion(nuevaContratacion, con);
+                                     ^
+  symbol:   method crearNuevaContratacion(ContratacionVO,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:437: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:450: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:451: error: cannot find symbol
+            insertOK = meLanbide11DAO.modificarContratacion(datModif, con);
+                                     ^
+  symbol:   method modificarContratacion(ContratacionVO,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:461: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:474: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:475: error: cannot find symbol
+            lista = meLanbide11DAO.getDatosMinimis(numExp, codOrganizacion, con);
+                                  ^
+  symbol:   method getDatosMinimis(String,int,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:500: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:511: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:512: error: cannot find symbol
+            return meLanbide11DAO.getMinimisPorID(id, con);
+                                 ^
+  symbol:   method getMinimisPorID(String,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:521: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:532: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:533: error: cannot find symbol
+            return meLanbide11DAO.eliminarMinimis(id, con);
+                                 ^
+  symbol:   method eliminarMinimis(String,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:542: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:554: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:555: error: cannot find symbol
+            lista = meLanbide11DAO.getMinimis(numExp, con);
+                                  ^
+  symbol:   method getMinimis(String,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:581: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:593: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:594: error: cannot find symbol
+            insertOK = meLanbide11DAO.crearNuevaMinimis(nuevaMinimis, con);
+                                     ^
+  symbol:   method crearNuevaMinimis(MinimisVO,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:603: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:616: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:617: error: cannot find symbol
+            insertOK = meLanbide11DAO.modificarMinimis(datModif, con);
+                                     ^
+  symbol:   method modificarMinimis(MinimisVO,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:626: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:640: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:641: error: cannot find symbol
+            lista = meLanbide11DAO.getDatosDesgloseRSB(numExp, codOrganizacion, con);
+                                  ^
+  symbol:   method getDatosDesgloseRSB(String,int,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:678: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:694: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:695: error: cannot find symbol
+            lista = meLanbide11DAO.getDatosDesgloseRSBPorDni(numExp, dni, codOrganizacion, con);
+                                  ^
+  symbol:   method getDatosDesgloseRSBPorDni(String,String,int,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:729: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:754: error: cannot find symbol
+            MeLanbide11DAO dao = MeLanbide11DAO.getInstance();
+                                               ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:755: error: cannot find symbol
+            return dao.actualizarDesgloseBasico(idRegistro, salarioBase, pagasExtra, compSalariales, con);
+                      ^
+  symbol:   method actualizarDesgloseBasico(String,Double,Double,Double,Connection)
+  location: variable dao of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:764: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:780: error: cannot find symbol
+            MeLanbide11DAO dao = MeLanbide11DAO.getInstance();
+                                               ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:781: error: cannot find symbol
+            return dao.actualizarDesgloseBasico(idRegistro, salarioBase, pagasExtra, compSalariales, rsbTipo, con);
+                      ^
+  symbol:   method actualizarDesgloseBasico(String,Double,Double,Double,String,Connection)
+  location: variable dao of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:790: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:811: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:812: error: cannot find symbol
+            return meLanbide11DAO.getSumaComplementosPorTipo(numExp, dni, con);
+                                 ^
+  symbol:   method getSumaComplementosPorTipo(String,String,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:821: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:832: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:833: error: cannot find symbol
+            return meLanbide11DAO.getDesgloseRSBPorID(id, con);
+                                 ^
+  symbol:   method getDesgloseRSBPorID(String,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:842: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:886: error: cannot find symbol
+            MeLanbide11DAO dao = MeLanbide11DAO.getInstance();
+                                               ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:887: error: cannot find symbol
+            return dao.reemplazarDesgloseRSB(numExp, dni, lineas, con);
+                      ^
+  symbol:   method reemplazarDesgloseRSB(String,String,List<DesgloseRSBVO>,Connection)
+  location: variable dao of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:896: error: cannot find symbol
+                adapt.devolverConexion(con);
+                     ^
+  symbol:   method devolverConexion(Connection)
+  location: variable adapt of type AdaptadorSQLBD
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:908: error: cannot find symbol
+            MeLanbide11DAO meLanbide11DAO = MeLanbide11DAO.getInstance();
+                                                          ^
+  symbol:   method getInstance()
+  location: class MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/manager/MeLanbide11Manager.java:909: error: cannot find symbol
+            return meLanbide11DAO.getValoresDesplegablesAdmonLocalxdes_cod(des_cod, con);
+                                 ^
+  symbol:   method getValoresDesplegablesAdmonLocalxdes_cod(String,Connection)
+  location: variable meLanbide11DAO of type MeLanbide11DAO
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/util/MeLanbide11MappingUtils.java:115: warning: [removal] Integer(int) in Integer has been deprecated and marked for removal
+        Integer aux1 = new Integer(rs.getInt("EDADCONT"));
+                       ^
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/util/MeLanbide11MappingUtils.java:133: warning: [removal] Double(double) in Double has been deprecated and marked for removal
+        Double aux2 = new Double(rs.getDouble("PORCJOR"));
+                      ^
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/util/MeLanbide11MappingUtils.java:137: warning: [removal] Integer(int) in Integer has been deprecated and marked for removal
+        Integer aux6 = new Integer(rs.getInt("HORASCONV"));
+                       ^
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/util/MeLanbide11MappingUtils.java:151: warning: [removal] Double(double) in Double has been deprecated and marked for removal
+        Double aux4 = new Double(rs.getDouble("CSTCONT"));
+                      ^
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/util/MeLanbide11MappingUtils.java:157: warning: [removal] Double(double) in Double has been deprecated and marked for removal
+        Double aux5 = new Double(rs.getDouble("IMPSUBVCONT"));
+                      ^
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/util/MeLanbide11MappingUtils.java:173: warning: [removal] Double(double) in Double has been deprecated and marked for removal
+            Double rsbSalBase = new Double(rs.getDouble("RSBSALBASE"));
+                                ^
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/util/MeLanbide11MappingUtils.java:187: warning: [removal] Double(double) in Double has been deprecated and marked for removal
+            Double rsbPagExtra = new Double(rs.getDouble("RSBPAGEXTRA"));
+                                 ^
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/util/MeLanbide11MappingUtils.java:201: warning: [removal] Double(double) in Double has been deprecated and marked for removal
+            Double rsbCompConv = new Double(rs.getDouble("RSBCOMPCONV"));
+                                 ^
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/util/MeLanbide11MappingUtils.java:245: warning: [removal] Double(double) in Double has been deprecated and marked for removal
+        Double aux1 = new Double(rs.getDouble("IMPORTE"));
+                      ^
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/util/MeLanbide11MappingUtils.java:279: warning: [removal] Double(double) in Double has been deprecated and marked for removal
+            Double imp = new Double(rs.getDouble("RSBIMPORTE"));
+                         ^
+Note: /home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: /home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/MELANBIDE11.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+100 errors
+12 warnings
+only showing the first 100 errors, of 107 total; use -Xmaxerrs if you would like to see more
