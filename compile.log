@@ -17,22 +17,22 @@ import es.altia.flexia.integracion.moduloexterno.melanbide11.dao.MeLanbide11DAO.
            ^
   symbol:   class ComplementosPorTipo
   location: class MeLanbide11Manager
-/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/dao/MeLanbide11DAO_Java6.java:39: error: cannot find symbol
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/dao/MeLanbide11DAO.java:39: error: cannot find symbol
         System.out.println("DAO: Insertando contratacion para " + contratacion.getDniCont());
                                                                               ^
   symbol:   method getDniCont()
   location: variable contratacion of type ContratacionVO
-/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/dao/MeLanbide11DAO_Java6.java:44: error: cannot find symbol
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/dao/MeLanbide11DAO.java:44: error: cannot find symbol
         System.out.println("DAO: Actualizando contratacion " + contratacion.getIdContratacion());
                                                                            ^
   symbol:   method getIdContratacion()
   location: variable contratacion of type ContratacionVO
-/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/dao/MeLanbide11DAO_Java6.java:50: error: cannot find symbol
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/dao/MeLanbide11DAO.java:50: error: cannot find symbol
         vo.setIdContratacion(idContratacion);
           ^
   symbol:   method setIdContratacion(Long)
   location: variable vo of type ContratacionVO
-/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/dao/MeLanbide11DAO_Java6.java:178: error: cannot find symbol
+/home/runner/work/DEM_10102025/DEM_10102025/src/java/es/altia/flexia/integracion/moduloexterno/melanbide11/dao/MeLanbide11DAO.java:178: error: cannot find symbol
         System.out.println("DAO: Actualizando minimis " + minimis.getIdMinimis());
                                                                  ^
   symbol:   method getIdMinimis()
