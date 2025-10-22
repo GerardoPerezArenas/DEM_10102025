@@ -16,7 +16,27 @@ Este módulo Java es parte del framework Flexia de Altia y gestiona la integraci
 - **Base de Datos**: Oracle Database
 - **Framework**: Flexia (framework empresarial de Altia)
 
-## Compilación
+## 🚀 Inicio Rápido - Compilar y Lanzar con Tomcat
+
+**¿Solo quieres compilar y ejecutar la aplicación?** ¡Usa el script automatizado!
+
+### Linux / macOS / WSL:
+```bash
+./build-and-run.sh
+```
+
+### Windows:
+```batch
+build-and-run.bat
+```
+
+La aplicación estará disponible en: **http://localhost:8080/Flexia18/**
+
+Para más información sobre los scripts disponibles, consulta [SCRIPTS_README.md](SCRIPTS_README.md)
+
+---
+
+## Compilación Manual
 
 ### Codificación de Archivos
 

@@ -1,0 +1,47 @@
+# Build artifacts
+build/
+demo-build/
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Tomcat installation
+apache-tomcat-*/
+
+# Compilation logs
+compile.log
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+*~
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# Dependencies (if you want to manage them separately)
+lib/
+
+# Node modules (if using any frontend build tools)
+node_modules/
+package-lock.json
+yarn.lock
