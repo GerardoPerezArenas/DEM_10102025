@@ -1,404 +1,199 @@
-package es.altia.flexia.integracion.moduloexterno.melanbide11.dao;
 
 package es.altia.flexia.integracion.moduloexterno.melanbide11.dao;
 
-import java.math.BigDecimal;
-
-import java.sql.Connection;import es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConfigurationParameter;
-
-import java.sql.PreparedStatement;import es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeLanbide11;
-
-import java.sql.ResultSet;import es.altia.flexia.integracion.moduloexterno.melanbide11.util.MeLanbide11MappingUtils;
-
-import java.sql.SQLException;import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.ContratacionVO;
-
-import java.util.ArrayList;import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.MinimisVO;
-
-import java.util.HashMap;import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.DesgloseRSBVO;
-
-import java.util.List;import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.DatosTablaDesplegableExtVO;
-
-import java.util.Map;import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.DesplegableAdmonLocalVO;
-
+import es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConfigurationParameter;
+import es.altia.flexia.integracion.moduloexterno.melanbide11.util.ConstantesMeLanbide11;
+import es.altia.flexia.integracion.moduloexterno.melanbide11.util.MeLanbide11MappingUtils;
+import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.ContratacionVO;
+import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.MinimisVO;
+import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.DesgloseRSBVO;
+import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.DatosTablaDesplegableExtVO;
+import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.DesplegableAdmonLocalVO;
 import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.DesplegableExternoVO;
-
-import es.altia.flexia.integracion.moduloexterno.melanbide11.bean.ComplementoSalarial;import es.altia.flexia.integracion.moduloexterno.melanbide11.bean.ComplementoSalarial;
-
-import es.altia.flexia.integracion.moduloexterno.melanbide11.bean.OtraPercepcion;import es.altia.flexia.integracion.moduloexterno.melanbide11.bean.OtraPercepcion;
-
-import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.ContratacionVO;import es.altia.flexia.integracion.moduloexterno.melanbide11.util.CalculosRetribucionUtil;
-
-import es.altia.flexia.integracion.moduloexterno.melanbide11.vo.MinimisVO;import java.math.BigDecimal;
-
-import es.altia.util.conexion.AdaptadorSQLBD;import java.math.RoundingMode;
-
-import es.altia.util.conexion.BDException;import java.sql.CallableStatement;
-
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.log4j.Logger;
 
-/**import java.sql.Connection;
+public class MeLanbide11DAO {
 
- * Data Access Object para MELANBIDE11 - Version Java 6 compatibleimport java.sql.ResultSet;
+    // Logger
+    private static Logger log = Logger.getLogger(MeLanbide11DAO.class);
+    // Instancia
+    private static MeLanbide11DAO instance = null;
 
- * Esta es una version simplificada compatible con Java 6import java.sql.SQLException;
+    private static Double normalizaImporteSub(Double rsbTotal, String tipRsb) {
+        double tot = (rsbTotal != null) ? rsbTotal : 0.0;
+        String t = (tipRsb != null) ? tipRsb.trim().toUpperCase() : "A"; // A=anual, M=mensual
+        return "M".equals(t) ? tot / 14.0 : tot;
+    }
 
- */import java.sql.Statement;
+    private static double nz(Double v) {
+        return v == null ? 0d : v;
+    }
 
-public class MeLanbide11DAO {import java.sql.Types;
+    private double calculaRsbTotal(String numExp, String dni, Double salBase, Double pagExtra, Connection con)
+            throws Exception {
+        Double comp = getSumaComplementosSalariales(numExp, dni, con); // ya normaliza DNI/NUM_EXP
+        return nz(salBase) + nz(pagExtra) + nz(comp);
+    }
 
-    import java.text.DecimalFormat;
-
-    private AdaptadorSQLBD dataSource;import java.text.SimpleDateFormat;
-
-    import java.util.ArrayList;
-
-    public MeLanbide11DAO() {import java.util.List;
-
-        // Constructor por defectoimport org.apache.log4j.Logger;
+    // Constructor
+    private MeLanbide11DAO() {
 
     }
 
-    public class MeLanbide11DAO {
-
-    public MeLanbide11DAO(AdaptadorSQLBD dataSource) {
-
-        this.dataSource = dataSource;    // Logger
-
-    }    private static Logger log = Logger.getLogger(MeLanbide11DAO.class);
-
-        // Instancia
-
-    // Metodos basicos de contratacion    private static MeLanbide11DAO instance = null;
-
-    public void insertarContratacion(ContratacionVO contratacion) throws BDException {
-
-        // Stub implementation    private static Double normalizaImporteSub(Double rsbTotal, String tipRsb) {
-
-        System.out.println("DAO: Insertando contratacion");        double tot = (rsbTotal != null) ? rsbTotal : 0.0;
-
-    }        String t = (tipRsb != null) ? tipRsb.trim().toUpperCase() : "A"; // A=anual, M=mensual
-
-            return "M".equals(t) ? tot / 14.0 : tot;
-
-    public void actualizarContratacion(ContratacionVO contratacion) throws BDException {    }
-
-        // Stub implementation  
-
-        System.out.println("DAO: Actualizando contratacion");    private static double nz(Double v) {
-
-    }        return v == null ? 0d : v;
-
-        }
-
-    public ContratacionVO obtenerContratacion(Long idContratacion) throws BDException {
-
-        // Stub implementation    private double calculaRsbTotal(String numExp, String dni, Double salBase, Double pagExtra, Connection con)
-
-        ContratacionVO vo = new ContratacionVO();            throws Exception {
-
-        return vo;        Double comp = getSumaComplementosSalariales(numExp, dni, con); // ya normaliza DNI/NUM_EXP
-
-    }        return nz(salBase) + nz(pagExtra) + nz(comp);
-
-        }
-
-    public void eliminarContratacion(Long idContratacion) throws BDException {
-
-        // Stub implementation    // Constructor
-
-        System.out.println("DAO: Eliminando contratacion " + idContratacion);    private MeLanbide11DAO() {
-
-    }
-
-        }
-
-    // Metodos de complementos salariales - Java 6 compatible
-
-    public List<ComplementoSalarial> obtenerComplementos(Long idContratacion) throws SQLException {    public static MeLanbide11DAO getInstance() {
-
-        List<ComplementoSalarial> lista = new ArrayList<ComplementoSalarial>();        if (instance == null) {
-
-        String sql = "SELECT ID_COMPLEMENTO, IMPORTE, TIPO, OBSERVACIONES FROM M11_COMPLEMENTOS_SALARIALES WHERE ID_CONTRATACION = ?";            synchronized (MeLanbide11DAO.class) {
-
-                        instance = new MeLanbide11DAO();
-
-        Connection c = null;            }
-
-        PreparedStatement ps = null;        }
-
-        ResultSet rs = null;        return instance;
-
+    public static MeLanbide11DAO getInstance() {
+        if (instance == null) {
+            synchronized (MeLanbide11DAO.class) {
+                instance = new MeLanbide11DAO();
             }
+        }
+        return instance;
+    }
+
+    public List<ContratacionVO> getDatosContratacion(String numExp, int codOrganizacion, Connection con)
+            throws Exception {
+        Statement st = null;
+        ResultSet rs = null;
+        List<ContratacionVO> lista = new ArrayList<ContratacionVO>();
+        ContratacionVO contratacion = new ContratacionVO();
+        try {
+            String query = null;
+            query = "SELECT * FROM "
+                    + ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_CONTRATACION,
+                            ConstantesMeLanbide11.FICHERO_PROPIEDADES)
+                    + " WHERE NUM_EXP ='" + numExp + "'" + " ORDER BY ID";
+            if (log.isDebugEnabled()) {
+                log.debug("sql = " + query);
+            }
+            st = con.createStatement();
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+                contratacion = (ContratacionVO) MeLanbide11MappingUtils.getInstance().map(rs, ContratacionVO.class);
+                // Cargamos en el request los valores de los desplegables
+                lista.add(contratacion);
+                contratacion = new ContratacionVO();
+            }
+        } catch (Exception ex) {
+            log.error("Se ha producido un error recuperando Contrataciones ", ex);
+            throw new Exception(ex);
+        } finally {
+            if (log.isDebugEnabled()) {
+                log.debug("Procedemos a cerrar el statement y el resultset");
+            }
+            if (st != null) {
+                st.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return lista;
+    }
+
+    public List<ContratacionVO> getContratacion(String numExp, Connection con) throws Exception {
+        Statement st = null;
+        ResultSet rs = null;
+        List<ContratacionVO> lista = new ArrayList<ContratacionVO>();
+        ContratacionVO contratacion = new ContratacionVO();
+        try {
+            String query = null;
+            query = "Select * From "
+                    + ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_CONTRATACION,
+                            ConstantesMeLanbide11.FICHERO_PROPIEDADES)
+                    + " A " + "Where A.Num_Exp= '" + numExp + "' Order By A.Id";
+            if (log.isDebugEnabled()) {
+                log.debug("sql getContratacion= " + query);
+            }
+            st = con.createStatement();
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+                contratacion = (ContratacionVO) MeLanbide11MappingUtils.getInstance().map(rs, ContratacionVO.class);
+                // Cargamos en el request los valores de los desplegables
+                lista.add(contratacion);
+                contratacion = new ContratacionVO();
+            }
+        } catch (Exception ex) {
+            log.error("Se ha producido un error recuperando Contrataciï¿½n ", ex);
+            throw new Exception(ex);
+        } finally {
+            if (log.isDebugEnabled()) {
+                log.debug("Procedemos a cerrar el statement y el resultset");
+            }
+            if (st != null) {
+                st.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return lista;
+    }
+
+    /**
+     * Obtiene solo el DNI (DNICONT) de una contratación concreta por ID y número de
+     * expediente. Evita cargar la lista completa de contrataciones cuando
+     * únicamente se necesita resolver el filtro para la tabla de desglose RSB.
+     * 
+     * @param numExp     Número de expediente
+     * @param idContrato ID de la fila en MELANBIDE11_CONTRATACION
+     * @param con        Conexión
+     * @return DNI sin normalizar (tal cual en tabla) o null si no existe
+     */
+    public String getDniContratacionById(String numExp, String idContrato, Connection con) throws Exception {
+        if (numExp == null || numExp.trim().isEmpty() || idContrato == null || idContrato.trim().isEmpty()) {
+            return null;
+        }
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String tabla = ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_CONTRATACION,
+                    ConstantesMeLanbide11.FICHERO_PROPIEDADES);
+            String sql = "SELECT DNICONT FROM " + tabla + " WHERE NUM_EXP = ? AND ID = ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, numExp);
+            ps.setString(2, idContrato);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("DNICONT");
+            }
+            return null;
+        } catch (Exception e) {
+            log.error("Error obteniendo DNI por ID de contratación", e);
+            throw new Exception(e);
+        } finally {
+            if (rs != null)
+                try {
+                    rs.close();
+                } catch (Exception ignore) {
+                }
+            if (ps != null)
+                try {
+                    ps.close();
+                } catch (Exception ignore) {
+                }
+        }
+    }
+
+    public ContratacionVO getContratacionPorID(String id, Connection con) throws Exception {
+        Statement st = null;
+        ResultSet rs = null;
+        ContratacionVO contratacion = new ContratacionVO();
 
         try {
-
-            c = dataSource.getConnection();    public List<ContratacionVO> getDatosContratacion(String numExp, int codOrganizacion, Connection con)
-
-            ps = c.prepareStatement(sql);            throws Exception {
-
-            ps.setLong(1, idContratacion);        Statement st = null;
-
-            rs = ps.executeQuery();        ResultSet rs = null;
-
-                    List<ContratacionVO> lista = new ArrayList<ContratacionVO>();
-
-            while (rs.next()) {        ContratacionVO contratacion = new ContratacionVO();
-
-                ComplementoSalarial comp = new ComplementoSalarial();        try {
-
-                comp.setId(rs.getLong("ID_COMPLEMENTO"));            String query = null;
-
-                comp.setImporte(rs.getBigDecimal("IMPORTE"));            query = "SELECT * FROM "
-
-                comp.setTipo(rs.getString("TIPO"));                    + ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_CONTRATACION,
-
-                comp.setObservaciones(rs.getString("OBSERVACIONES"));                            ConstantesMeLanbide11.FICHERO_PROPIEDADES)
-
-                lista.add(comp);                    + " WHERE NUM_EXP ='" + numExp + "'" + " ORDER BY ID";
-
-            }            if (log.isDebugEnabled()) {
-
-        } finally {                log.debug("sql = " + query);
-
-            if (rs != null) try { rs.close(); } catch (SQLException e) {}            }
-
-            if (ps != null) try { ps.close(); } catch (SQLException e) {}            st = con.createStatement();
-
-            if (c != null) try { c.close(); } catch (SQLException e) {}            rs = st.executeQuery(query);
-
-        }            while (rs.next()) {
-
-                        contratacion = (ContratacionVO) MeLanbide11MappingUtils.getInstance().map(rs, ContratacionVO.class);
-
-        return lista;                // Cargamos en el request los valores de los desplegables
-
-    }                lista.add(contratacion);
-
-                    contratacion = new ContratacionVO();
-
-    // Metodos de otras percepciones - Java 6 compatible              }
-
-    public List<OtraPercepcion> obtenerOtrasPercepciones(Long idContratacion) throws SQLException {        } catch (Exception ex) {
-
-        List<OtraPercepcion> lista = new ArrayList<OtraPercepcion>();            log.error("Se ha producido un error recuperando Contrataciones ", ex);
-
-        String sql = "SELECT ID, IMPORTE, TIPO, OBSERVACIONES FROM M11_OTRAS_PERCEPCIONES WHERE ID_CONTRATACION = ?";            throw new Exception(ex);
-
-                } finally {
-
-        Connection c = null;            if (log.isDebugEnabled()) {
-
-        PreparedStatement ps = null;                log.debug("Procedemos a cerrar el statement y el resultset");
-
-        ResultSet rs = null;            }
-
-                    if (st != null) {
-
-        try {                st.close();
-
-            c = dataSource.getConnection();            }
-
-            ps = c.prepareStatement(sql);            if (rs != null) {
-
-            ps.setLong(1, idContratacion);                rs.close();
-
-            rs = ps.executeQuery();            }
-
-                    }
-
-            while (rs.next()) {        return lista;
-
-                OtraPercepcion p = new OtraPercepcion();    }
-
-                p.setId(rs.getLong("ID"));
-
-                p.setImporte(rs.getBigDecimal("IMPORTE"));    public List<ContratacionVO> getContratacion(String numExp, Connection con) throws Exception {
-
-                p.setTipo(rs.getString("TIPO"));        Statement st = null;
-
-                p.setObservaciones(rs.getString("OBSERVACIONES"));        ResultSet rs = null;
-
-                lista.add(p);        List<ContratacionVO> lista = new ArrayList<ContratacionVO>();
-
-            }        ContratacionVO contratacion = new ContratacionVO();
-
-        } finally {        try {
-
-            if (rs != null) try { rs.close(); } catch (SQLException e) {}            String query = null;
-
-            if (ps != null) try { ps.close(); } catch (SQLException e) {}            query = "Select * From "
-
-            if (c != null) try { c.close(); } catch (SQLException e) {}                    + ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_CONTRATACION,
-
-        }                            ConstantesMeLanbide11.FICHERO_PROPIEDADES)
-
-                            + " A " + "Where A.Num_Exp= '" + numExp + "' Order By A.Id";
-
-        return lista;            if (log.isDebugEnabled()) {
-
-    }                log.debug("sql getContratacion= " + query);
-
-                }
-
-    // Calculos de retribucion - Java 6 compatible            st = con.createStatement();
-
-    public BigDecimal calcularYActualizarRetribucionComputable(Long idContratacion) throws SQLException {            rs = st.executeQuery(query);
-
-        BigDecimal salarioBase = BigDecimal.ZERO;            while (rs.next()) {
-
-        BigDecimal pagasExtra = BigDecimal.ZERO;                contratacion = (ContratacionVO) MeLanbide11MappingUtils.getInstance().map(rs, ContratacionVO.class);
-
-        String sqlBase = "SELECT NVL(SALARIO_BASE,0) as SALARIO_BASE, NVL(PAGAS_EXTRAORDINARIAS,0) as PAGAS_EXTRA FROM M11_CONTRATACIONES WHERE ID_CONTRATACION = ?";                // Cargamos en el request los valores de los desplegables
-
-                        lista.add(contratacion);
-
-        Connection c = null;                contratacion = new ContratacionVO();
-
-        PreparedStatement ps = null;            }
-
-        ResultSet rs = null;        } catch (Exception ex) {
-
-        PreparedStatement ups = null;            log.error("Se ha producido un error recuperando Contrataci?n ", ex);
-
-                    throw new Exception(ex);
-
-        try {        } finally {
-
-            c = dataSource.getConnection();            if (log.isDebugEnabled()) {
-
-            ps = c.prepareStatement(sqlBase);                log.debug("Procedemos a cerrar el statement y el resultset");
-
-            ps.setLong(1, idContratacion);            }
-
-            rs = ps.executeQuery();            if (st != null) {
-
-                            st.close();
-
-            if (rs.next()) {            }
-
-                salarioBase = rs.getBigDecimal("SALARIO_BASE");            if (rs != null) {
-
-                pagasExtra = rs.getBigDecimal("PAGAS_EXTRA");                rs.close();
-
-            }            }
-
-                    }
-
-            // Calculo simple: retribucion computable = salario base + pagas extra        return lista;
-
-            BigDecimal computable = salarioBase.add(pagasExtra);    }
-
-            
-
-            // Actualizar el registro    /**
-
-            String upd = "UPDATE M11_CONTRATACIONES SET RETRIBUCION_COMPUTABLE = ? WHERE ID_CONTRATACION = ?";     * Obtiene solo el DNI (DNICONT) de una contratación concreta por ID y número de
-
-            ups = c.prepareStatement(upd);     * expediente. Evita cargar la lista completa de contrataciones cuando
-
-            ups.setBigDecimal(1, computable);     * únicamente se necesita resolver el filtro para la tabla de desglose RSB.
-
-            ups.setLong(2, idContratacion);     * 
-
-            ups.executeUpdate();     * @param numExp     Número de expediente
-
-                 * @param idContrato ID de la fila en MELANBIDE11_CONTRATACION
-
-            return computable;     * @param con        Conexión
-
-                 * @return DNI sin normalizar (tal cual en tabla) o null si no existe
-
-        } finally {     */
-
-            if (ups != null) try { ups.close(); } catch (SQLException e) {}    public String getDniContratacionById(String numExp, String idContrato, Connection con) throws Exception {
-
-            if (rs != null) try { rs.close(); } catch (SQLException e) {}        if (numExp == null || numExp.trim().isEmpty() || idContrato == null || idContrato.trim().isEmpty()) {
-
-            if (ps != null) try { ps.close(); } catch (SQLException e) {}            return null;
-
-            if (c != null) try { c.close(); } catch (SQLException e) {}        }
-
-        }        PreparedStatement ps = null;
-
-    }        ResultSet rs = null;
-
-            try {
-
-    // Metodos de minimis            String tabla = ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_CONTRATACION,
-
-    public void insertarMinimis(MinimisVO minimis) throws BDException {                    ConstantesMeLanbide11.FICHERO_PROPIEDADES);
-
-        // Stub implementation            String sql = "SELECT DNICONT FROM " + tabla + " WHERE NUM_EXP = ? AND ID = ?";
-
-        System.out.println("DAO: Insertando minimis");            ps = con.prepareStatement(sql);
-
-    }            ps.setString(1, numExp);
-
-                ps.setString(2, idContrato);
-
-    public void actualizarMinimis(MinimisVO minimis) throws BDException {            rs = ps.executeQuery();
-
-        // Stub implementation            if (rs.next()) {
-
-        System.out.println("DAO: Actualizando minimis");                return rs.getString("DNICONT");
-
-    }            }
-
-                return null;
-
-    public List<MinimisVO> obtenerMinimisPorContratacion(Long idContratacion) throws BDException {        } catch (Exception e) {
-
-        // Stub implementation            log.error("Error obteniendo DNI por ID de contratación", e);
-
-        return new ArrayList<MinimisVO>();            throw new Exception(e);
-
-    }        } finally {
-
-                if (rs != null)
-
-    // Metodos de configuracion                try {
-
-    public Map<String, String> obtenerConfiguracion() throws BDException {                    rs.close();
-
-        // Stub implementation                } catch (Exception ignore) {
-
-        Map<String, String> config = new HashMap<String, String>();                }
-
-        config.put("version", "1.0");            if (ps != null)
-
-        return config;                try {
-
-    }                    ps.close();
-
-                    } catch (Exception ignore) {
-
-    // Recalculo completo - Java 6 compatible                }
-
-    public Map<String, BigDecimal> recalcularTodo(Long idContratacion) throws SQLException {        }
-
-        Map<String, BigDecimal> resultados = new HashMap<String, BigDecimal>();    }
-
-        
-
-        BigDecimal retribucionComputable = calcularYActualizarRetribucionComputable(idContratacion);    public ContratacionVO getContratacionPorID(String id, Connection con) throws Exception {
-
-        resultados.put("retribucionComputable", retribucionComputable);        Statement st = null;
-
-                ResultSet rs = null;
-
-        // Agregar mas calculos segun sea necesario        ContratacionVO contratacion = new ContratacionVO();
-
-        resultados.put("totalComplementos", BigDecimal.ZERO);
-
-        resultados.put("totalOtrasPercepciones", BigDecimal.ZERO);        try {
-
-                    String tablaContr = ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_CONTRATACION,
-
-        return resultados;                    ConstantesMeLanbide11.FICHERO_PROPIEDADES);
-
-    }            String tablaDesg = ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_DESGRSB,
-
-}                    ConstantesMeLanbide11.FICHERO_PROPIEDADES);
+            String tablaContr = ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_CONTRATACION,
+                    ConstantesMeLanbide11.FICHERO_PROPIEDADES);
+            String tablaDesg = ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_DESGRSB,
+                    ConstantesMeLanbide11.FICHERO_PROPIEDADES);
 
             // NOTA: Separamos ahora la suma de complementos salariales (RSBTIPO='1') de la
             // de extrasalariales (RSBTIPO='2').
@@ -471,7 +266,7 @@ public class MeLanbide11DAO {import java.sql.Types;
             st = con.createStatement();
             return st.executeUpdate(query);
         } catch (Exception ex) {
-            log.error("Se ha producido un error Eliminando Contrataci?n ID : " + id, ex);
+            log.error("Se ha producido un error Eliminando Contrataciï¿½n ID : " + id, ex);
             throw new Exception(ex);
         } finally {
             if (log.isDebugEnabled()) {
@@ -485,7 +280,6 @@ public class MeLanbide11DAO {import java.sql.Types;
 
     public boolean crearNuevaContratacion(ContratacionVO nuevaContratacion, Connection con) throws Exception {
         Statement st = null;
-        // boolean opeCorrecta = true;
         String query = "";
         String fechaNacimiento = "";
         String fechaInicio = "";
@@ -1887,321 +1681,4 @@ public class MeLanbide11DAO {import java.sql.Types;
         }
     }
 
-    /**
-     * TAREA 5: Calcula la Retribución Salarial Bruta Computable para la Convocatoria.
-     * Fórmula: RSB_COMPUTABLE = SALARIO_BASE + PAGAS_EXTRAS + SUMA(COMPLEMENTOS_FIJOS)
-     * 
-     * @param numExp Número de expediente
-     * @param dni    DNI del contratado
-     * @param con    Conexión a la base de datos
-     * @return RSB Computable calculado, redondeado a 2 decimales
-     * @throws Exception
-     */
-    public BigDecimal calcularRsbComputable(String numExp, String dni, Connection con) throws Exception {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        
-        try {
-            if (log.isDebugEnabled()) {
-                log.debug("=== CALCULANDO RSB COMPUTABLE ===");
-                log.debug("NumExp: " + numExp + ", DNI: " + dni);
-            }
-            
-            // 1. Obtener salario base y pagas extras de MELANBIDE11_CONTRATACION
-            String tabla = ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_CONTRATACION,
-                    ConstantesMeLanbide11.FICHERO_PROPIEDADES);
-            
-            String sql = "SELECT NVL(RSBSALBASE, 0) AS SALARIO_BASE, NVL(RSBPAGEXTRA, 0) AS PAGAS_EXTRAS " +
-                         "FROM " + tabla + " " +
-                         "WHERE TRIM(NUM_EXP) = TRIM(?) " +
-                         "AND UPPER(REPLACE(REPLACE(TRIM(DNICONT), ' ', ''), '-', '')) = " +
-                         "    UPPER(REPLACE(REPLACE(TRIM(?), ' ', ''), '-', ''))";
-            
-            ps = con.prepareStatement(sql);
-            ps.setString(1, numExp);
-            ps.setString(2, dni);
-            rs = ps.executeQuery();
-            
-            BigDecimal salarioBase = BigDecimal.ZERO;
-            BigDecimal pagasExtras = BigDecimal.ZERO;
-            
-            if (rs.next()) {
-                salarioBase = new BigDecimal(rs.getDouble("SALARIO_BASE"));
-                pagasExtras = new BigDecimal(rs.getDouble("PAGAS_EXTRAS"));
-            }
-            
-            if (rs != null) {
-                rs.close();
-                rs = null;
-            }
-            if (ps != null) {
-                ps.close();
-                ps = null;
-            }
-            
-            // 2. Obtener suma de complementos fijos de MELANBIDE11_DESGRSB
-            BigDecimal sumaComplementosFijos = obtenerSumaComplementosFijos(numExp, dni, con);
-            
-            // 3. Sumar todo
-            BigDecimal rsbComputable = salarioBase.add(pagasExtras).add(sumaComplementosFijos);
-            
-            // 4. Redondear a 2 decimales (ROUND_HALF_UP)
-            rsbComputable = rsbComputable.setScale(2, BigDecimal.ROUND_HALF_UP);
-            
-            if (log.isDebugEnabled()) {
-                log.debug("Salario Base: " + salarioBase);
-                log.debug("Pagas Extras: " + pagasExtras);
-                log.debug("Suma Complementos Fijos: " + sumaComplementosFijos);
-                log.debug("RSB Computable Total: " + rsbComputable);
-                log.debug("=== FIN CÁLCULO RSB COMPUTABLE ===");
-            }
-            
-            // 5. Retornar resultado
-            return rsbComputable;
-            
-        } catch (Exception ex) {
-            log.error("Error al calcular RSB Computable para numExp=" + numExp + ", dni=" + dni, ex);
-            throw new Exception(ex);
-        } finally {
-            if (rs != null)
-                try { rs.close(); } catch (Exception ignore) {}
-            if (ps != null)
-                try { ps.close(); } catch (Exception ignore) {}
-        }
-    }
-
-    /**
-     * TAREA 5: Obtiene la suma de complementos fijos (RSBTIPO='1' AND RSBCONCEPTO='F')
-     * de la tabla MELANBIDE11_DESGRSB
-     * 
-     * @param numExp Número de expediente
-     * @param dni    DNI del contratado
-     * @param con    Conexión a la base de datos
-     * @return Suma de complementos fijos, o 0 si no hay datos
-     * @throws Exception
-     */
-    private BigDecimal obtenerSumaComplementosFijos(String numExp, String dni, Connection con) throws Exception {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        
-        try {
-            String tabla = ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_DESGRSB,
-                    ConstantesMeLanbide11.FICHERO_PROPIEDADES);
-            
-            // Normalizar DNI (quitar espacios y guiones)
-            String dniNormalizado = dni.replaceAll("[-\\s]", "").trim().toUpperCase();
-            
-            String sql = "SELECT NVL(SUM(NVL(RSBIMPORTE, 0)), 0) AS SUMA_FIJOS " +
-                         "FROM " + tabla + " " +
-                         "WHERE TRIM(NUM_EXP) = TRIM(?) " +
-                         "AND UPPER(REPLACE(REPLACE(TRIM(DNICONTRSB), ' ', ''), '-', '')) = ? " +
-                         "AND RSBTIPO = '1' " +
-                         "AND RSBCONCEPTO = 'F'";
-            
-            ps = con.prepareStatement(sql);
-            ps.setString(1, numExp);
-            ps.setString(2, dniNormalizado);
-            rs = ps.executeQuery();
-            
-            BigDecimal sumaFijos = BigDecimal.ZERO;
-            
-            if (rs.next()) {
-                sumaFijos = new BigDecimal(rs.getDouble("SUMA_FIJOS"));
-            }
-            
-            if (log.isDebugEnabled()) {
-                log.debug("Suma de complementos fijos (RSBTIPO='1', RSBCONCEPTO='F'): " + sumaFijos);
-            }
-            
-            return sumaFijos;
-            
-        } catch (Exception ex) {
-            log.error("Error al obtener suma de complementos fijos para numExp=" + numExp + ", dni=" + dni, ex);
-            throw new Exception(ex);
-        } finally {
-            if (rs != null)
-                try { rs.close(); } catch (Exception ignore) {}
-            if (ps != null)
-                try { ps.close(); } catch (Exception ignore) {}
-        }
-    }
-
-    /**
-     * TAREA 5: Actualiza el campo RSBCOMPCONV en la tabla MELANBIDE11_CONTRATACION
-     * 
-     * @param numExp        Número de expediente
-     * @param dni           DNI del contratado
-     * @param rsbComputable Valor calculado de RSB Computable
-     * @param con           Conexión a la base de datos
-     * @return true si se actualizó correctamente
-     * @throws Exception
-     */
-    public boolean actualizarRsbComputable(String numExp, String dni, BigDecimal rsbComputable, Connection con)
-            throws Exception {
-        PreparedStatement ps = null;
-        
-        try {
-            String tabla = ConfigurationParameter.getParameter(ConstantesMeLanbide11.MELANBIDE11_CONTRATACION,
-                    ConstantesMeLanbide11.FICHERO_PROPIEDADES);
-            
-            String sql = "UPDATE " + tabla + " " +
-                         "SET RSBCOMPCONV = ? " +
-                         "WHERE TRIM(NUM_EXP) = TRIM(?) " +
-                         "AND UPPER(REPLACE(REPLACE(TRIM(DNICONT), ' ', ''), '-', '')) = " +
-                         "    UPPER(REPLACE(REPLACE(TRIM(?), ' ', ''), '-', ''))";
-            
-            ps = con.prepareStatement(sql);
-            ps.setBigDecimal(1, rsbComputable);
-            ps.setString(2, numExp);
-            ps.setString(3, dni);
-            
-            int rowsAffected = ps.executeUpdate();
-            
-            if (log.isDebugEnabled()) {
-                log.debug("RSBCOMPCONV actualizado. Filas afectadas: " + rowsAffected + 
-                         ", Valor: " + rsbComputable);
-            }
-            
-            return rowsAffected > 0;
-            
-        } catch (Exception ex) {
-            log.error("Error al actualizar RSBCOMPCONV para numExp=" + numExp + ", dni=" + dni, ex);
-            throw new Exception(ex);
-        } finally {
-            if (ps != null)
-                try { ps.close(); } catch (Exception ignore) {}
-        }
-    }
-
-    /**
-     * TAREA 5: Método de conveniencia que calcula y actualiza el RSB Computable
-     * 
-     * @param numExp Número de expediente
-     * @param dni    DNI del contratado
-     * @param con    Conexión a la base de datos
-     * @return Valor calculado de RSB Computable
-     * @throws Exception
-     */
-    public BigDecimal recalcularRsbComputable(String numExp, String dni, Connection con) throws Exception {
-        BigDecimal rsbComputable = calcularRsbComputable(numExp, dni, con);
-        actualizarRsbComputable(numExp, dni, rsbComputable, con);
-        return rsbComputable;
-    }
-
-     public List<ComplementoSalarial> obtenerComplementos(Long idContratacion) throws SQLException {
-        List<ComplementoSalarial> lista = new ArrayList<>();
-        String sql = "SELECT ID_COMPLEMENTO, IMPORTE, TIPO, OBSERVACIONES FROM M11_COMPLEMENTOS_SALARIALES WHERE ID_CONTRATACION = ?";
-        try (Connection c = dataSource.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setLong(1, idContratacion);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    ComplementoSalarial comp = new ComplementoSalarial();
-                    comp.setId(rs.getLong("ID_COMPLEMENTO"));
-                    comp.setImporte(rs.getBigDecimal("IMPORTE"));
-                    comp.setTipo(rs.getString("TIPO"));
-                    comp.setObservaciones(rs.getString("OBSERVACIONES"));
-                    comp.setIdContratacion(idContratacion);
-                    lista.add(comp);
-                }
-            }
-        }
-        return lista;
-    }
-
-    public List<OtraPercepcion> obtenerOtrasPercepciones(Long idContratacion) throws SQLException {
-        List<OtraPercepcion> lista = new ArrayList<>();
-        String sql = "SELECT ID, IMPORTE, TIPO, OBSERVACIONES FROM M11_OTRAS_PERCEPCIONES WHERE ID_CONTRATACION = ?";
-        try (Connection c = dataSource.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setLong(1, idContratacion);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    OtraPercepcion p = new OtraPercepcion();
-                    p.setId(rs.getLong("ID"));
-                    p.setImporte(rs.getBigDecimal("IMPORTE"));
-                    p.setTipo(rs.getString("TIPO"));
-                    p.setObservaciones(rs.getString("OBSERVACIONES"));
-                    p.setIdContratacion(idContratacion);
-                    lista.add(p);
-                }
-            }
-        }
-        return lista;
-    }
-
-    public BigDecimal calcularYActualizarRetribucionComputable(Long idContratacion) throws SQLException {
-        BigDecimal salarioBase = BigDecimal.ZERO;
-        BigDecimal pagasExtra = BigDecimal.ZERO;
-        String sqlBase = "SELECT NVL(SALARIO_BASE,0) as SALARIO_BASE, NVL(PAGAS_EXTRAORDINARIAS,0) as PAGAS_EXTRA FROM M11_CONTRATACIONES WHERE ID_CONTRATACION = ?";
-        try (Connection c = dataSource.getConnection();
-             PreparedStatement ps = c.prepareStatement(sqlBase)) {
-            ps.setLong(1, idContratacion);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    salarioBase = rs.getBigDecimal("SALARIO_BASE");
-                    pagasExtra = rs.getBigDecimal("PAGAS_EXTRA");
-                }
-            }
-            List<ComplementoSalarial> complementos = obtenerComplementos(idContratacion);
-            BigDecimal computable = CalculosRetribucionUtil.calcularRetribucionComputable(salarioBase, pagasExtra, complementos);
-
-            String upd = "UPDATE M11_CONTRATACIONES SET RETRIBUCION_COMPUTABLE = ? WHERE ID_CONTRATACION = ?";
-            try (PreparedStatement ups = c.prepareStatement(upd)) {
-                ups.setBigDecimal(1, computable);
-                ups.setLong(2, idContratacion);
-                ups.executeUpdate();
-            }
-            return computable;
-        }
-    }
-
-    public BigDecimal calcularYActualizarRetribucionBrutaTotal(Long idContratacion) throws SQLException {
-        BigDecimal salarioBase = BigDecimal.ZERO;
-        BigDecimal pagasExtra = BigDecimal.ZERO;
-        String sqlBase = "SELECT NVL(SALARIO_BASE,0) as SALARIO_BASE, NVL(PAGAS_EXTRAORDINARIAS,0) as PAGAS_EXTRA FROM M11_CONTRATACIONES WHERE ID_CONTRATACION = ?";
-        Connection c = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        PreparedStatement ups = null;
-        try {
-            c = dataSource.getConnection();
-            ps = c.prepareStatement(sqlBase);
-            ps.setLong(1, idContratacion);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                salarioBase = rs.getBigDecimal("SALARIO_BASE");
-                pagasExtra = rs.getBigDecimal("PAGAS_EXTRA");
-            }
-            rs.close();
-            ps.close();
-            
-            List<ComplementoSalarial> complementos = obtenerComplementos(idContratacion);
-            List<OtraPercepcion> percepciones = obtenerOtrasPercepciones(idContratacion);
-            BigDecimal total = CalculosRetribucionUtil.calcularRetribucionBrutaTotal(salarioBase, pagasExtra, complementos, percepciones);
-
-            String upd = "UPDATE M11_CONTRATACIONES SET CSTCONT = ? WHERE ID_CONTRATACION = ?";
-            ups = c.prepareStatement(upd);
-            ups.setBigDecimal(1, total);
-            ups.setLong(2, idContratacion);
-            ups.executeUpdate();
-            return total;
-        } catch (SQLException e) {
-            throw e;
-        } finally {
-            if (rs != null) try { rs.close(); } catch (SQLException e) {}
-            if (ps != null) try { ps.close(); } catch (SQLException e) {}
-            if (ups != null) try { ups.close(); } catch (SQLException e) {}
-            if (c != null) try { c.close(); } catch (SQLException e) {}
-        }
-    }
-
-    public Map<String, BigDecimal> recalcularTodo(Long idContratacion) throws SQLException {
-        Map<String, BigDecimal> res = new HashMap<String, BigDecimal>();
-        BigDecimal computable = calcularYActualizarRetribucionComputable(idContratacion);
-        BigDecimal total = calcularYActualizarRetribucionBrutaTotal(idContratacion);
-        res.put("retribucionComputable", computable);
-        res.put("retribucionBrutaTotal", total);
-        return res;
-    }
 }
