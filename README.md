@@ -1,155 +1,105 @@
-# MELANBIDE11 - Módulo de Integración con Lanbide
+Java y build
 
-## Descripción del Proyecto
+JDK 8 compilando para 1.6: -source 1.6 -target 1.6 -bootclasspath <JRE6>\lib\rt.jar.
 
-Este módulo Java es parte del framework Flexia de Altia y gestiona la integración con el sistema Lanbide (servicio de empleo del País Vasco) para:
+Encoding fuentes: ISO-8859-1 → javac -encoding ISO-8859-1.
 
-- Registro y gestión de contratos de subsidios de empleo
-- Seguimiento de subsidios de minimis
-- Cálculos de desglose salarial (RSB - Retribuciones Salariales y Beneficios)
-- Integración con bases de datos de empleo externas
+Ant hoy (procedimientos sueltos). Maven más adelante (proyecto completo).
 
-## Requisitos del Sistema
+Sin sintaxis/APIs > Java 6: sin lambdas, streams, diamond, try-with-resources, java.time, StandardCharsets, etc.
 
-- **Java**: Java 6 o superior (compatible hasta Java 17+)
-- **Servidor de Aplicaciones**: Tomcat, WebLogic o similar (contenedor de servlets)
-- **Base de Datos**: Oracle Database
-- **Framework**: Flexia (framework empresarial de Altia)
+Dependencias externas en classpath: Flexia (es.altia.*), Servlet API, Log4j, Oracle JDBC. No añadir frameworks nuevos.
 
-## 🚀 Inicio Rápido - Compilar y Lanzar con Tomcat
+Internacionalización (i18n)
 
-**¿Solo quieres compilar y ejecutar la aplicación?** ¡Usa el script automatizado!
+.properties en ISO-8859-1 con \uXXXX. Generar con native2ascii si hace falta.
 
-### Linux / macOS / WSL:
-```bash
-./build-and-run.sh
-```
+Dos bundles por idioma. Mantener clave única y estable: modulo.seccion.campo[.accion].
 
-### Windows:
-```batch
-build-and-run.bat
-```
+Orden y uso: ES = TXT_1, EU = TXT_4 (o el que use vuestro framework).
 
-La aplicación estará disponible en: **http://localhost:8080/Flexia18/**
+JSP: nunca texto literal. Siempre i18n.getMensaje(idiomaUsuario,"clave").
 
-Para más información sobre los scripts disponibles, consulta [SCRIPTS_README.md](SCRIPTS_README.md)
+Validar que todas las claves existen en ambos idiomas antes de integrar.
 
----
+Codificación web
 
-## Compilación Manual
+JSP: <%@ page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>.
 
-### Codificación de Archivos
+Filtro en web.xml con SetCharacterEncodingFilter a ISO-8859-1.
 
-**IMPORTANTE**: Todos los archivos Java deben estar codificados en **UTF-8**. 
+Tomcat: URIEncoding="UTF-8" useBodyEncodingForURI="true" en el conector HTTP.
 
-Los siguientes archivos fueron convertidos de ISO-8859-1 a UTF-8 para corregir errores de compilación:
+Estilo y patrón de código
 
-- `MeLanbide11Manager.java`
-- `MinimisVO.java`
-- `MeLanbide11I18n.java`
-- `ConstantesMeLanbide11.java`
-- `DesgloseRSBParser.java`
-- `MeLanbide11MappingUtils.java`
+Respetar capas: DAO solo SQL/CRUD, Manager lógica, Controlador flujo web. VO para datos.
 
-### Compilación con javac
+Reusar utilidades y constantes existentes. No inventar nombres nuevos si ya hay patrón.
 
-Para compilar el proyecto manualmente (requiere las dependencias del framework Flexia):
+Firmas y nombres como el resto: getters/setters, sufijos VO, DAO, Manager.
 
-```bash
-javac -encoding UTF-8 -d build -sourcepath java $(find java -name "*.java" -type f)
-```
+Cierre de recursos al estilo 6: try { ... } finally { cerrar(...) }. Nada de TWR.
 
-### Notas sobre Java 6
+Logging y comentarios
 
-Aunque el proyecto fue diseñado originalmente para Java 6, los compiladores Java modernos (17+) ya no soportan la compilación con `-source 6 -target 6`. Sin embargo, el código es compatible con Java 6+ y se puede compilar con versiones más recientes.
+Log4j. Niveles: error para fallos, warn para degradaciones, info para hitos, debug para diagnóstico.
 
-Si necesita compatibilidad binaria con Java 6, considere usar:
-- OpenJDK 8 o anterior que aún soporta `-source 6 -target 6`
-- Maven/Gradle con configuración de compatibilidad apropiada
+Prohibido System.out/err.
 
-## Problemas Comunes
+Logs temporales de tarea marcados TEMP_LOG y TODO-REMOVE. Se eliminan al cerrar la tarea.
 
-### Error: "unmappable character for encoding UTF-8"
+Comentarios nuestros marcados // TASK:<ID> <fecha> <autor>. También se retiran al cierre.
 
-**Causa**: Los archivos Java estaban codificados en ISO-8859-1 en lugar de UTF-8.
+Comentarios legacy previos no se tocan salvo causa justificada.
 
-**Solución**: Ya corregido en este repositorio. Todos los archivos ahora están en UTF-8.
+Front/JSP y UI legacy
 
-Si encuentra este error en el futuro, convierta los archivos usando:
+Misma maquetación, CSS y clases que el resto. No introducir nuevos estilos globales.
 
-```bash
-iconv -f ISO-8859-1 -t UTF-8 archivo.java -o archivo_utf8.java
-mv archivo_utf8.java archivo.java
-```
+Nada de HTML5/JS modernos que rompan IE viejos si aún existen restricciones.
 
-### Dependencias Faltantes
+Sin texto duro; todo por i18n. Longitudes y formatos validados en cliente y servidor.
 
-Este módulo depende de bibliotecas del framework Flexia de Altia que no están incluidas en este repositorio:
+Modos: Alta/Edición/Consulta con la lógica visual ya usada. Campos históricos: solo lectura, con aviso.
 
-- `es.altia.flexia.integracion.moduloexterno.plugin.*`
-- `es.altia.agora.*`
-- `es.altia.common.exception.*`
-- `es.altia.util.conexion.*`
-- Servlet API (`javax.servlet.*`)
-- Log4j (`org.apache.log4j.*`)
+SQL y BD
 
-Para compilar completamente el proyecto, necesita acceso al framework Flexia y sus dependencias.
+SQL compatible con la versión de Oracle del sistema. Sin funciones modernas si no están en uso.
 
-## Estructura del Proyecto
+Validar NLS y charset BD. Ideal AL32UTF8, pero no mezclar codificaciones en los datos.
 
-```
-java/es/altia/flexia/integracion/moduloexterno/melanbide11/
-├── MELANBIDE11.java              # Controlador principal
-├── dao/                          # Objetos de Acceso a Datos
-│   └── MeLanbide11DAO.java
-├── manager/                      # Lógica de Negocio
-│   └── MeLanbide11Manager.java
-├── vo/                           # Objetos de Valor (DTOs)
-│   ├── ContratacionVO.java
-│   ├── MinimisVO.java
-│   ├── DesgloseRSBVO.java
-│   └── ...
-├── util/                         # Utilidades
-│   ├── ConstantesMeLanbide11.java
-│   ├── MeLanbide11MappingUtils.java
-│   └── ...
-└── i18n/                         # Internacionalización
-    └── MeLanbide11I18n.java
+Transacciones desde Manager. DAO sin gestionar commit/rollback salvo patrón existente.
 
-web/
-├── jsp/extension/melanbide11/    # Vistas JSP
-├── scripts/extension/melanbide11/ # JavaScript
-└── css/extension/melanbide11/     # Estilos CSS
-```
+Evitar cambios de esquema sin script controlado.
 
-## Idiomas Soportados
+Gestión de cambios
 
-- Español (Castellano) - Identificador: `0`
-- Euskera (Vasco) - Identificador: `1`
+Cambios mínimos y localizados. No refactors “de mejora”.
 
-Los recursos de texto están en `java/es/altia/flexia/integracion/moduloexterno/melanbide11/i18n/text/`
+Verificar dependencias cruzadas antes de tocar “código aparentemente muerto”.
 
-## Configuración
+Commits atómicos. Mensaje: [M11][Tarea XX] <cambio conciso>.
 
-La configuración del módulo se encuentra en:
-- `java/MELANBIDE11.properties`
+Si se añade clave i18n/campo nuevo, checklist: propiedades ES/EU, Constantes, VO, DAO, Manager, JSP, validaciones, tests manuales.
 
-## Desarrollo
+Pruebas mínimas por tarea
 
-Al desarrollar para este proyecto:
+Compilación Ant con target 1.6 y encoding correcto.
 
-1. **Asegúrese de que todos los archivos nuevos estén en UTF-8**
-2. Use las constantes definidas en `ConstantesMeLanbide11`
-3. Siga los patrones de nomenclatura existentes:
-   - Objetos de Valor: terminar en `VO`
-   - DAOs: terminar en `DAO`
-   - Managers: terminar en `Manager`
-   - Utilidades: terminar en `Utils` o `Util`
+Navegación completa: lista → alta → guardar → vuelta a tabla con datos actualizados sin recargar; edición; eliminación.
 
-4. Use Log4j para registro de eventos
-5. Maneje excepciones apropiadamente (`TechnicalException`, `BDException`)
-6. Cierre siempre los recursos de base de datos
+Idiomas: alternar ES/EU y revisar todas las etiquetas nuevas.
 
-## Licencia
+Logs: sin TEMP_LOG a nivel info o superior; debug permitido solo en entorno dev.
 
-Este proyecto es propiedad de Altia y está sujeto a sus términos de licencia.
+Revisión de .properties: sin claves huérfanas, sin duplicadas.
+
+Entrega de tarea
+
+Código siguiendo patrón legacy y sin romper compatibilidad Java 6.
+
+Sin dependencias nuevas. Sin estilos globales nuevos.
+
+Sin TEMP_LOG ni comentarios TASK: si se marca como cerrada.
+
+Registro de claves i18n añadidas y de ficheros tocados.
