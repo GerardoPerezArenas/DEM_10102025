@@ -23,4 +23,8 @@ public class RegistroErrores {
         ErrorBean error = new ErrorBean(codigo, mensaje);
         grabarError(error);
     }
+    
+    public static void registroError(ErrorBean error) {
+        grabarError(error);
+    }
 }

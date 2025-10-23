@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!--
+  Ant build file for MELANBIDE11 module
+  This file uses local JAR files from the lib/ directory and portable paths.
+  
+  Usage:
+    ant -f build-local.xml clean compile    # Clean and compile Java sources
+    ant -f build-local.xml package           # Create WAR file
+    ant -f build-local.xml                   # Default target (compile)
+-->
+<project name="MELANBIDE11" default="compile" basedir=".">
+    
+    <!-- Project properties -->
+    <property name="project.name" value="MELANBIDE11"/>
+    <property name="src.dir" value="src/java"/>
+    <property name="web.dir" value="src/web"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="war.name" value="MELANBIDE11.war"/>
+    
+    <!-- Compilation properties -->
+    <property name="java.source" value="1.8"/>
+    <property name="java.target" value="1.8"/>
+    <property name="java.encoding" value="ISO-8859-1"/>
+    <property name="javac.debug" value="on"/>
+    <property name="javac.optimize" value="off"/>
+    <property name="javac.deprecation" value="on"/>
+    
+    <!-- Classpath for compilation -->
+    <path id="compile.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    
+    <!-- Target: init - Create necessary directories -->
+    <target name="init" description="Initialize build directories">
+        <echo message="========================================"/>
+        <echo message="Building ${project.name}"/>
+        <echo message="========================================"/>
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+    
+    <!-- Target: clean - Remove build artifacts -->
+    <target name="clean" description="Clean all build artifacts">
+        <echo message="Cleaning build artifacts..."/>
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+    
+    <!-- Target: compile - Compile Java sources -->
+    <target name="compile" depends="init" description="Compile Java sources">
+        <echo message="Compiling Java sources..."/>
+        <echo message="Source directory: ${src.dir}"/>
+        <echo message="Encoding: ${java.encoding}"/>
+        <echo message="Source: ${java.source}, Target: ${java.target}"/>
+        
+        <javac srcdir="${src.dir}"
+               destdir="${classes.dir}"
+               encoding="${java.encoding}"
+               source="${java.source}"
+               target="${java.target}"
+               debug="${javac.debug}"
+               optimize="${javac.optimize}"
+               deprecation="${javac.deprecation}"
+               includeantruntime="false"
+               classpathref="compile.classpath">
+            <compilerarg value="-Xlint:unchecked"/>
+        </javac>
+        
+        <!-- Copy properties files -->
+        <copy todir="${classes.dir}">
+            <fileset dir="${src.dir}">
+                <include name="**/*.properties"/>
+            </fileset>
+        </copy>
+        
+        <echo message="Compilation complete!"/>
+    </target>
+    
+    <!-- Target: package - Create WAR file -->
+    <target name="package" depends="compile" description="Create WAR file">
+        <echo message="Creating WAR file..."/>
+        
+        <!-- Create WAR structure -->
+        <mkdir dir="${build.dir}/war"/>
+        <mkdir dir="${build.dir}/war/WEB-INF"/>
+        <mkdir dir="${build.dir}/war/WEB-INF/classes"/>
+        <mkdir dir="${build.dir}/war/WEB-INF/lib"/>
+        
+        <!-- Copy compiled classes -->
+        <copy todir="${build.dir}/war/WEB-INF/classes">
+            <fileset dir="${classes.dir}"/>
+        </copy>
+        
+        <!-- Copy web resources -->
+        <copy todir="${build.dir}/war">
+            <fileset dir="${web.dir}">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+        
+        <!-- Copy library JARs -->
+        <copy todir="${build.dir}/war/WEB-INF/lib">
+            <fileset dir="${lib.dir}">
+                <include name="*.jar"/>
+            </fileset>
+        </copy>
+        
+        <!-- Create WAR -->
+        <jar destfile="${dist.dir}/${war.name}" basedir="${build.dir}/war"/>
+        
+        <echo message="WAR file created: ${dist.dir}/${war.name}"/>
+    </target>
+    
+    <!-- Target: rebuild - Clean and compile -->
+    <target name="rebuild" depends="clean, compile" description="Clean and recompile"/>
+    
+    <!-- Target: help - Display help information -->
+    <target name="help" description="Display help information">
+        <echo message="MELANBIDE11 Build System"/>
+        <echo message=""/>
+        <echo message="Available targets:"/>
+        <echo message="  compile    - Compile Java sources (default)"/>
+        <echo message="  clean      - Remove build artifacts"/>
+        <echo message="  rebuild    - Clean and recompile"/>
+        <echo message="  package    - Create WAR file"/>
+        <echo message="  help       - Display this help"/>
+        <echo message=""/>
+        <echo message="Usage examples:"/>
+        <echo message="  ant -f build-local.xml"/>
+        <echo message="  ant -f build-local.xml clean compile"/>
+        <echo message="  ant -f build-local.xml package"/>
+    </target>
+    
+</project>
