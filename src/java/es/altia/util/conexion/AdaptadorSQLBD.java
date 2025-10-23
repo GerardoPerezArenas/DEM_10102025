@@ -8,8 +8,18 @@ import java.sql.SQLException;
  */
 public class AdaptadorSQLBD {
     
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException, BDException {
         throw new UnsupportedOperationException("Stub implementation - not functional");
+    }
+    
+    public void devolverConexion(Connection conn) throws BDException {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                throw new BDException(e);
+            }
+        }
     }
     
     public void closeConnection(Connection conn) {
