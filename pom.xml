@@ -13,8 +13,8 @@
 
     <properties>
         <!-- Construccion -->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
         <project.build.encoding>ISO-8859-1</project.build.encoding>
         <project.build.sourceEncoding>ISO-8859-15</project.build.sourceEncoding>
     </properties>
@@ -1502,7 +1502,7 @@
             <version>2.0.5</version>
         </dependency>
 		
-        <!--Nexus Altia - GroupId específico Lanbide-->
+        <!--Nexus Altia - GroupId especï¿½fico Lanbide-->
         <dependency>
             <groupId>es.altia.regexlan.utilidades</groupId>
             <artifactId>xbeanBeaXml</artifactId>
@@ -1714,7 +1714,7 @@
             <groupId>es.lanbide.lan6</groupId>
             <artifactId>AdaptadoresPlateaLan6</artifactId>
             <version>2.2.3</version>
-            <!--<version>[1.0.0,)</version>Coge la última versión, desde la 1.0.0-->
+            <!--<version>[1.0.0,)</version>Coge la ï¿½ltima versiï¿½n, desde la 1.0.0-->
             <exclusions>
                 <exclusion>
                     <groupId>weblogic</groupId>
@@ -1959,7 +1959,7 @@
                         </exclusion>
                     </exclusions>
                 </dependency>
-                <!--Nexus Altia - GroupId específico Lanbide-->
+                <!--Nexus Altia - GroupId especï¿½fico Lanbide-->
                 <!--<dependency>
                     <groupId>es.altia.regexlan.utilidades</groupId>
                     <artifactId>commons-logging</artifactId>
@@ -2078,7 +2078,7 @@
                         </exclusion>
                     </exclusions>
                 </dependency>
-                <!--Nexus Altia - GroupId específico Lanbide-->
+                <!--Nexus Altia - GroupId especï¿½fico Lanbide-->
                 <!--<dependency>
                     <groupId>es.altia.regexlan.utilidades</groupId>
                     <artifactId>commons-logging</artifactId>
@@ -2197,7 +2197,7 @@
                     <version>1.0.4</version>
                 </dependency>
 
-                <!--Nexus Lanbide - GroupId específico Altia-->
+                <!--Nexus Lanbide - GroupId especï¿½fico Altia-->
                 <dependency>
                     <groupId>es.altia.regexlan.utilidades</groupId>
                     <artifactId>webserviceclient</artifactId>
@@ -2435,7 +2435,7 @@
                     <version>1.0.4</version>
                 </dependency>
 
-                <!--Nexus Lanbide - GroupId específico Altia-->
+                <!--Nexus Lanbide - GroupId especï¿½fico Altia-->
                 <dependency>
                     <groupId>es.altia.regexlan.utilidades</groupId>
                     <artifactId>webserviceclient</artifactId>
@@ -2608,7 +2608,7 @@
                     <version>1.0.4</version>
                 </dependency>
 
-                <!--Nexus Lanbide - GroupId específico Altia-->
+                <!--Nexus Lanbide - GroupId especï¿½fico Altia-->
                 <dependency>
                     <groupId>es.altia.regexlan.utilidades</groupId>
                     <artifactId>webserviceclient</artifactId>
