@@ -1804,9 +1804,151 @@ public class MELANBIDE11 extends ModuloIntegracionExterno {
     }
 
     /**
-     * Nueva acci�n para la pantalla de Desglose RSB (modal con pesta�as). Alineada
+     * Obtiene la tabla de cuantías de subvención desde MELANBIDE11_SUBVENCION_REF.
+     * Devuelve un array JSON con las reglas de cálculo para diferentes perfiles.
+     * 
+     * @param codOrganizacion Código de organización
+     * @param codTramite Código de trámite
+     * @param ocurrenciaTramite Ocurrencia del trámite
+     * @param numExpediente Número de expediente
+     * @param request Request HTTP
+     * @param response Response HTTP
+     * @return null (respuesta JSON directa)
+     */
+    public String getSubvencionRef(int codOrganizacion, int codTramite, int ocurrenciaTramite,
+            String numExpediente, HttpServletRequest request, HttpServletResponse response) {
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            // Obtener conexión a la base de datos
+            AdaptadorSQLBD adapt = this.getAdaptSQLBD(String.valueOf(codOrganizacion));
+            con = adapt.getConexion();
+            
+            // Obtener nombre de tabla desde propiedades
+            String tableName = ConfigurationParameter.getParameter(
+                ConstantesMeLanbide11.MELANBIDE11_SUBVENCION_REF,
+                ConstantesMeLanbide11.FICHERO_PROPIEDADES
+            );
+            
+            // Si no está configurado, usar nombre por defecto
+            if (tableName == null || tableName.trim().isEmpty()) {
+                tableName = "MELANBIDE11_SUBVENCION_REF";
+            }
+            
+            // Construir consulta SQL
+            StringBuilder sql = new StringBuilder();
+            sql.append("SELECT ANIO, TITULACION, MUJER, MAYOR_55, DISCAPACIDAD, ");
+            sql.append("TIPO_CONTRATO, IMPORTE, BASE_12_MESES ");
+            sql.append("FROM ").append(tableName);
+            sql.append(" ORDER BY ANIO DESC, TITULACION, MUJER, MAYOR_55, DISCAPACIDAD");
+            
+            log.debug("[getSubvencionRef] Ejecutando query: " + sql.toString());
+            
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(sql.toString());
+            
+            // Construir respuesta JSON manualmente
+            StringBuilder json = new StringBuilder();
+            json.append("[");
+            
+            boolean first = true;
+            int count = 0;
+            while (rs.next()) {
+                if (!first) {
+                    json.append(",");
+                }
+                first = false;
+                count++;
+                
+                json.append("{");
+                json.append("\"anio\":").append(rs.getInt("ANIO")).append(",");
+                json.append("\"tit\":\"").append(escapeJson(rs.getString("TITULACION"))).append("\",");
+                json.append("\"mujer\":").append(rs.getBoolean("MUJER") || "1".equals(rs.getString("MUJER")) || "S".equalsIgnoreCase(rs.getString("MUJER"))).append(",");
+                json.append("\"ge55\":").append(rs.getBoolean("MAYOR_55") || "1".equals(rs.getString("MAYOR_55")) || "S".equalsIgnoreCase(rs.getString("MAYOR_55"))).append(",");
+                json.append("\"discapacidad\":").append(rs.getBoolean("DISCAPACIDAD") || "1".equals(rs.getString("DISCAPACIDAD")) || "S".equalsIgnoreCase(rs.getString("DISCAPACIDAD"))).append(",");
+                json.append("\"tipoContrato\":\"").append(escapeJson(rs.getString("TIPO_CONTRATO"))).append("\",");
+                json.append("\"importe\":").append(rs.getDouble("IMPORTE")).append(",");
+                json.append("\"base12m\":").append(rs.getBoolean("BASE_12_MESES") || "1".equals(rs.getString("BASE_12_MESES")) || "S".equalsIgnoreCase(rs.getString("BASE_12_MESES")));
+                json.append("}");
+            }
+            
+            json.append("]");
+            
+            log.info("[getSubvencionRef] Devolviendo " + count + " registros de cuantías");
+            
+            // Configurar respuesta
+            response.setContentType("application/json; charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+            response.setHeader("Pragma", "no-cache");
+            response.setHeader("Expires", "0");
+            
+            PrintWriter out = response.getWriter();
+            out.print(json.toString());
+            out.flush();
+            
+            return null;
+            
+        } catch (SQLException sqle) {
+            log.error("[getSubvencionRef] Error SQL al consultar tabla de cuantías", sqle);
+            return enviarErrorJSON(response, "Error de base de datos al obtener cuantías");
+        } catch (Exception ex) {
+            log.error("[getSubvencionRef] Error general al obtener cuantías", ex);
+            return enviarErrorJSON(response, "Error al obtener cuantías de subvención");
+        } finally {
+            // Cerrar recursos
+            if (rs != null) {
+                try { rs.close(); } catch (SQLException e) { log.error("Error cerrando ResultSet", e); }
+            }
+            if (stmt != null) {
+                try { stmt.close(); } catch (SQLException e) { log.error("Error cerrando Statement", e); }
+            }
+            if (con != null) {
+                try { con.close(); } catch (SQLException e) { log.error("Error cerrando Connection", e); }
+            }
+        }
+    }
+    
+    /**
+     * Escapa caracteres especiales para JSON
+     */
+    private String escapeJson(String str) {
+        if (str == null) {
+            return "";
+        }
+        return str.replace("\\", "\\\\")
+                  .replace("\"", "\\\"")
+                  .replace("\n", "\\n")
+                  .replace("\r", "\\r")
+                  .replace("\t", "\\t");
+    }
+    
+    /**
+     * Envía una respuesta de error en formato JSON
+     */
+    private String enviarErrorJSON(HttpServletResponse response, String mensaje) {
+        try {
+            response.setContentType("application/json; charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+            response.setHeader("Pragma", "no-cache");
+            response.setHeader("Expires", "0");
+            
+            PrintWriter out = response.getWriter();
+            out.print("{\"error\":\"" + escapeJson(mensaje) + "\"}");
+            out.flush();
+        } catch (Exception e) {
+            log.error("[enviarErrorJSON] Error al enviar respuesta de error", e);
+        }
+        return null;
+    }
+
+    /**
+     * Nueva acción para la pantalla de Desglose RSB (modal con pestañas). Alineada
      * con la llamada usando parametro operacion=cargarDesgloseRSB. Coloca en
-     * request los atributos necesarios y define las URLs de las pesta�as.
+     * request los atributos necesarios y define las URLs de las pestañas.
      */
     public String cargarDesgloseRSB(int codOrganizacion, int codTramite, int ocurrenciaTramite, String numExpediente,
             HttpServletRequest request, HttpServletResponse response) {

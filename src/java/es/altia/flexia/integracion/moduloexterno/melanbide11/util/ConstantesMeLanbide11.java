@@ -24,6 +24,7 @@ public class ConstantesMeLanbide11
     public static final String MELANBIDE11_SUBSOLIC = "MELANBIDE11_SUBSOLIC";
     public static final String TABLA_VALORES_CAMPOS_SUPLEMENTARIOS_NUMERICOS = "TABLA_VALORES_CAMPOS_SUPLEMENTARIOS_NUMERICOS";
     public static final String MELANBIDE11_DESGRSB = "MELANBIDE11_DESGRSB";
+    public static final String MELANBIDE11_SUBVENCION_REF = "MELANBIDE11_SUBVENCION_REF";
 
     //Nombre de Sequencia ID 
     public static final String SEQ_MELANBIDE11_CONTRATACION = "SEQ_MELANBIDE11_CONTRATACION";
