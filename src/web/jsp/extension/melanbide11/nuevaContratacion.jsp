@@ -96,8 +96,8 @@
       var APP_CONTEXT_PATH = '<%=request.getContextPath()%>';
       
       // Tabla de cuant�as para c�lculo autom�tico del importe de subvenci�n
-      // TODO: Cargar desde BD - por ahora datos de ejemplo para pruebas
-      var tablaCuantias = [
+      // Datos de fallback en caso de que falle la carga desde BD
+      var tablaCuantiasFallback = [
         // Titulaci�n FP2 - Formaci�n Profesional de 2� Grado
         {anio: 2025, tit: "FP2", mujer: false, ge55: false, discapacidad: false, importe: 3000, tipoContrato: "", base12m: true},
         {anio: 2025, tit: "FP2", mujer: true, ge55: false, discapacidad: false, importe: 3500, tipoContrato: "", base12m: true},
@@ -122,7 +122,125 @@
         {anio: 2024, tit: "FP2", mujer: true, ge55: false, discapacidad: false, importe: 3300, tipoContrato: "", base12m: true}
       ];
       
-      console.log("Tabla de cuant�as cargada:", tablaCuantias.length, "reglas disponibles");
+      // Variable global para la tabla de cuant�as (se carga din�micamente)
+      var tablaCuantias = null;
+      var tablaCuantiasLoading = false;
+      var tablaCuantiasCallbacks = [];
+      
+      /**
+       * Carga la tabla de cuant�as desde el servidor
+       */
+      function cargarTablaCuantias(callback) {
+        // Si ya est� cargada, ejecutar callback inmediatamente
+        if (tablaCuantias !== null) {
+          if (callback) callback(true);
+          return;
+        }
+        
+        // Agregar callback a la cola
+        if (callback) {
+          tablaCuantiasCallbacks.push(callback);
+        }
+        
+        // Si ya est� en proceso de carga, no iniciar otra petici�n
+        if (tablaCuantiasLoading) {
+          return;
+        }
+        
+        tablaCuantiasLoading = true;
+        console.log("Cargando tabla de cuant�as desde MELANBIDE11_SUBVENCION_REF...");
+        
+        var xhr = new XMLHttpRequest();
+        var url = APP_CONTEXT_PATH + '/PeticionModuloIntegracion.do';
+        var params = 'tarea=preparar&modulo=MELANBIDE11&operacion=getSubvencionRef';
+        
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            tablaCuantiasLoading = false;
+            
+            if (xhr.status === 200) {
+              var responseText = xhr.responseText ? xhr.responseText.trim() : '';
+              
+              // Validar que la respuesta no est� vac�a
+              if (!responseText || responseText.length === 0) {
+                console.warn("Respuesta vac�a del servidor para cuant�as, usando datos de fallback");
+                tablaCuantias = tablaCuantiasFallback;
+                console.log("Tabla de cuant�as cargada (fallback):", tablaCuantias.length, "reglas disponibles");
+                
+                // Ejecutar todos los callbacks pendientes
+                while (tablaCuantiasCallbacks.length > 0) {
+                  var cb = tablaCuantiasCallbacks.shift();
+                  cb(true);
+                }
+                return;
+              }
+              
+              try {
+                var response = JSON.parse(responseText);
+                
+                // Validar que la respuesta sea un array
+                if (Array.isArray(response)) {
+                  tablaCuantias = response;
+                  console.log("Tabla de cuant�as cargada desde BD:", tablaCuantias.length, "reglas disponibles");
+                } else if (response.data && Array.isArray(response.data)) {
+                  tablaCuantias = response.data;
+                  console.log("Tabla de cuant�as cargada desde BD:", tablaCuantias.length, "reglas disponibles");
+                } else {
+                  console.warn("Respuesta no es un array v�lido, usando datos de fallback");
+                  tablaCuantias = tablaCuantiasFallback;
+                  console.log("Tabla de cuant�as cargada (fallback):", tablaCuantias.length, "reglas disponibles");
+                }
+                
+                // Ejecutar todos los callbacks pendientes
+                while (tablaCuantiasCallbacks.length > 0) {
+                  var cb = tablaCuantiasCallbacks.shift();
+                  cb(true);
+                }
+                
+              } catch (parseErr) {
+                console.error("Error parseando respuesta de cuant�as:", parseErr);
+                console.error("Respuesta recibida:", responseText.substring(0, 500));
+                
+                // Usar datos de fallback en caso de error
+                tablaCuantias = tablaCuantiasFallback;
+                console.log("Tabla de cuant�as cargada (fallback tras error):", tablaCuantias.length, "reglas disponibles");
+                
+                // Ejecutar todos los callbacks pendientes
+                while (tablaCuantiasCallbacks.length > 0) {
+                  var cb = tablaCuantiasCallbacks.shift();
+                  cb(true);
+                }
+              }
+            } else {
+              console.error("Error HTTP al cargar cuant�as:", xhr.status, xhr.statusText);
+              
+              // Usar datos de fallback en caso de error HTTP
+              tablaCuantias = tablaCuantiasFallback;
+              console.log("Tabla de cuant�as cargada (fallback tras error HTTP):", tablaCuantias.length, "reglas disponibles");
+              
+              // Ejecutar todos los callbacks pendientes
+              while (tablaCuantiasCallbacks.length > 0) {
+                var cb = tablaCuantiasCallbacks.shift();
+                cb(false);
+              }
+            }
+          }
+        };
+        
+        xhr.send(params);
+      }
+      
+      // Intentar cargar la tabla al iniciar la p�gina
+      try {
+        cargarTablaCuantias();
+      } catch (e) {
+        console.error("Error al intentar cargar tabla de cuant�as:", e);
+        tablaCuantias = tablaCuantiasFallback;
+        console.log("Tabla de cuant�as cargada (fallback tras excepci�n):", tablaCuantias.length, "reglas disponibles");
+      }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // INICIO OBJETO COMBOBOX
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1289,8 +1407,18 @@
         console.log("=== INICIANDO REC�LCULO DE SUBVENCI�N ===");
         
         // Verificar que la tabla de cuant�as est� disponible
-        if (typeof tablaCuantias === 'undefined') {
-          console.warn("Tabla de cuant�as no disponible");
+        if (tablaCuantias === null || typeof tablaCuantias === 'undefined') {
+          console.log("Tabla de cuant�as no disponible - cargando...");
+          
+          // Intentar cargar la tabla y recalcular despu�s
+          cargarTablaCuantias(function(success) {
+            if (success) {
+              console.log("Tabla cargada, reintentando c�lculo...");
+              recalcularImporteSubvencion();
+            } else {
+              console.error("No se pudo cargar la tabla de cuant�as");
+            }
+          });
           return;
         }
         
